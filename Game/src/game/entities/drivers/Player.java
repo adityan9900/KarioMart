@@ -1,12 +1,12 @@
-package package1.entities.drivers;
+package game.entities.drivers;
  
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
- 
-import package1.Game;
-import package1.gfx.Assets;
+
+import game.Game;
+import game.gfx.Assets;
  
 public class Player extends Drivers{
  

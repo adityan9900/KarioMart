@@ -1,6 +1,6 @@
-package package1;
+package game;
 
-import package2.Display;
+import display.Display;
 
 public class Launcher {
 	

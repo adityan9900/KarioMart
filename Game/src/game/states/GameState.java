@@ -1,11 +1,11 @@
-package package1.states;
+package game.states;
 
 import java.awt.Graphics;
 
-import package1.Game;
-import package1.entities.drivers.Player;
-import package1.worlds.World;
-import package2.Display;
+import display.Display;
+import game.Game;
+import game.entities.drivers.Player;
+import game.worlds.World;
 
 public class GameState extends States {
 	

@@ -1,8 +1,8 @@
-package package1.states;
+package game.states;
 
 import java.awt.Graphics;
 
-import package1.Game;
+import game.Game;
 
 public class SettingState extends States {
 

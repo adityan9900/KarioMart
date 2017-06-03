@@ -1,6 +1,6 @@
-package package1.entities.drivers;
+package game.entities.drivers;
  
-import package1.entities.Entity;
+import game.entities.Entity;
  
 public abstract class Drivers extends Entity {
  

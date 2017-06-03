@@ -1,5 +1,5 @@
 
-package package2;
+package display;
 
 import java.awt.Canvas;
 import java.awt.Dimension;

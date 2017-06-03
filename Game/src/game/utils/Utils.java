@@ -1,4 +1,4 @@
-package package1.utils;
+package game.utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

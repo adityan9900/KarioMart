@@ -1,11 +1,11 @@
-package package1.worlds;
+package game.worlds;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import package1.gfx.ImageLoader;
-import package1.utils.Utils;
+import game.gfx.ImageLoader;
+import game.utils.Utils;
 
 public class World {
 	

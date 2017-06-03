@@ -1,15 +1,15 @@
-package package1;
+package game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import package1.gfx.Assets;
-import package1.input.KeyManager;
-import package1.states.GameState;
-import package1.states.MenuState;
-import package1.states.SettingState;
-import package1.states.States;
-import package2.Display;
+import display.Display;
+import game.gfx.Assets;
+import game.input.KeyManager;
+import game.states.GameState;
+import game.states.MenuState;
+import game.states.SettingState;
+import game.states.States;
 
 public class Game implements Runnable {
 
