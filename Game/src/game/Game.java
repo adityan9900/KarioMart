@@ -12,7 +12,7 @@ import game.states.SettingState;
 import game.states.States;
 
 public class Game implements Runnable {
-
+ 
 	public Display disp;
 	public int width, height;
 	public String title;
