@@ -45,12 +45,12 @@ public class Game implements Runnable {
 		settingState = new SettingState(this);
 		menuState = new MenuState(this);
 		gameState = new GameState(this);
-		States.setState(gameState);
+		States.setState(menuState);
 	}
 	
 	private void tick() {
 		keyManager.tick();
-		if(gameState != null) {
+		if(gameState != null||menuState!=null||settingState!=null) {
 			States.getState().tick();
 		}
 	}
@@ -67,7 +67,7 @@ public class Game implements Runnable {
 		
 		//Draw Here!
 		
-		if(gameState != null) {
+		if(gameState != null||menuState!=null||settingState!=null) {
 			States.getState().render(g);
 		}
 		
