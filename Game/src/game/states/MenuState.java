@@ -7,11 +7,11 @@ import game.menu.Menu;
 
 public class MenuState extends States {
 
-	private Menu menuScreen = new Menu();
-	
+	private Menu menuScreen;
 	
 	public MenuState(Game g) {
 		super(g);
+		menuScreen = new Menu(g);
 	}
 	
 	public void tick() {
