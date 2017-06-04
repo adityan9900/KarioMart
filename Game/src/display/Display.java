@@ -16,16 +16,22 @@ public class Display {
 		title = t;
 		width = w;
 		height = h;
-		
 		createDisplay();
 	}
-
+	public int getWidth(){
+		return width;
+	}
+	
+	public int getHeight(){
+		return height;
+	}
 	public void resize(int w, int h) {
 		width = w; height = h;
 		frame.setSize(new Dimension(w, h));
 		canvas.setPreferredSize(new Dimension(w, h));
 		canvas.setMaximumSize(new Dimension(w, h));
 		canvas.setMinimumSize(new Dimension(w, h));
+		frame.pack();
 	}
 	
 	private void createDisplay() {

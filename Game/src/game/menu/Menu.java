@@ -1,22 +1,26 @@
 package game.menu;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
-
-import game.Game;
 
 public class Menu {
 	
-	private int width;
-	private int height;
+	public final int DEFAULT_WIDTH = 800;
+	public final int DEFAULT_HEIGHT = 550;
+	private final Font myFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
 	
-	public Menu(Game g){
-		width = g.width;
-		height = g.height;
+	public Menu(){
+		
 	}
 	
 	//doesnt draw in the middle idk why
 	public void render(Graphics g){
-		g.fillRect(width/2, height/2, width/4, height/10);
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(DEFAULT_WIDTH/2, DEFAULT_HEIGHT/2, 200, 100);
+		g.setColor(Color.BLACK);
+		g.setFont(myFont);
+		g.drawString("Play Game", DEFAULT_WIDTH/2, DEFAULT_HEIGHT/2 + 50);
 	}
 
 }

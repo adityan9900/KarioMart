@@ -15,6 +15,7 @@ public class Game implements Runnable {
   
 	public Display disp;
 	public int width, height;
+
 	public String title;
 	
 	private Thread thread; 
@@ -36,7 +37,7 @@ public class Game implements Runnable {
 		height = h;
 		title = t;
 	}
-
+	
 	private void init() {
 		disp = new Display(title, width, height);
 		disp.getFrame().addKeyListener(keyManager);
@@ -97,8 +98,8 @@ public class Game implements Runnable {
 	}
 	
 	public void run() {
-		init();
 		
+		init();
 		int fps = 60;
 		double timePerTick = 1000000000 / fps;
 		double delta = 0;

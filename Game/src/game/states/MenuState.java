@@ -11,7 +11,10 @@ public class MenuState extends States {
 	
 	public MenuState(Game g) {
 		super(g);
-		menuScreen = new Menu(g);
+		menuScreen = new Menu();
+		g.width = menuScreen.DEFAULT_WIDTH;
+		g.height = menuScreen.DEFAULT_HEIGHT;
+		g.disp.resize(menuScreen.DEFAULT_WIDTH, menuScreen.DEFAULT_HEIGHT);
 	}
 	
 	public void tick() {
