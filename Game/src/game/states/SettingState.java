@@ -18,4 +18,7 @@ public class SettingState extends States {
 		
 	}
 	
+	protected void initScreen() {
+		
+	}
 }

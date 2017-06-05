@@ -28,6 +28,7 @@ public class Display {
 	public void resize(int w, int h) {
 		width = w; height = h;
 		frame.setSize(new Dimension(w, h));
+		canvas.setSize(new Dimension(w, h));
 		canvas.setPreferredSize(new Dimension(w, h));
 		canvas.setMaximumSize(new Dimension(w, h));
 		canvas.setMinimumSize(new Dimension(w, h));

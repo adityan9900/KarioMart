@@ -9,12 +9,16 @@ public class MenuState extends States {
 
 	private Menu menuScreen;
 	
+	private final int MENU_WIDTH = 1000;
+	private final int MENU_HEIGHT = 1000;
+	
 	public MenuState(Game g) {
 		super(g);
 		menuScreen = new Menu();
-		g.width = menuScreen.DEFAULT_WIDTH;
-		g.height = menuScreen.DEFAULT_HEIGHT;
-		g.disp.resize(menuScreen.DEFAULT_WIDTH, menuScreen.DEFAULT_HEIGHT);
+	}
+	
+	protected void initScreen() {
+		game.disp.resize(MENU_WIDTH, MENU_HEIGHT);
 	}
 	
 	public void tick() {
@@ -22,7 +26,7 @@ public class MenuState extends States {
 	}
 
 	public void render(Graphics g) {
-		menuScreen.render(g);
+		menuScreen.render(g, game);
 	}
 
 }

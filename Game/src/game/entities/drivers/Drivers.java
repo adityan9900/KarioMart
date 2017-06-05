@@ -39,13 +39,13 @@ public abstract class Drivers extends Entity {
 		this.accel = accel;
 	}
  
-//	public double getTheta() {
-//		return theta;
-//	}
-//
-//	public void setTheta(double theta) {
-//		this.theta = theta;
-//	}
+	public double getTheta() {
+		return theta;
+	}
+
+	public void setTheta(double theta) {
+		this.theta = theta;
+	}
  
 	public double getSpeed() {
 		return speed;
