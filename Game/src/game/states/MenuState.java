@@ -14,7 +14,7 @@ public class MenuState extends States {
 	
 	public MenuState(Game g) {
 		super(g);
-		menuScreen = new Menu();
+		menuScreen = new Menu(g);
 	}
 	
 	protected void initScreen() {
@@ -26,7 +26,7 @@ public class MenuState extends States {
 	}
 
 	public void render(Graphics g) {
-		menuScreen.render(g, game);
+		menuScreen.render(g);
 	}
 
 }
