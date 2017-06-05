@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import game.gfx.ImageLoader;
 import game.utils.Utils;
@@ -32,6 +33,24 @@ public class World {
 		loadWorld();
 	}
 	
+	
+	//will determine if car is on the track based on the current pos(x,y)
+	public boolean onTrack(int x, int y) {
+		ArrayList<Double> distsFromInner = new ArrayList<Double>();
+		for(int [] i : innerPath) distsFromInner.add(Math.sqrt((x - i[0])*(x - i[0]) + (y - i[1])*(y - i[1])));
+		
+		ArrayList<Double> distsFromOuter = new ArrayList<Double>();
+		for(int [] i : outerPath) distsFromOuter.add(Math.sqrt((x - i[0])*(x - i[0]) + (y - i[1])*(y - i[1])));
+		
+		Collections.sort(distsFromInner);
+		Collections.sort(distsFromOuter);
+		
+		
+		if(distsFromInner.get(0) < trackWidth && distsFromOuter.get(0) < trackWidth) return true;
+		else return false;
+		
+		
+	}
 	//i = 0 --> inner, i = 1 --> center, i = 2 --> outer
 	public void setPath(String csv, int i) {
 		try {
