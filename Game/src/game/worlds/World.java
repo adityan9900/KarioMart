@@ -22,6 +22,7 @@ public class World {
 	private int spawnX, spawnY, playerW, playerH;
 	private int mapWidth;
 	private int mapHeight;
+	private int border;
 	
 	public World(String name, int width) {
 		centerPath = new ArrayList<int[]>();
@@ -94,7 +95,9 @@ public class World {
 	public int getMapHeight() {
 		return mapHeight;
 	}
-	
+	public int getMapBorder() {
+		return border;
+	}
 	public void render(Graphics g) {
 		g.drawImage(bkg, 0, 0, null);
 	}
@@ -112,6 +115,7 @@ public class World {
 		spawnY = Utils.parseInt(tokens[3]);
 		playerW = Utils.parseInt(tokens[4]);
 		playerH = Utils.parseInt(tokens[5]);
+		border = Utils.parseInt(tokens[6]);
 	}
 	
 	public int getSpawnX() {
