@@ -26,7 +26,7 @@ public class SejusTurenderan extends Drivers{
 		//original transform
 		AffineTransform origAT = g2d.getTransform(); 
 		//car being painted
-		BufferedImage car = Assets.TJ;		
+		BufferedImage car = Assets.SejusTurenderan;		
 		AffineTransform rotation = new AffineTransform(); 
 		//spins the car with theta, and x coord(center of car) + y coord(center of car)
 		rotation.rotate(theta,x + width / 2, y + height/2);

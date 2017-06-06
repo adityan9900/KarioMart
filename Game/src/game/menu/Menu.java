@@ -45,6 +45,8 @@ public class Menu {
 	}
 	
 	public void tick(){
+		if(mouse.isPressed()&&mouse.inBoundary((int)quit.getX()+10 , (int)quit.getY()+10 , (int)quit.getX()+boxWidth-20, (int)(quit.getY()+boxHeight*1.5-20)))
+				System.exit(0);
 		if(mouse.isPressed()==false){
 			if(mouse.inBoundary((int)diffEasy.getX() , (int)diffEasy.getY() , (int)diffEasy.getX()+boxWidth, (int)diffEasy.getY()+boxHeight))
 				easyState = State.HOVERED;
@@ -52,10 +54,10 @@ public class Menu {
 				mediumState = State.HOVERED;
 			else if(mouse.inBoundary((int)diffHard.getX() , (int)diffHard.getY() , (int)diffHard.getX()+boxWidth, (int)diffHard.getY()+boxHeight))
 				hardState = State.HOVERED;
-			else if(mouse.inBoundary((int)quit.getX()+10 , (int)quit.getY()+10 , (int)quit.getX()+boxWidth-20, (int)quit.getY()+boxHeight-20))
+			else if(mouse.inBoundary((int)quit.getX()+10 , (int)quit.getY()+10 , (int)quit.getX()+boxWidth-20, (int)(quit.getY()*1.5+boxHeight-20)))
 				quitState = State.HOVERED;
 			else
-				easyState = mediumState = hardState = State.RELEASED;
+				quitState = easyState = mediumState = hardState = State.RELEASED;
 		}else{
 			if(mouse.inBoundary((int)diffEasy.getX() , (int)diffEasy.getY() , (int)diffEasy.getX()+boxWidth, (int)diffEasy.getY()+boxHeight))
 				easyState = State.PRESSED;
