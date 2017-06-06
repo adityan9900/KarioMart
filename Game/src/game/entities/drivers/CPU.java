@@ -22,20 +22,43 @@ public class CPU extends Drivers {
 		super(x, y, width, height);
 		this.world = w;
 		
-		world.setPath("DUMMY STRING", 1);
+		world.setPath("Track_Mid.txt", 1);
 		this.midArry = world.getPath(1); //get center path
 	}
 	
 	
 	
 	public void tick() {
-		
-		if(i % 60 == 0 && midIndex < midArry.size()) {
-			int [] a = midArry.get(midIndex++);
-			this.x = a[0];
-			this.y = a[1];
-		}
-		i ++;
+	
+//		System.out.println("i % 10 results: " + (i%10 == 0));
+			if(i % 10 == 0 && midIndex < midArry.size()-1) {
+				int [] a = midArry.get(midIndex++);
+				this.x = a[0];
+				this.y = a[1];
+				
+				double dTheta;
+				
+				int [] b = a;
+				if(midIndex < midArry.size()-1) {
+					b = midArry.get(midIndex);
+				}
+				
+				
+				if(b[1] - a[1] == 0) dTheta = 0;
+				else dTheta = Math.atan((b[0] - a[0])/(b[1] - a[1]));
+				
+
+			
+				if(b[0] - a[0] < 0 && b[1] - a[1] < 0) this.theta = -dTheta;
+				else if(b[0] - a[0] > 0 && b[1] - a[1] > 0) this.theta = Math.PI - dTheta;
+				else if(b[0] - a[0] < 0 && b[1] - a[1] > 0) this.theta = -Math.PI - dTheta;
+				else this.theta = -dTheta;
+			
+				
+			}
+			
+		//	System.out.println("i = " + i);
+			i ++;
 	}
 	
 	//Copied from different class
