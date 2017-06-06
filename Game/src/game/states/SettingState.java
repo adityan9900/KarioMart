@@ -2,12 +2,12 @@ package game.states;
 
 import java.awt.Graphics;
 
-import game.Game;
+import game.worlds.Handler;
 
 public class SettingState extends States {
 
-	public SettingState(Game g) {
-		super(g);
+	public SettingState(Handler h) {
+		super(h);
 	}
 	
 	public void tick() {

@@ -55,9 +55,9 @@ public class Game implements Runnable {
 		
 		handler = new Handler(this);
 		
-		settingState = new SettingState(this);
-		menuState = new MenuState(this);
-		gameState = new GameState(this);
+		settingState = new SettingState(handler);
+		menuState = new MenuState(handler);
+		gameState = new GameState(handler);
 		States.setState(menuState);
 	}
 	
@@ -111,7 +111,9 @@ public class Game implements Runnable {
 	public int getHeight() {
 		return height;
 	}
-	
+	public Display getDisplay() {
+		return disp;
+	}
 	public KeyManager getKeyManager() {
 		return keyManager;
 	}

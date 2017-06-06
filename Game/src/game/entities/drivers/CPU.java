@@ -13,15 +13,13 @@ import game.worlds.World;
 public class CPU extends Drivers {
 	
 	private World world;
-	private Game game;
 	private ArrayList<int[]> midArry;
 	private int midIndex;
 	private int i;
 	
 	
-	public CPU(World w, Game g, float x, float y, int width, int height) {
+	public CPU(World w, float x, float y, int width, int height) {
 		super(x, y, width, height);
-		game = g;
 		this.world = w;
 		
 		world.setPath("DUMMY STRING", 1);

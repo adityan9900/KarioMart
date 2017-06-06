@@ -8,10 +8,11 @@ import java.awt.Rectangle;
 
 import game.Game;
 import game.input.MouseManager;
+import game.worlds.Handler;
 
 public class Menu {
 	
-	private Game gameCopy;
+	private Handler handlerCopy;
 	
 	private Font myFont = new Font(Font.SERIF, Font.PLAIN, 18);
 	private final int boxWidth = 350;
@@ -30,9 +31,9 @@ public class Menu {
 	private Rectangle quit;
 	private MouseManager mouse;
 	
-	public Menu(Game g) {
-		gameCopy = g;
-		mouse = g.getMouseManager();
+	public Menu(Handler h) {
+		handlerCopy = h;
+		mouse = handlerCopy.getMouseManager();
 		released = new Color(180,180,180);
 		hovered = new Color(160,160,160);
 		pressed = new Color(140,140,140);
@@ -77,8 +78,8 @@ public class Menu {
 		myFont = myFont.deriveFont(100f);
 		g.setFont(myFont);
 		tempWidth = g.getFontMetrics(myFont).stringWidth("Kario Mart");
-		g.drawString("Kario Mart", gameCopy.disp.getWidth()/2 - tempWidth/2 , gameCopy.disp.getHeight()/10);
-		g.drawLine(gameCopy.disp.getWidth()/2 - tempWidth/2 , gameCopy.disp.getHeight()/10+20, gameCopy.disp.getWidth()/2 + tempWidth/2 , gameCopy.disp.getHeight()/10+20);
+		g.drawString("Kario Mart", handlerCopy.getDisplay().getWidth()/2 - tempWidth/2 , handlerCopy.getDisplay().getHeight()/10);
+		g.drawLine(handlerCopy.getDisplay().getWidth()/2 - tempWidth/2 , handlerCopy.getDisplay().getHeight()/10+20, handlerCopy.getDisplay().getWidth()/2 + tempWidth/2 , handlerCopy.getDisplay().getHeight()/10+20);
 		myFont = myFont.deriveFont(50f);
 		g.setFont(myFont);
 		

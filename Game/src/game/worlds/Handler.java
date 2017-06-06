@@ -1,5 +1,6 @@
 package game.worlds;
 
+import display.Display;
 import game.Game;
 import game.input.KeyManager;
 import game.input.MouseManager;
@@ -13,6 +14,9 @@ public class Handler {
 		this.game = game;
 	}
 	
+	public Display getDisplay() {
+		return game.getDisplay();
+	}
 	public Game getGame() {
 		return game;
 	}

@@ -5,16 +5,16 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-import game.Game;
 import game.gfx.Assets;
+import game.worlds.Handler;
  
 public class Player extends Drivers{
  
-	private Game game;
+	private Handler handler;
 	
-	public Player(Game g, float x, float y, int width, int height) {
+	public Player(Handler h, float x, float y, int width, int height) {
 		super(x, y, width, height);
-		game = g;
+		handler = h;
 	}
  
 	public void tick() {
@@ -23,12 +23,12 @@ public class Player extends Drivers{
 	}
 	
 	private void getInput() {
-		if(game.getKeyManager().up || game.getKeyManager().down) {
-			if(game.getKeyManager().up && speed<maxSpeed) 
+		if(handler.getKeyManager().up || handler.getKeyManager().down) {
+			if(handler.getKeyManager().up && speed<maxSpeed) 
 				speed+=accel;		//change eventually off different players speeds		//did this already
-			if(game.getKeyManager().down && Math.abs(speed) < maxSpeed) 
+			if(handler.getKeyManager().down && Math.abs(speed) < maxSpeed) 
 				speed-=accel;		//here	//did this already
-		} else if(!game.getKeyManager().up || !game.getKeyManager().down && speed!=0) {
+		} else if(!handler.getKeyManager().up || !handler.getKeyManager().down && speed!=0) {
 			if(Math.abs(speed) <= accel) 
 				speed = 0;
 			else if(speed>0)
@@ -36,13 +36,13 @@ public class Player extends Drivers{
 			else if(speed<0)
 				speed+= accel;		//change		//did it
 		}
-		if(game.getKeyManager().left || game.getKeyManager().right) {
-			if(game.getKeyManager().left){ 
+		if(handler.getKeyManager().left || handler.getKeyManager().right) {
+			if(handler.getKeyManager().left){ 
 				if(theta<0)
 					theta = theta+Tau;		//thats the turn power
 				theta-= Math.toRadians(1)*turnPwr;
 		}
-			if(game.getKeyManager().right){ 
+			if(handler.getKeyManager().right){ 
 				if(theta>Tau)
 					theta = theta-Tau;
 				theta+=Math.toRadians(1)*turnPwr;

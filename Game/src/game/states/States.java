@@ -2,7 +2,7 @@ package game.states;
 
 import java.awt.Graphics;
 
-import game.Game;
+import game.worlds.Handler;
 
 public abstract class States {
 	
@@ -18,10 +18,10 @@ public abstract class States {
 	
 	//CLASS
 	
-	protected Game game;
+	protected Handler handler;
 	
-	public States(Game g) {
-		game = g;
+	public States(Handler h) {
+		handler = h;
 	}
 	
 	public abstract void tick();
