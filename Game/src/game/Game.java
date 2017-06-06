@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 import display.Display;
 import game.gfx.Assets;
 import game.input.KeyManager;
+import game.input.MouseManager;
 import game.states.GameState;
 import game.states.MenuState;
 import game.states.SettingState;
@@ -31,6 +32,7 @@ public class Game implements Runnable {
 	
 	//Input
 	private KeyManager keyManager = new KeyManager();
+	private MouseManager mouseManager = new MouseManager();
 	
 	public Game(String t, int w, int h) {
 		width = w;
@@ -41,12 +43,16 @@ public class Game implements Runnable {
 	private void init() {
 		disp = new Display(title, width, height);
 		disp.getFrame().addKeyListener(keyManager);
+		disp.getFrame().addMouseListener(mouseManager);
+		disp.getFrame().addMouseMotionListener(mouseManager);
+		disp.getCanvas().addMouseListener(mouseManager);
+		disp.getCanvas().addMouseMotionListener(mouseManager);
 		Assets.init();
 		
 		settingState = new SettingState(this);
 		menuState = new MenuState(this);
 		gameState = new GameState(this);
-		States.setState(gameState);
+		States.setState(menuState);
 	}
 	
 	private void tick() {
@@ -96,6 +102,11 @@ public class Game implements Runnable {
 	public KeyManager getKeyManager() {
 		return keyManager;
 	}
+	
+	public MouseManager getMouseManager() {
+		return mouseManager;
+	}
+	
 	
 	public void run() {
 		

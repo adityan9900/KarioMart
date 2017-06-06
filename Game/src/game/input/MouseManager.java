@@ -3,8 +3,9 @@ package game.input;
 import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class MouseManager implements MouseListener{
+public class MouseManager implements MouseListener,MouseMotionListener{
 	
 	private double x;
 	private double y;
@@ -15,8 +16,7 @@ public class MouseManager implements MouseListener{
 	}
 	
 	public void tick(){
-		 x = MouseInfo.getPointerInfo().getLocation().getX();
-		 y = MouseInfo.getPointerInfo().getLocation().getY();
+		
 	}
 	
 	public double getX() {
@@ -54,6 +54,18 @@ public class MouseManager implements MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		pressed = false;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		x = e.getX();
+		y = e.getY();
 	}
 
 }

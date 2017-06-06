@@ -26,11 +26,12 @@ public class Menu {
 	private Rectangle diffEasy;
 	private Rectangle diffMedium;
 	private Rectangle diffHard;
-	
-	private MouseManager mouse = new MouseManager();
+	private Rectangle quit;
+	private MouseManager mouse;
 	
 	public Menu(Game g) {
 		gameCopy = g;
+		mouse = g.getMouseManager();
 		released = new Color(180,180,180);
 		hovered = new Color(160,160,160);
 		pressed = new Color(140,140,140);
@@ -38,10 +39,10 @@ public class Menu {
 		diffEasy = new Rectangle((int)diffBox.getX() + 10, (int)diffBox.getY()+10, boxWidth-20, boxHeight);
 		diffMedium = new Rectangle((int)diffBox.getX() + 10, (int)diffEasy.getY()+boxHeight+10,boxWidth-20 ,boxHeight );
 		diffHard = new Rectangle((int)diffBox.getX() + 10, (int)diffMedium.getY()+boxHeight+10,boxWidth-20 ,boxHeight );
+		quit = new Rectangle((int)diffBox.getX()+10,150 + boxHeight*3+50,boxWidth,(int)(boxHeight*1.5));
 	}
 	
 	public void tick(){
-		mouse.tick();
 		if(mouse.isPressed()==false){
 			if(mouse.inBoundary((int)diffEasy.getX() , (int)diffEasy.getY() , (int)diffEasy.getX()+boxWidth, (int)diffEasy.getY()+boxHeight))
 				easyState = State.HOVERED;
@@ -62,6 +63,9 @@ public class Menu {
 	}
 	
 	public void render(Graphics g){
+		
+		g.setColor(Color.DARK_GRAY);
+		((Graphics2D)g).fill(diffBox);
 		
 		//draws KarioMart on screen
 		int tempWidth, tempHeight;
@@ -96,7 +100,10 @@ public class Menu {
 			((Graphics2D)g).fill(diffMedium);
 		if(hardState == State.PRESSED)
 			((Graphics2D)g).fill(diffHard);
-			
+		
+		g.setColor(Color.DARK_GRAY);
+		((Graphics2D)g).fill(quit);
+		
 		g.setColor(Color.WHITE);
 		tempHeight = g.getFontMetrics(myFont).getHeight();
 		tempWidth = g.getFontMetrics(myFont).stringWidth("Easy");
@@ -106,35 +113,6 @@ public class Menu {
 		tempWidth = g.getFontMetrics(myFont).stringWidth("Hard");
 		g.drawString("Hard", (int)diffHard.getCenterX() - tempWidth / 2, (int)diffHard.getCenterY() + tempHeight / 4);
 		
-		/*
-		//Button width and height relative to screen size
-		buttonWidth = ((gameCopy.disp.getWidth() - 4 * MARGIN) / 3);
-		buttonHeight = ((gameCopy.disp.getHeight() - MARGIN) / 6);
-		
-		//Font specifications
-		g.setFont(myFont);
-		FontMetrics metric = g.getFontMetrics();
-		int textHeight = metric.getHeight(), advance;
-		
-		//EASY
-		g.setColor(Color.RED);
-		g.fillRect(MARGIN, MARGIN, buttonWidth, buttonHeight);
-		g.setColor(Color.BLACK);
-		advance = metric.stringWidth("EASY");
-		g.drawString("EASY", MARGIN + buttonWidth / 2 - advance / 2, MARGIN + buttonHeight / 2 + textHeight / 2);
-		
-		//MEDIUM
-		g.setColor(Color.RED);
-		g.fillRect(2 * MARGIN + buttonWidth, MARGIN, buttonWidth, buttonHeight);
-		g.setColor(Color.BLACK);
-		advance = metric.stringWidth("MEDIUM");
-		g.drawString("MEDIUM", 2 * MARGIN + 3 * buttonWidth / 2 - advance / 2, MARGIN + buttonHeight / 2 + textHeight / 2);
-		
-		g.setColor(Color.RED);
-		g.fillRect(3 * MARGIN + 2 * buttonWidth, MARGIN, buttonWidth, buttonHeight);
-*/	
-		
-	
 	}
 	private enum State{
 		HOVERED,
