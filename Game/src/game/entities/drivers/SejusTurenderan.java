@@ -16,7 +16,6 @@ public class SejusTurenderan extends Drivers{
 		setTurnPwr(DEFAULT_TURN_PWR*.85);
 	}
 
-	@Override
 	public void tick() {
 		//car ai is going here
 	}

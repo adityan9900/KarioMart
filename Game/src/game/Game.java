@@ -11,11 +11,12 @@ import game.states.GameState;
 import game.states.MenuState;
 import game.states.SettingState;
 import game.states.States;
+import game.worlds.Handler;
 
 public class Game implements Runnable {
   
 	public Display disp;
-	public int width, height;
+	private int width, height;
 
 	public String title;
 	
@@ -34,6 +35,9 @@ public class Game implements Runnable {
 	private KeyManager keyManager = new KeyManager();
 	private MouseManager mouseManager = new MouseManager();
 	
+	//Handler
+	private Handler handler;
+	
 	public Game(String t, int w, int h) {
 		width = w;
 		height = h;
@@ -48,6 +52,8 @@ public class Game implements Runnable {
 		disp.getCanvas().addMouseListener(mouseManager);
 		disp.getCanvas().addMouseMotionListener(mouseManager);
 		Assets.init();
+		
+		handler = new Handler(this);
 		
 		settingState = new SettingState(this);
 		menuState = new MenuState(this);
@@ -97,6 +103,13 @@ public class Game implements Runnable {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
 	}
 	
 	public KeyManager getKeyManager() {
