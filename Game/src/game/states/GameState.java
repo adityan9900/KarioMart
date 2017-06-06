@@ -9,13 +9,15 @@ import game.worlds.World;
 
 public class GameState extends States {
 	
+	private int difficulty;
 	private Player player;
 	private World world;
 	private CPU cpu;
 
 	
-	public GameState(Handler h) {
+	public GameState(Handler h , int difficulty) {
 		super(h);
+		this.difficulty = difficulty;
 		world = new World("temp", 5); //Unfinished
 		h.setWorld(world);
 		player = new Player(h, handler.getWorld().getSpawnX(), world.getSpawnY(),
