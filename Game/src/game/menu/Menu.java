@@ -63,13 +63,14 @@ public class Menu {
 	
 	public void render(Graphics g){
 		//draws KarioMart on screen
-		int tempWidth;
+		int tempWidth, tempHeight;
 		myFont = myFont.deriveFont(100f);
 		g.setFont(myFont);
 		tempWidth = g.getFontMetrics(myFont).stringWidth("Kario Mart");
 		g.drawString("Kario Mart", gameCopy.disp.getWidth()/2 - tempWidth/2 , gameCopy.disp.getHeight()/10);
 		g.drawLine(gameCopy.disp.getWidth()/2 - tempWidth/2 , gameCopy.disp.getHeight()/10+20, gameCopy.disp.getWidth()/2 + tempWidth/2 , gameCopy.disp.getHeight()/10+20);
-		myFont = myFont.deriveFont(20f);
+		myFont = myFont.deriveFont(50f);
+		g.setFont(myFont);
 		
 		g.setColor(released);
 		if(easyState == State.RELEASED)
@@ -95,6 +96,14 @@ public class Menu {
 		if(hardState == State.PRESSED)
 			((Graphics2D)g).fill(diffHard);
 			
+		g.setColor(Color.WHITE);
+		tempHeight = g.getFontMetrics(myFont).getHeight();
+		tempWidth = g.getFontMetrics(myFont).stringWidth("Easy");
+		g.drawString("Easy", (int)diffEasy.getCenterX() - tempWidth / 2, (int)diffEasy.getCenterY() + tempHeight / 4);
+		tempWidth = g.getFontMetrics(myFont).stringWidth("Medium");
+		g.drawString("Medium", (int)diffMedium.getCenterX() - tempWidth / 2, (int)diffMedium.getCenterY() + tempHeight / 4);
+		tempWidth = g.getFontMetrics(myFont).stringWidth("Hard");
+		g.drawString("Hard", (int)diffHard.getCenterX() - tempWidth / 2, (int)diffHard.getCenterY() + tempHeight / 4);
 		
 		/*
 		//Button width and height relative to screen size
