@@ -46,7 +46,7 @@ public class Game implements Runnable {
 		settingState = new SettingState(this);
 		menuState = new MenuState(this);
 		gameState = new GameState(this);
-		States.setState(menuState);
+		States.setState(gameState);
 	}
 	
 	private void tick() {

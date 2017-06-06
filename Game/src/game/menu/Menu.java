@@ -62,6 +62,7 @@ public class Menu {
 	}
 	
 	public void render(Graphics g){
+		
 		//draws KarioMart on screen
 		int tempWidth, tempHeight;
 		myFont = myFont.deriveFont(100f);
