@@ -19,7 +19,14 @@ public class Player extends Drivers{
  
 	public void tick() {
 		getInput();
+		checkCollision();
 		move();
+	}
+	
+	private void checkCollision() {
+		if(x <= 0) {
+			speed *= -1;
+		}
 	}
 	
 	private void getInput() {
