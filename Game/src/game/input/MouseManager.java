@@ -8,13 +8,10 @@ public class MouseManager implements MouseListener{
 	
 	private double x;
 	private double y;
-	private boolean clicked = false;
+	private boolean pressed = false;
 	
 	public boolean inBoundary(int x1, int y1, int x2, int y2){
-		if(x>=x1 && x<=x2 && y>=y1 && y<=y2)
-			return true;
-		else
-			return false;
+		return(x>=x1 && x<=x2 && y>=y1 && y<=y2);
 	}
 	
 	public void tick(){
@@ -30,8 +27,8 @@ public class MouseManager implements MouseListener{
 		return y;
 	}
 
-	public boolean isClicked() {
-		return clicked;
+	public boolean isPressed() {
+		return pressed;
 	}
 	
 	@Override
@@ -51,12 +48,12 @@ public class MouseManager implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		clicked = true;
+		pressed = true;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		clicked = false;
+		pressed = false;
 	}
 
 }

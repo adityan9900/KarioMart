@@ -42,9 +42,22 @@ public class Menu {
 	
 	public void tick(){
 		mouse.tick();
-		if(mouse.isClicked()==false){
+		if(mouse.isPressed()==false){
 			if(mouse.inBoundary((int)diffEasy.getX() , (int)diffEasy.getY() , (int)diffEasy.getX()+boxWidth, (int)diffEasy.getY()+boxHeight))
 				easyState = State.HOVERED;
+			else if(mouse.inBoundary((int)diffMedium.getX() , (int)diffMedium.getY() , (int)diffMedium.getX()+boxWidth, (int)diffMedium.getY()+boxHeight))
+				mediumState = State.HOVERED;
+			else if(mouse.inBoundary((int)diffHard.getX() , (int)diffHard.getY() , (int)diffHard.getX()+boxWidth, (int)diffHard.getY()+boxHeight))
+				hardState = State.HOVERED;
+			else
+				easyState = mediumState = hardState = State.RELEASED;
+		}else{
+			if(mouse.inBoundary((int)diffEasy.getX() , (int)diffEasy.getY() , (int)diffEasy.getX()+boxWidth, (int)diffEasy.getY()+boxHeight))
+				easyState = State.PRESSED;
+			else if(mouse.inBoundary((int)diffMedium.getX() , (int)diffMedium.getY() , (int)diffMedium.getX()+boxWidth, (int)diffMedium.getY()+boxHeight))
+				mediumState = State.PRESSED;
+			else if(mouse.inBoundary((int)diffHard.getX() , (int)diffHard.getY() , (int)diffHard.getX()+boxWidth, (int)diffHard.getY()+boxHeight))
+				hardState = State.PRESSED;
 		}
 	}
 	
@@ -72,6 +85,14 @@ public class Menu {
 		if(mediumState == State.HOVERED)
 			((Graphics2D)g).fill(diffMedium);
 		if(hardState == State.HOVERED)
+			((Graphics2D)g).fill(diffHard);
+		
+		g.setColor(pressed);
+		if(easyState == State.PRESSED)
+			((Graphics2D)g).fill(diffEasy);
+		if(mediumState == State.PRESSED)
+			((Graphics2D)g).fill(diffMedium);
+		if(hardState == State.PRESSED)
 			((Graphics2D)g).fill(diffHard);
 			
 		
