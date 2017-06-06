@@ -27,9 +27,9 @@ public class Game implements Runnable {
 	private Graphics g;
 
 	//Initialize the states
-	private States gameState;
-	private States menuState;
-	private States settingState;
+	public States gameState;
+	public States menuState;
+	public States settingState;
 	
 	//Input
 	private KeyManager keyManager = new KeyManager();
@@ -37,6 +37,9 @@ public class Game implements Runnable {
 	
 	//Handler
 	private Handler handler;
+	
+	//game difficulty variable
+	Difficulty difficulty = null;
 	
 	public Game(String t, int w, int h) {
 		width = w;
@@ -117,7 +120,9 @@ public class Game implements Runnable {
 	public KeyManager getKeyManager() {
 		return keyManager;
 	}
-	
+	public void setDifficulty(Difficulty d){
+		this.difficulty = d;
+	}
 	public MouseManager getMouseManager() {
 		return mouseManager;
 	}
@@ -152,5 +157,10 @@ public class Game implements Runnable {
 			}
 		}
 		stop();
+	}
+	public enum Difficulty{
+		EASY,
+		MEDIUM,
+		HARD;
 	}
 }

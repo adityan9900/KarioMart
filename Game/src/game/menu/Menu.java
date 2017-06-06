@@ -7,7 +7,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import game.Game;
+import game.Game.Difficulty;
 import game.input.MouseManager;
+import game.states.States;
 import game.worlds.Handler;
 
 public class Menu {
@@ -47,6 +49,21 @@ public class Menu {
 	public void tick(){
 		if(mouse.isPressed()&&mouse.inBoundary((int)quit.getX()+10 , (int)quit.getY()+10 , (int)quit.getX()+boxWidth-20, (int)(quit.getY()+boxHeight*1.5-20)))
 				System.exit(0);
+		else if(mouse.isPressed()&&mouse.inBoundary((int)diffEasy.getMinX() , (int)diffEasy.getMinY() , (int)diffEasy.getMaxX(), (int)diffEasy.getMaxY()))
+		{
+			States.setState(handler.getGame().gameState);
+			handler.getGame().setDifficulty(Difficulty.EASY);
+		}
+		else if(mouse.isPressed()&&mouse.inBoundary((int)diffMedium.getMinX() , (int)diffMedium.getMinY() , (int)diffMedium.getMaxX(), (int)diffMedium.getMaxY()))
+		{
+			States.setState(handler.getGame().gameState);
+			handler.getGame().setDifficulty(Difficulty.MEDIUM);
+		}	
+		else if(mouse.isPressed() && mouse.inBoundary((int)diffHard.getMinX(), (int)diffHard.getMinY(), (int)diffHard.getMaxX(), (int)diffHard.getMaxX()))
+		{
+			States.setState(handler.getGame().gameState);
+			handler.getGame().setDifficulty(Difficulty.HARD);
+		}
 		if(mouse.isPressed()==false){
 			if(mouse.inBoundary((int)diffEasy.getX() , (int)diffEasy.getY() , (int)diffEasy.getX()+boxWidth, (int)diffEasy.getY()+boxHeight))
 				easyState = State.HOVERED;

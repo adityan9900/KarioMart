@@ -1,6 +1,7 @@
 package game.worlds;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,6 +23,8 @@ public class World {
 	private int spawnX, spawnY, playerW, playerH;
 	private int mapWidth;
 	private int mapHeight;
+	
+	private ArrayList spawnPoints = new ArrayList<Point>();
 	
 	public World(String name, int width) {
 		centerPath = new ArrayList<int[]>();

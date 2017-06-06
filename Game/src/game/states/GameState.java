@@ -9,7 +9,6 @@ import game.worlds.World;
 
 public class GameState extends States {
 	
-	private int difficulty;
 	private Player player;
 	private World world;
 	private CPU cpu;
@@ -17,7 +16,6 @@ public class GameState extends States {
 	
 	public GameState(Handler h) {
 		super(h);
-		this.difficulty = difficulty;
 		world = new World("temp", 5); //Unfinished
 		h.setWorld(world);
 		player = new Player(h, handler.getWorld().getSpawnX(), world.getSpawnY(),
