@@ -24,8 +24,11 @@ public class Player extends Drivers{
 	}
 	
 	private void checkCollision() {
-		if(x <= 0) {
+		if(x <= 0 + handler.getWorld().getMapBorder() || x >= handler.getWorld().getMapWidth() - handler.getWorld().getMapBorder() - 15) {
 			speed *= -1;
+		}
+		if(y <= 0 + handler.getWorld().getMapBorder() || y >= handler.getWorld().getMapWidth() - handler.getWorld().getMapBorder() - 15) {
+			speed *= -0.51;
 		}
 	}
 	
