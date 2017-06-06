@@ -2,8 +2,8 @@ package game.states;
 
 import java.awt.Graphics;
 
-import display.Display;
 import game.Game;
+import game.entities.drivers.CPU;
 import game.entities.drivers.Player;
 import game.worlds.World;
 
@@ -11,12 +11,15 @@ public class GameState extends States {
 	
 	private Player player;
 	private World world;
+	private CPU cpu;
+
 	
 	public GameState(Game g) {
 		super(g);
 		world = new World("temp", 5); //Unfinished
 		player = new Player(g, world.getSpawnX(), world.getSpawnY(),
 							world.getPlayerWidth(), world.getPlayerHeight());
+		cpu = new CPU(world, g, world.getSpawnX(), world.getSpawnY(), world.getPlayerWidth(), world.getPlayerHeight());
 	}
 	
 	protected void initScreen() {
@@ -29,10 +32,12 @@ public class GameState extends States {
 		world.tick();
 //		checkCollision();
 		player.tick();
+		cpu.tick();
 	}
 	public void render(Graphics g) {
 		world.render(g);
 		player.render(g);
+		cpu.render(g);
 	}
 	
 //	private void checkCollision() {

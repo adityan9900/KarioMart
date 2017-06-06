@@ -77,6 +77,13 @@ public class World {
 			System.out.println("Failure in processing!");
 		}
 	}
+	
+	
+	public ArrayList<int[]> getPath(int i) {
+		if(i == 0) return innerPath;
+		else if(i == 1) return centerPath;
+		else return outerPath;
+	}
 	public void tick() {
 		
 	}
