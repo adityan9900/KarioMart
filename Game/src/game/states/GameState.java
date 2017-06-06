@@ -15,7 +15,7 @@ public class GameState extends States {
 	private CPU cpu;
 
 	
-	public GameState(Handler h , int difficulty) {
+	public GameState(Handler h) {
 		super(h);
 		this.difficulty = difficulty;
 		world = new World("temp", 5); //Unfinished
