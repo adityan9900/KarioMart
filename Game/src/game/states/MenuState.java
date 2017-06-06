@@ -22,7 +22,7 @@ public class MenuState extends States {
 	}
 	
 	public void tick() {
-		
+		menuScreen.tick();
 	}
 
 	public void render(Graphics g) {

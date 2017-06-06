@@ -2,26 +2,80 @@ package game.menu;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import game.Game;
+import game.input.MouseManager;
 
 public class Menu {
 	
 	private Game gameCopy;
 	
-	private final Font myFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
-	private int buttonWidth;
-	private int buttonHeight;
-	private final int MARGIN = 20;
+	private Font myFont = new Font(Font.SERIF, Font.PLAIN, 18);
+	private final int boxWidth = 350;
+	private final int boxHeight = 100;
+	
+	private State easyState = State.RELEASED;
+	private State mediumState = State.RELEASED;
+	private State hardState = State.RELEASED;
+	
+	private Color released,hovered,pressed;
+	private Rectangle diffBox;
+	private Rectangle diffEasy;
+	private Rectangle diffMedium;
+	private Rectangle diffHard;
+	
+	private MouseManager mouse = new MouseManager();
 	
 	public Menu(Game g) {
 		gameCopy = g;
+		released = new Color(180,180,180);
+		hovered = new Color(160,160,160);
+		pressed = new Color(140,140,140);
+		diffBox = new Rectangle(500 - boxWidth/2, 150, boxWidth, boxHeight*3+40);
+		diffEasy = new Rectangle((int)diffBox.getX() + 10, (int)diffBox.getY()+10, boxWidth-20, boxHeight);
+		diffMedium = new Rectangle((int)diffBox.getX() + 10, (int)diffEasy.getY()+boxHeight+10,boxWidth-20 ,boxHeight );
+		diffHard = new Rectangle((int)diffBox.getX() + 10, (int)diffMedium.getY()+boxHeight+10,boxWidth-20 ,boxHeight );
 	}
 	
-	//doesnt draw in the middle idk why
+	public void tick(){
+		mouse.tick();
+		if(mouse.isClicked()==false){
+			if(mouse.inBoundary((int)diffEasy.getX() , (int)diffEasy.getY() , (int)diffEasy.getX()+boxWidth, (int)diffEasy.getY()+boxHeight))
+				easyState = State.HOVERED;
+		}
+	}
+	
 	public void render(Graphics g){
+		//draws KarioMart on screen
+		int tempWidth;
+		myFont = myFont.deriveFont(100f);
+		g.setFont(myFont);
+		tempWidth = g.getFontMetrics(myFont).stringWidth("Kario Mart");
+		g.drawString("Kario Mart", gameCopy.disp.getWidth()/2 - tempWidth/2 , gameCopy.disp.getHeight()/10);
+		g.drawLine(gameCopy.disp.getWidth()/2 - tempWidth/2 , gameCopy.disp.getHeight()/10+20, gameCopy.disp.getWidth()/2 + tempWidth/2 , gameCopy.disp.getHeight()/10+20);
+		myFont = myFont.deriveFont(20f);
+		
+		g.setColor(released);
+		if(easyState == State.RELEASED)
+			((Graphics2D)g).fill(diffEasy);
+		if(mediumState == State.RELEASED)
+			((Graphics2D)g).fill(diffMedium);
+		if(hardState == State.RELEASED)
+			((Graphics2D)g).fill(diffHard);
+		
+		g.setColor(hovered);
+		if(easyState == State.HOVERED)
+			((Graphics2D)g).fill(diffEasy);
+		if(mediumState == State.HOVERED)
+			((Graphics2D)g).fill(diffMedium);
+		if(hardState == State.HOVERED)
+			((Graphics2D)g).fill(diffHard);
+			
+		
+		/*
 		//Button width and height relative to screen size
 		buttonWidth = ((gameCopy.disp.getWidth() - 4 * MARGIN) / 3);
 		buttonHeight = ((gameCopy.disp.getHeight() - MARGIN) / 6);
@@ -47,5 +101,13 @@ public class Menu {
 		
 		g.setColor(Color.RED);
 		g.fillRect(3 * MARGIN + 2 * buttonWidth, MARGIN, buttonWidth, buttonHeight);
+*/	
+		
+	
+	}
+	private enum State{
+		HOVERED,
+		PRESSED,
+		RELEASED;
 	}
 }

@@ -12,13 +12,13 @@ public abstract class Drivers extends Entity {
 	
 	protected float move;
 	public static final double DEFAULT_SPEED = 1;
-	public static final double DEFAULT_MAX_SPEED = 15;
+	public static final double DEFAULT_MAX_SPEED = 8;
 	public static final double DEFAULT_TURN_PWR = 4;
 	
 	protected double accel, theta, speed, maxSpeed, turnPwr;
 	
-	public Drivers(float x, float y, int w, int h) {
-		super(x, y, w, h);
+	public Drivers(float x, float y, int width, int height) {
+		super(x, y, width, height);
 		accel = DEFAULT_ACCEL;
 		speed = DEFAULT_SPEED;
 		maxSpeed = DEFAULT_MAX_SPEED;
