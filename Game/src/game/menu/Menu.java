@@ -20,6 +20,7 @@ public class Menu {
 	private State easyState = State.RELEASED;
 	private State mediumState = State.RELEASED;
 	private State hardState = State.RELEASED;
+	private State quitState = State.RELEASED;
 	
 	private Color released,hovered,pressed;
 	private Rectangle diffBox;
@@ -39,7 +40,7 @@ public class Menu {
 		diffEasy = new Rectangle((int)diffBox.getX() + 10, (int)diffBox.getY()+10, boxWidth-20, boxHeight);
 		diffMedium = new Rectangle((int)diffBox.getX() + 10, (int)diffEasy.getY()+boxHeight+10,boxWidth-20 ,boxHeight );
 		diffHard = new Rectangle((int)diffBox.getX() + 10, (int)diffMedium.getY()+boxHeight+10,boxWidth-20 ,boxHeight );
-		quit = new Rectangle((int)diffBox.getX()+10,150 + boxHeight*3+50,boxWidth,(int)(boxHeight*1.5));
+		quit = new Rectangle((int)diffBox.getX(),150 + boxHeight*3+50,boxWidth,(int)(boxHeight*1.5));
 	}
 	
 	public void tick(){
@@ -50,6 +51,8 @@ public class Menu {
 				mediumState = State.HOVERED;
 			else if(mouse.inBoundary((int)diffHard.getX() , (int)diffHard.getY() , (int)diffHard.getX()+boxWidth, (int)diffHard.getY()+boxHeight))
 				hardState = State.HOVERED;
+			else if(mouse.inBoundary((int)quit.getX()+10 , (int)quit.getY()+10 , (int)quit.getX()+boxWidth-20, (int)quit.getY()+boxHeight-20))
+				quitState = State.HOVERED;
 			else
 				easyState = mediumState = hardState = State.RELEASED;
 		}else{
@@ -59,12 +62,14 @@ public class Menu {
 				mediumState = State.PRESSED;
 			else if(mouse.inBoundary((int)diffHard.getX() , (int)diffHard.getY() , (int)diffHard.getX()+boxWidth, (int)diffHard.getY()+boxHeight))
 				hardState = State.PRESSED;
+			else if(mouse.inBoundary((int)quit.getX()+10 , (int)quit.getY()+10 , (int)quit.getX()+boxWidth-20, (int)(quit.getY()+boxHeight*1.5-20)))
+				quitState = State.PRESSED;
 		}
 	}
 	
 	public void render(Graphics g){
-		
 		g.setColor(Color.DARK_GRAY);
+		((Graphics2D)g).fill(quit);
 		((Graphics2D)g).fill(diffBox);
 		
 		//draws KarioMart on screen
@@ -84,7 +89,9 @@ public class Menu {
 			((Graphics2D)g).fill(diffMedium);
 		if(hardState == State.RELEASED)
 			((Graphics2D)g).fill(diffHard);
-		
+		if(quitState == State.RELEASED)
+			((Graphics2D)g).fill(new Rectangle((int)quit.getX()+10, (int)quit.getY()+10, boxWidth-20, (int)(boxHeight*1.5-20)));
+			
 		g.setColor(hovered);
 		if(easyState == State.HOVERED)
 			((Graphics2D)g).fill(diffEasy);
@@ -92,6 +99,8 @@ public class Menu {
 			((Graphics2D)g).fill(diffMedium);
 		if(hardState == State.HOVERED)
 			((Graphics2D)g).fill(diffHard);
+		if(quitState == State.HOVERED)
+			((Graphics2D)g).fill(new Rectangle((int)quit.getX()+10, (int)quit.getY()+10, boxWidth-20, (int)(boxHeight*1.5-20)));
 		
 		g.setColor(pressed);
 		if(easyState == State.PRESSED)
@@ -100,9 +109,8 @@ public class Menu {
 			((Graphics2D)g).fill(diffMedium);
 		if(hardState == State.PRESSED)
 			((Graphics2D)g).fill(diffHard);
-		
-		g.setColor(Color.DARK_GRAY);
-		((Graphics2D)g).fill(quit);
+		if(quitState == State.PRESSED)
+			((Graphics2D)g).fill(new Rectangle((int)quit.getX()+10, (int)quit.getY()+10, boxWidth-20, (int)(boxHeight*1.5-20)));
 		
 		g.setColor(Color.WHITE);
 		tempHeight = g.getFontMetrics(myFont).getHeight();
@@ -112,7 +120,8 @@ public class Menu {
 		g.drawString("Medium", (int)diffMedium.getCenterX() - tempWidth / 2, (int)diffMedium.getCenterY() + tempHeight / 4);
 		tempWidth = g.getFontMetrics(myFont).stringWidth("Hard");
 		g.drawString("Hard", (int)diffHard.getCenterX() - tempWidth / 2, (int)diffHard.getCenterY() + tempHeight / 4);
-		
+		tempWidth = g.getFontMetrics(myFont).stringWidth("Quit");
+		g.drawString("Quit", (int)quit.getCenterX()-tempWidth/2, (int)quit.getCenterY()+tempHeight/4);
 	}
 	private enum State{
 		HOVERED,
