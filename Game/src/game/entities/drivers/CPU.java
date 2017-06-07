@@ -22,7 +22,7 @@ public class CPU extends Drivers {
 		super(x, y, width, height);
 		this.world = w;
 		
-		world.setPath("Track_Mid.txt", 1);
+		world.setPath("/worldGen/" + world.getTrackName() + "TrackMid" + ".txt", 1);
 		this.midArry = world.getPath(1); //get center path
 	}
 	
