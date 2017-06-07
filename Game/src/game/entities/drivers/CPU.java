@@ -31,29 +31,39 @@ public class CPU extends Drivers {
 	public void tick() {
 	
 //		System.out.println("i % 10 results: " + (i%10 == 0));
-			if(i % 10 == 0 && midIndex < midArry.size()-1) {
-				int [] a = midArry.get(midIndex++);
-				this.x = a[0];
-				this.y = a[1];
-				
+			
+		    if(i%30 == 0) midIndex ++;
+			if(midIndex < midArry.size()-1) {
+				int [] a = midArry.get(midIndex);
+		
 				double dTheta;
 				
 				int [] b = a;
 				if(midIndex < midArry.size()-1) {
-					b = midArry.get(midIndex);
+					b = midArry.get(midIndex+1);
 				}
 				
+				int mod = i % 30;
+				double currentX = a[0] + mod * (b[0] - a[0]) / 30.0;
+				double currentY = a[1] + mod * (b[1] - a[1]) / 30.0;
 				
-				if(b[1] - a[1] == 0) dTheta = 0;
-				else dTheta = Math.atan((b[0] - a[0])/(b[1] - a[1]));
+				double newX = currentX + mod * (b[0] - a[0]) / 30.0;
+				double newY = currentY + mod * (b[1] - a[1]) / 30.0;
+				
+				if(newY - currentY == 0) dTheta = 0;
+				else dTheta = Math.atan((newX - currentX)/(newY - currentY));
 				
 
+				this.x = (int)currentX;
+				this.y = (int)currentY;
 			
-				if(b[0] - a[0] < 0 && b[1] - a[1] < 0) this.theta = -dTheta;
-				else if(b[0] - a[0] > 0 && b[1] - a[1] > 0) this.theta = Math.PI - dTheta;
-				else if(b[0] - a[0] < 0 && b[1] - a[1] > 0) this.theta = -Math.PI - dTheta;
+				if(newX - currentX < 0 && newY - currentY < 0) this.theta = -dTheta;
+				else if(newX - currentX > 0 && newY - currentY > 0) this.theta = Math.PI - dTheta;
+				else if(newX - currentX < 0 && newY - currentY > 0) this.theta = -Math.PI - dTheta;
 				else this.theta = -dTheta;
 			
+				
+				//this.theta *= 0.6; //dampening, will check effects
 				
 			}
 			
