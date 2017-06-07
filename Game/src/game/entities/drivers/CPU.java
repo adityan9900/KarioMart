@@ -29,9 +29,7 @@ public class CPU extends Drivers {
 	
 	
 	public void tick() {
-	
-//		System.out.println("i % 10 results: " + (i%10 == 0));
-			
+
 		    if(i % 30 == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				int [] a = midArry.get(midIndex);
@@ -53,7 +51,6 @@ public class CPU extends Drivers {
 				if(newY - currentY == 0) dTheta = 0;
 				else dTheta = Math.atan((newX - currentX)/(newY - currentY));
 				
-
 				this.x = (int)currentX;
 				this.y = (int)currentY;
 			
