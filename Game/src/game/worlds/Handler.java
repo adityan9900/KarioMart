@@ -29,11 +29,18 @@ public class Handler {
 	public void setWorld(World world) {
 		this.world = world;
 	}
-	public int getWidth() {
-		return game.getWidth();
+	public void resize(int w, int h) {
+		game.resize(w, h);
+		game.getDisplay().resize(w, h);
+	}
+	public int getFPS() {
+		return game.getFPS();
 	}
 	public int getHeight() {
 		return game.getHeight();
+	}
+	public int getWidth() {
+		return game.getWidth();
 	}
 	public MouseManager getMouseManager() {
 		return game.getMouseManager();

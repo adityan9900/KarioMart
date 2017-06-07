@@ -17,6 +17,7 @@ public class Game implements Runnable {
   
 	public Display disp;
 	private int width, height;
+	private final int FPS = 60;
 
 	public String title;
 	
@@ -114,6 +115,13 @@ public class Game implements Runnable {
 	public int getHeight() {
 		return height;
 	}
+	public void resize(int w, int h) {
+		width = w;
+		height = h;
+	}
+	public int getFPS() {
+		return FPS;
+	}
 	public Display getDisplay() {
 		return disp;
 	}
@@ -131,8 +139,7 @@ public class Game implements Runnable {
 	public void run() {
 		
 		init();
-		int fps = 60;
-		double timePerTick = 1000000000 / fps;
+		double timePerTick = 1000000000 / FPS;
 		double delta = 0;
 		long now, lastTime = System.nanoTime();
 		long timer = 0;

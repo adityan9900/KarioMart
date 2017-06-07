@@ -21,8 +21,7 @@ public class CPU extends Drivers {
 	public CPU(World w, float x, float y, int width, int height) {
 		super(x, y, width, height);
 		this.world = w;
-		
-		world.setPath("/worldGen/" + world.getTrackName() + "TrackMid" + ".txt", 1);
+		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
 		this.midArry = world.getPath(1); //get center path
 	}
 	
