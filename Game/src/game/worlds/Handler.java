@@ -41,4 +41,7 @@ public class Handler {
 	public KeyManager getKeyManager() {
 		return game.getKeyManager();
 	}
+	public String getTrackName() {
+		return world.getTrackName();
+	}
 }

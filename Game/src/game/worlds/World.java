@@ -104,6 +104,9 @@ public class World {
 	public void render(Graphics g) {
 		g.drawImage(bkg, 0, 0, null);
 	}
+	public String getTrackName() {
+		return trackName;
+	}
 	
 	private void loadWorld() {
 		bkg = ImageLoader.loadImage("/worldGen/" + trackName + ".png");
