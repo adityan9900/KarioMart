@@ -32,14 +32,14 @@ public class CPU extends Drivers {
 	
 //		System.out.println("i % 10 results: " + (i%10 == 0));
 			
-		    if(i%30 == 0) midIndex ++;
-			if(midIndex < midArry.size()-1) {
+		    if(i % 30 == 0) midIndex ++;
+			if(midIndex < midArry.size() - 1) {
 				int [] a = midArry.get(midIndex);
 		
 				double dTheta;
 				
 				int [] b = a;
-				if(midIndex < midArry.size()-1) {
+				if(midIndex < midArry.size() - 1) {
 					b = midArry.get(midIndex+1);
 				}
 				
@@ -60,9 +60,11 @@ public class CPU extends Drivers {
 				if(newX - currentX < 0 && newY - currentY < 0) this.theta = -dTheta;
 				else if(newX - currentX > 0 && newY - currentY > 0) this.theta = Math.PI - dTheta;
 				else if(newX - currentX < 0 && newY - currentY > 0) this.theta = -Math.PI - dTheta;
+				else if(dTheta == 0) this.theta = this.theta;
 				else this.theta = -dTheta;
 			
 				
+				System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
 				//this.theta *= 0.6; //dampening, will check effects
 				
 			}
