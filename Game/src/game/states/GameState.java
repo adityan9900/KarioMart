@@ -21,22 +21,24 @@ public class GameState extends States {
 	private boolean isStarted;
 	private MouseManager mouse;
 	private boolean isPaused, isPressed;
-	private final int PAUSE_SIDE_LENGTH = 100;
+	private final int BOX_SIDE_LENGTH = 50;
 	private final int OFFSET = 20;
-	private State pauseState;
+	private State pauseState, backState;
 	private Color released,hovered,pressed;
-	private Rectangle pause;
+	private Rectangle pause, back;
 	
 	public GameState(Handler h) {
 		super(h);
 		isPressed = false;
 		pauseState = State.RELEASED;
+		backState = State.RELEASED;
 		world = new World("temp", 5); //Unfinished
 		h.setWorld(world);
 		released = new Color(180,180,180);
 		hovered = new Color(160,160,160);
 		pressed = new Color(140,140,140);
-		pause = new Rectangle(OFFSET, OFFSET, PAUSE_SIDE_LENGTH, PAUSE_SIDE_LENGTH);
+		pause = new Rectangle(OFFSET, OFFSET, BOX_SIDE_LENGTH, BOX_SIDE_LENGTH);
+		back = new Rectangle(handler.getWidth() - OFFSET - BOX_SIDE_LENGTH, handler.getHeight() - OFFSET - BOX_SIDE_LENGTH, BOX_SIDE_LENGTH, BOX_SIDE_LENGTH);
 		mouse = h.getMouseManager();
 		player = new Player(h, handler.getWorld().getSpawnX(), world.getSpawnY(),
 							world.getPlayerWidth(), world.getPlayerHeight());
@@ -65,6 +67,7 @@ public class GameState extends States {
 		cpu.render(g);
 		
 		drawPause(g);
+		drawBack(g);
 		
 		if((!isStarted || timer < 5 * handler.getFPS() + handler.getFPS() / 2) && !isPaused) {
 			g.setFont(new Font(Font.SERIF, Font.PLAIN, 200));
@@ -72,6 +75,21 @@ public class GameState extends States {
 			startingSequence(g);
 		}
 	}
+	//draws everything for the back button
+	private void drawBack(Graphics g) {
+		g.setColor(Color.DARK_GRAY);
+		((Graphics2D)g).fill(back);
+		g.setColor(released);
+		if(backState == State.RELEASED)
+			((Graphics2D)g).fill(back);
+		g.setColor(hovered);
+		if(backState == State.HOVERED)
+			((Graphics2D)g).fill(back);
+		g.setColor(pressed);
+		if(backState == State.PRESSED)
+			((Graphics2D)g).fill(back);
+	}
+	
 	//draws everything for the pause button
 	private void drawPause(Graphics g) {
 		//Pause button
@@ -88,13 +106,30 @@ public class GameState extends States {
 			((Graphics2D)g).fill(pause);
 		g.setColor(Color.WHITE);
 		if(isPaused) {
-			g.drawLine((int)pause.getX() + 20, (int)pause.getY() + 20, (int)pause.getX() + 20, (int)pause.getY() + PAUSE_SIDE_LENGTH - 20);
-			g.drawLine((int)pause.getX() + 20, (int)pause.getY() + 20, (int)pause.getX() + PAUSE_SIDE_LENGTH - 20, (int)pause.getY() + PAUSE_SIDE_LENGTH / 2);
-			g.drawLine((int)pause.getX() + 20, (int)pause.getY() + PAUSE_SIDE_LENGTH - 20, (int)pause.getX() + PAUSE_SIDE_LENGTH - 20, (int)pause.getY() + PAUSE_SIDE_LENGTH / 2);
+			g.drawLine((int)pause.getX() + BOX_SIDE_LENGTH / 5, (int)pause.getY() + BOX_SIDE_LENGTH / 5, (int)pause.getX() + BOX_SIDE_LENGTH / 5, (int)pause.getY() + 4 * BOX_SIDE_LENGTH / 5);
+			g.drawLine((int)pause.getX() + BOX_SIDE_LENGTH / 5, (int)pause.getY() + BOX_SIDE_LENGTH / 5, (int)pause.getX() + 4 * BOX_SIDE_LENGTH / 5, (int)pause.getY() + BOX_SIDE_LENGTH / 2);
+			g.drawLine((int)pause.getX() + BOX_SIDE_LENGTH / 5, (int)pause.getY() + 4 * BOX_SIDE_LENGTH / 5, (int)pause.getX() + 4 * BOX_SIDE_LENGTH / 5, (int)pause.getY() + BOX_SIDE_LENGTH / 2);
 		} else {
-			g.drawRect(2 * PAUSE_SIDE_LENGTH / 5, (int)pause.getY() + 20, PAUSE_SIDE_LENGTH / 5, PAUSE_SIDE_LENGTH - 40);
-			g.drawRect(4 * PAUSE_SIDE_LENGTH / 5, (int)pause.getY() + 20, PAUSE_SIDE_LENGTH / 5, PAUSE_SIDE_LENGTH - 40);
+			g.drawRect(BOX_SIDE_LENGTH / 5 + (int)pause.getX(), (int)pause.getY() + BOX_SIDE_LENGTH / 5, BOX_SIDE_LENGTH / 5, 3 * BOX_SIDE_LENGTH / 5);
+			g.drawRect(3 * BOX_SIDE_LENGTH / 5 + (int)pause.getX(), (int)pause.getY() + BOX_SIDE_LENGTH/ 5, BOX_SIDE_LENGTH / 5, 3 * BOX_SIDE_LENGTH / 5);
 		}
+	}
+	
+	//Checks the position of the back button
+	private void checkBack() {
+		if(!mouse.isPressed()) {
+			if(mouse.inBoundary((int)back.getX(), (int)back.getY(), 
+					(int)pause.getX() + BOX_SIDE_LENGTH, (int)back.getY() + BOX_SIDE_LENGTH)) {
+				backState = State.HOVERED;
+			} else 
+				backState = State.RELEASED;
+		} else {
+			if(mouse.inBoundary((int)pause.getX(), (int)pause.getY(), 
+					(int)pause.getX() + BOX_SIDE_LENGTH, (int)pause.getY() + BOX_SIDE_LENGTH)) {
+				backState = State.PRESSED;
+			}
+		}
+			
 	}
 	
 	//Checks if paused button is clicked or not
@@ -102,14 +137,14 @@ public class GameState extends States {
 		if(!mouse.isPressed()) {
 			isPressed = false;
 			if(mouse.inBoundary((int)pause.getX(), (int)pause.getY(), 
-					(int)pause.getX() + PAUSE_SIDE_LENGTH, (int)pause.getY() + PAUSE_SIDE_LENGTH)) {
+					(int)pause.getX() + BOX_SIDE_LENGTH, (int)pause.getY() + BOX_SIDE_LENGTH)) {
 				pauseState = State.HOVERED;
 			} else {
 				pauseState = State.RELEASED;
 			}
 		} else {
 			if(mouse.inBoundary((int)pause.getX(), (int)pause.getY(), 
-					(int)pause.getX() + PAUSE_SIDE_LENGTH, (int)pause.getY() + PAUSE_SIDE_LENGTH) && !isPressed) {
+					(int)pause.getX() + BOX_SIDE_LENGTH, (int)pause.getY() + BOX_SIDE_LENGTH) && !isPressed) {
 				pauseState = State.PRESSED;
 				isPressed = true;
 				if(isPaused) {
