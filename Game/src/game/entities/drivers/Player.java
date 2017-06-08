@@ -2,6 +2,7 @@ package game.entities.drivers;
  
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
@@ -11,6 +12,7 @@ import game.worlds.Handler;
 public class Player extends Drivers{
  
 	private Handler handler;
+	private Point[] collisionEdges;
 	
 	public Player(Handler h, float x, float y, int width, int height) {
 		super(x, y, width, height);
@@ -18,9 +20,21 @@ public class Player extends Drivers{
 	}
  
 	public void tick() {
+		System.out.println(x+ " , " + y);
 		getInput();
+		getEdges();
 		checkCollision();
 		move();
+	}
+	
+	private void getEdges(){
+		for(int i = 0;i<collisionEdges.length;i++){
+			Point temp;
+			double tempX = (x*Math.cos(theta + (double)90*i) - y*Math.sin(theta + (double)90*i));
+			double tempY = x*Math.sin(theta + (double)90*i) + y*Math.cos(theta + (double)90*i);
+			temp = new Point((int)tempX,(int)tempY);
+			collisionEdges[i] = temp;
+		}
 	}
 	
 	private void checkCollision() {
