@@ -29,6 +29,10 @@ public abstract class Drivers extends Entity {
 		handler = h;
 	}
 	
+	public boolean insideTrack() {
+		return handler.getWorld().insideTrack(this.x, this.y);
+	}
+	
 	public void move() {
 		x += Math.sin(theta)*speed;
 		y -= Math.cos(theta)*speed;

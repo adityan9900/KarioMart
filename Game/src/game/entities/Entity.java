@@ -5,8 +5,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import game.worlds.Handler;
-
 public abstract class Entity {
 
 	protected float x, y;

@@ -35,11 +35,12 @@ public class World {
 		trackName = name;
 		trackWidth = width;
 		loadWorld();
+		//setPath(getTrackName() + "TrackInner.txt");
 	}
 	
 	
 	//will determine if car is on the track based on the current pos(x,y)
-	public boolean insideTrack(int x, int y) {
+	public boolean insideTrack(float x, float y) {
 		ArrayList<Double> distsFromInner = new ArrayList<Double>();
 		for(int [] i : innerPath) distsFromInner.add(Math.sqrt((x - i[0])*(x - i[0]) + (y - i[1])*(y - i[1])));
 		
