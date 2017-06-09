@@ -20,6 +20,8 @@ public abstract class Drivers extends Entity {
 	
 	protected Handler handler;
 	
+	protected boolean moveX,moveY = true;
+	
 	public Drivers(Handler h, float x, float y, int width, int height) {
 		super(x, y, width, height);
 		accel = DEFAULT_ACCEL;
@@ -34,8 +36,10 @@ public abstract class Drivers extends Entity {
 	}
 	
 	public void move() {
-		x += Math.sin(theta)*speed;
-		y -= Math.cos(theta)*speed;
+		if(moveX)
+			x += Math.sin(theta)*speed;
+		if(moveY)
+			y -= Math.cos(theta)*speed;
 	}
 	
 	//GETTERS AND SETTERS

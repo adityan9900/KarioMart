@@ -39,12 +39,14 @@ public class Player extends Drivers{
 	}
 	
 	private void checkCollision() {
-		if(x <= 0 + handler.getWorld().getMapBorder() || x >= handler.getWorld().getMapWidth() - handler.getWorld().getMapBorder() - 15) {
-			speed *= -1;
-		}
-		if(y <= 0 + handler.getWorld().getMapBorder() || y >= handler.getWorld().getMapWidth() - handler.getWorld().getMapBorder() - 15) {
-			speed *= -0.51;
-		}
+		if((x<=0 && theta>Math.toRadians(180) && theta<Math.toRadians(360)) || (x>=handler.getWidth() && theta>Math.toRadians(0) && theta<Math.toRadians(180)) && speed>0)
+			moveX = false;
+		else
+			moveX = true;
+		if((y<=0 && theta < Math.toRadians(90) && Tau+theta > Math.toRadians(270)) || (y>=handler.getHeight() && theta>Math.toRadians(90)) && speed>0)
+			moveY = false;
+		else
+			moveY = true;
 	}
 	
 	private void getInput() {
