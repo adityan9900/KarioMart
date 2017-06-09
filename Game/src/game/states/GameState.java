@@ -42,7 +42,7 @@ public class GameState extends States {
 		mouse = h.getMouseManager();
 		player = new Player(h, handler.getWorld().getSpawnX(), world.getSpawnY(),
 							world.getPlayerWidth(), world.getPlayerHeight());
-		cpu = new CPU(handler.getWorld(), (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
+		cpu = new CPU(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
 		timer = 0; isStarted = false; isPaused = false;
 	}
 	
