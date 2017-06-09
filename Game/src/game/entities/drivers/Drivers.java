@@ -1,6 +1,7 @@
 package game.entities.drivers;
  
 import game.entities.Entity;
+import game.worlds.Handler;
  
 public abstract class Drivers extends Entity {
  
@@ -17,12 +18,15 @@ public abstract class Drivers extends Entity {
 	
 	protected double accel, theta, speed, maxSpeed, turnPwr;
 	
-	public Drivers(float x, float y, int width, int height) {
+	protected Handler handler;
+	
+	public Drivers(Handler h, float x, float y, int width, int height) {
 		super(x, y, width, height);
 		accel = DEFAULT_ACCEL;
 		speed = DEFAULT_SPEED;
 		maxSpeed = DEFAULT_MAX_SPEED;
 		turnPwr = DEFAULT_TURN_PWR;
+		handler = h;
 	}
 	
 	public void move() {

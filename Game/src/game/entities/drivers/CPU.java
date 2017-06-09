@@ -6,8 +6,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import game.Game;
 import game.gfx.Assets;
+import game.worlds.Handler;
 import game.worlds.World;
 
 public class CPU extends Drivers {
@@ -18,8 +18,8 @@ public class CPU extends Drivers {
 	private int i;
 	
 	
-	public CPU(World w, float x, float y, int width, int height) {
-		super(x, y, width, height);
+	public CPU(World w, Handler h,  float x, float y, int width, int height) {
+		super(h,x, y, width, height);
 		this.world = w;
 		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
 		this.midArry = world.getPath(1); //get center path

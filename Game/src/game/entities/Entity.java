@@ -5,11 +5,14 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import game.worlds.Handler;
+
 public abstract class Entity {
 
 	protected float x, y;
 	protected int width, height;
 	private Rectangle collisionBox;
+	
 	
 	public Entity(float x, float y, int w, int h) {
 		this.x = x;

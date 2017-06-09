@@ -39,7 +39,7 @@ public class World {
 	
 	
 	//will determine if car is on the track based on the current pos(x,y)
-	public boolean onTrack(int x, int y) {
+	public boolean insideTrack(int x, int y) {
 		ArrayList<Double> distsFromInner = new ArrayList<Double>();
 		for(int [] i : innerPath) distsFromInner.add(Math.sqrt((x - i[0])*(x - i[0]) + (y - i[1])*(y - i[1])));
 		

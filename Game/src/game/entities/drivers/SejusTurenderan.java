@@ -6,11 +6,12 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import game.gfx.Assets;
+import game.worlds.Handler;
 
 public class SejusTurenderan extends Drivers{
 
-	public SejusTurenderan(float x, float y, int width, int height) {
-		super(x, y, width, height);
+	public SejusTurenderan(Handler h, float x, float y, int width, int height) {
+		super(h, x, y, width, height);
 		setAccel(DEFAULT_ACCEL/2d);
 		setMaxV(DEFAULT_MAX_SPEED*2d);
 		setTurnPwr(DEFAULT_TURN_PWR*.85);

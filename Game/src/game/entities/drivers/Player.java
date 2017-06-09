@@ -11,12 +11,11 @@ import game.worlds.Handler;
  
 public class Player extends Drivers{
  
-	private Handler handler;
+
 	private Point[] collisionEdges;
 	
 	public Player(Handler h, float x, float y, int width, int height) {
-		super(x, y, width, height);
-		handler = h;
+		super(h, x, y, width, height);
 	}
  
 	public void tick() {
