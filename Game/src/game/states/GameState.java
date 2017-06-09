@@ -37,12 +37,12 @@ public class GameState extends States {
 		released = new Color(180,180,180);
 		hovered = new Color(160,160,160);
 		pressed = new Color(140,140,140);
-		pause = new Rectangle(OFFSET, OFFSET, BOX_SIDE_LENGTH, BOX_SIDE_LENGTH);
-		back = new Rectangle(handler.getWidth() - OFFSET - BOX_SIDE_LENGTH, handler.getHeight() - OFFSET - BOX_SIDE_LENGTH, BOX_SIDE_LENGTH, BOX_SIDE_LENGTH);
+		pause = new Rectangle(2 * OFFSET + BOX_SIDE_LENGTH, OFFSET, BOX_SIDE_LENGTH, BOX_SIDE_LENGTH);
+		back = new Rectangle(OFFSET, OFFSET, BOX_SIDE_LENGTH, BOX_SIDE_LENGTH);
 		mouse = h.getMouseManager();
 		player = new Player(h, handler.getWorld().getSpawnX(), world.getSpawnY(),
 							world.getPlayerWidth(), world.getPlayerHeight());
-		cpu = new CPU(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
+		cpu = new CPU(handler.getWorld(), (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
 		timer = 0; isStarted = false; isPaused = false;
 	}
 	
@@ -52,6 +52,7 @@ public class GameState extends States {
 	
 	public void tick() {
 		checkPause();
+		checkBack();
 		if(isStarted) {
 			world.tick();
 			player.tick();
@@ -66,11 +67,13 @@ public class GameState extends States {
 		player.render(g);
 		cpu.render(g);
 		
+		//Set font
+		g.setFont(new Font(Font.SERIF, Font.PLAIN, 200));
+		
 		drawPause(g);
 		drawBack(g);
 		
 		if((!isStarted || timer < 5 * handler.getFPS() + handler.getFPS() / 2) && !isPaused) {
-			g.setFont(new Font(Font.SERIF, Font.PLAIN, 200));
 			g.setColor(Color.WHITE);
 			startingSequence(g);
 		}
@@ -88,6 +91,10 @@ public class GameState extends States {
 		g.setColor(pressed);
 		if(backState == State.PRESSED)
 			((Graphics2D)g).fill(back);
+		g.setColor(Color.WHITE);
+		g.drawLine((int)back.getX() + BOX_SIDE_LENGTH / 5, (int)back.getY() + BOX_SIDE_LENGTH / 2, (int)back.getX() + BOX_SIDE_LENGTH / 2, (int)back.getY() + 4 * BOX_SIDE_LENGTH / 5);
+		g.drawLine((int)back.getX() + BOX_SIDE_LENGTH / 5, (int)back.getY() + BOX_SIDE_LENGTH / 2, (int)back.getX() + BOX_SIDE_LENGTH / 2, (int)back.getY() + BOX_SIDE_LENGTH / 5);
+		g.drawLine((int)back.getX() + BOX_SIDE_LENGTH / 5, (int)back.getY() + BOX_SIDE_LENGTH / 2, (int)back.getX() + 4 * BOX_SIDE_LENGTH / 5, (int)back.getY() + BOX_SIDE_LENGTH / 2);
 	}
 	
 	//draws everything for the pause button
@@ -119,13 +126,15 @@ public class GameState extends States {
 	private void checkBack() {
 		if(!mouse.isPressed()) {
 			if(mouse.inBoundary((int)back.getX(), (int)back.getY(), 
-					(int)pause.getX() + BOX_SIDE_LENGTH, (int)back.getY() + BOX_SIDE_LENGTH)) {
+					(int)back.getX() + BOX_SIDE_LENGTH, (int)back.getY() + BOX_SIDE_LENGTH)) {
 				backState = State.HOVERED;
 			} else 
 				backState = State.RELEASED;
 		} else {
-			if(mouse.inBoundary((int)pause.getX(), (int)pause.getY(), 
-					(int)pause.getX() + BOX_SIDE_LENGTH, (int)pause.getY() + BOX_SIDE_LENGTH)) {
+			if(mouse.inBoundary((int)back.getX(), (int)back.getY(), 
+					(int)back.getX() + BOX_SIDE_LENGTH, (int)back.getY() + BOX_SIDE_LENGTH)) {
+				handler.getGame().gameState = new GameState(handler);
+				States.setState(handler.getGame().menuState);
 				backState = State.PRESSED;
 			}
 		}
