@@ -19,7 +19,7 @@ public class World {
 	
 	private BufferedImage bkg;
 	private String trackName;
-	private int trackWidth;
+	private int trackWidth = 50;
 	private int spawnX, spawnY, playerW, playerH;
 	private int mapWidth;
 	private int mapHeight;
@@ -35,7 +35,10 @@ public class World {
 		trackName = name;
 		trackWidth = width;
 		loadWorld();
-		//setPath(getTrackName() + "TrackInner.txt");
+		setPath(getTrackName() + "TrackInner.txt",0);
+		setPath(getTrackName() + "TrackMid.txt",1);
+		setPath(getTrackName() + "TrackOuter.txt",2);
+		
 	}
 	
 	
@@ -49,6 +52,7 @@ public class World {
 		
 		Collections.sort(distsFromInner);
 		Collections.sort(distsFromOuter);
+		
 		
 		
 		if(distsFromInner.get(0) < trackWidth && distsFromOuter.get(0) < trackWidth) return true;

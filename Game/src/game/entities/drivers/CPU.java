@@ -60,7 +60,7 @@ public class CPU extends Drivers {
 				else this.theta = -dTheta;
 			
 				
-				System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
+			//	System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
 				//this.theta *= 0.6; //dampening, will check effects
 				
 			}
