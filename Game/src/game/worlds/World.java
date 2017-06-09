@@ -19,7 +19,7 @@ public class World {
 	
 	private BufferedImage bkg;
 	private String trackName;
-	private int trackWidth = 50;
+	private int trackWidth = 80;
 	private int spawnX, spawnY, playerW, playerH;
 	private int mapWidth;
 	private int mapHeight;
@@ -44,6 +44,7 @@ public class World {
 	
 	//will determine if car is on the track based on the current pos(x,y)
 	public boolean insideTrack(float x, float y) {
+		trackWidth = 85;
 		ArrayList<Double> distsFromInner = new ArrayList<Double>();
 		for(int [] i : innerPath) distsFromInner.add(Math.sqrt((x - i[0])*(x - i[0]) + (y - i[1])*(y - i[1])));
 		
@@ -54,8 +55,12 @@ public class World {
 		Collections.sort(distsFromOuter);
 		
 		
+	//	System.out.println("distsFromInner: " + distsFromInner.get(0) + "\tdistsFromOuter: " + distsFromOuter.get(0));
 		
-		if(distsFromInner.get(0) < trackWidth && distsFromOuter.get(0) < trackWidth) return true;
+		if(distsFromInner.get(0) < trackWidth && distsFromOuter.get(0) < trackWidth) {
+		//	System.out.println("True activated");
+			return true;
+		}
 		else return false;
 		
 		
