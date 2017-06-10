@@ -1,6 +1,8 @@
 package game.worlds;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -16,6 +18,7 @@ public class World {
 	private ArrayList<int[]> centerPath;
 	private ArrayList<int[]> innerPath;
 	private ArrayList<int[]> outerPath;
+	private ArrayList<int[]> checkpoints;
 	
 	private BufferedImage bkg;
 	private String trackName;
@@ -31,6 +34,7 @@ public class World {
 		centerPath = new ArrayList<int[]>();
 		innerPath = new ArrayList<int[]>();
 		outerPath = new ArrayList<int[]>();
+		checkpoints = new ArrayList<int[]>();
 		
 		trackName = name;
 		trackWidth = width;
@@ -38,9 +42,14 @@ public class World {
 		setPath(getTrackName() + "TrackInner.txt",0);
 		setPath(getTrackName() + "TrackMid.txt",1);
 		setPath(getTrackName() + "TrackOuter.txt",2);
-		
+		initializeCheckpoints();
 	}
 	
+	private void initializeCheckpoints() {
+		for(int i = 0; i < centerPath.size(); i += 6) {
+			checkpoints.add(centerPath.get(i));
+		}
+	}
 	
 	//will determine if car is on the track based on the current pos(x,y)
 	public boolean insideTrack(float x, float y) {
@@ -113,6 +122,10 @@ public class World {
 	}
 	public void render(Graphics g) {
 		g.drawImage(bkg, 0, 0, null);
+		g.setColor(Color.RED);
+		for(int i = 0; i < checkpoints.size(); i ++) {
+			g.drawOval(checkpoints.get(i)[0]- trackWidth / 2, checkpoints.get(i)[1] - trackWidth / 2, trackWidth, trackWidth);
+		}
 	}
 	public String getTrackName() {
 		return trackName;
