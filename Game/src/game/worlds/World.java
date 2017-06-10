@@ -123,21 +123,32 @@ public class World {
 	public void render(Graphics g) {
 		g.drawImage(bkg, 0, 0, null);
 		g.setColor(Color.RED);
-		for(int i = 0; i < checkpoints.size(); i ++) {
-			g.drawOval(checkpoints.get(i)[0]- trackWidth / 2, checkpoints.get(i)[1] - trackWidth / 2, trackWidth, trackWidth);
+		if(!isFinished()) {
+			g.drawOval(checkpoints.get(0)[0]- trackWidth / 2, checkpoints.get(0)[1] - trackWidth / 2, trackWidth, trackWidth);
 		}
 	}
 	public String getTrackName() {
 		return trackName;
 	}
+	public boolean isInside(double playerX, double playerY) {
+		if(!isFinished()) {
+			return Math.sqrt(Math.pow(playerX - checkpoints.get(0)[0], 2) + Math.pow(playerY - checkpoints.get(0)[1], 2)) < trackWidth;
+		} return false;
+	}
+	public void removeCheckpoint() {
+		if(!isFinished()) {
+			checkpoints.remove(0);
+		}
+	}
+	public boolean isFinished() {
+		return checkpoints.isEmpty();
+	}
+	
 	
 	private void loadWorld() {
 		bkg = ImageLoader.loadImage("/worldGen/" + trackName + ".png");
 		String file = Utils.loadFileAsString("res/worldGen/" + trackName + ".txt");
 		String[] tokens = file.split("\\s+");
-//		for(int i = 0; i < tokens.length; i ++) {
-//			System.out.println(tokens[i]);
-//		}
 		mapWidth = Utils.parseInt(tokens[0]);
 		mapHeight = Utils.parseInt(tokens[1]);
 		spawnX = Utils.parseInt(tokens[2]);

@@ -18,7 +18,7 @@ public class GameState extends States {
 	private World world;
 	private CPU cpu;
 	private int timer;
-	private boolean isStarted;
+	private boolean isStarted, isFinished;
 	private MouseManager mouse;
 	private boolean isPaused, isPressed;
 	private final int BOX_SIDE_LENGTH = 50;
@@ -43,7 +43,7 @@ public class GameState extends States {
 		player = new Player(h, handler.getWorld().getSpawnX(), world.getSpawnY(),
 							world.getPlayerWidth(), world.getPlayerHeight());
 		cpu = new CPU(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
-		timer = 0; isStarted = false; isPaused = false;
+		timer = 0; isStarted = false; isPaused = false; isFinished = false;
 	}
 	
 	protected void initScreen() {
@@ -51,6 +51,9 @@ public class GameState extends States {
 	}
 	
 	public void tick() {
+		if(handler.getWorld().isInside(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2)) {
+			handler.getWorld().removeCheckpoint();
+		} if(handler.getWorld().isFinished()) isFinished = true;
 		checkPause();
 		checkBack();
 		if(isStarted) {
