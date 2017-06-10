@@ -61,7 +61,15 @@ public class Player extends Drivers{
 			else if(speed>0)
 				speed-=accel;		//change here		//did it
 			else if(speed<0)
-				speed+= accel;		//change		//did it
+				speed += accel;		//change		//did it
+		}
+		if(Math.abs(speed) > maxSpeed) {
+			if(Math.abs(speed) <= accel) 
+				speed = 0;
+			else if(speed>0)
+				speed-=accel;		//change here		//did it
+			else if(speed<0)
+				speed += accel;		//change		//did it
 		}
 		if(handler.getKeyManager().left || handler.getKeyManager().right) {
 			if(handler.getKeyManager().left){ 

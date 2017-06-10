@@ -5,7 +5,7 @@ import game.worlds.Handler;
  
 public abstract class Drivers extends Entity {
  
-	public static final double DEFAULT_ACCEL = .25;
+	public static final double DEFAULT_ACCEL = .2;
 	protected final double Tau = Math.PI*2.0;
 	
 	public static final int DEFAULT_WIDTH = 120;
@@ -15,8 +15,10 @@ public abstract class Drivers extends Entity {
 	public static final double DEFAULT_SPEED = 1;
 	public static final double DEFAULT_MAX_SPEED = 8;
 	public static final double DEFAULT_TURN_PWR = 4;
+	private final double FRICTION_CONST = 5.0;
 	
 	protected double accel, theta, speed, maxSpeed, turnPwr;
+	private double terrainSpeed;
 	
 	protected Handler handler;
 	
@@ -27,19 +29,25 @@ public abstract class Drivers extends Entity {
 		accel = DEFAULT_ACCEL;
 		speed = DEFAULT_SPEED;
 		maxSpeed = DEFAULT_MAX_SPEED;
+		terrainSpeed = maxSpeed / FRICTION_CONST;
 		turnPwr = DEFAULT_TURN_PWR;
 		handler = h;
 	}
 	
-	public boolean insideTrack() {
-		return handler.getWorld().insideTrack(this.x, this.y);
+	protected boolean insideTrack() {
+		return handler.getWorld().insideTrack(this.x + this.width / 2, this.y + this.height / 2);
 	}
 	
 	public void move() {
+		if(!insideTrack()) {
+			maxSpeed = terrainSpeed;
+		} else {
+			maxSpeed = terrainSpeed * FRICTION_CONST;
+		}
 		if(moveX)
-			x += Math.sin(theta)*speed;
+			x += Math.sin(theta) * speed;
 		if(moveY)
-			y -= Math.cos(theta)*speed;
+			y -= Math.cos(theta) * speed;
 	}
 	
 	//GETTERS AND SETTERS
