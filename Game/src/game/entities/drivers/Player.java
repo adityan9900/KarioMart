@@ -20,8 +20,7 @@ public class Player extends Drivers{
  
 	public void tick() {
 		collisionEdges = new Point[4];
-//		System.out.println(x+ " , " + y);
-		System.out.println("In track:\t" + this.insideTrack());
+/*		System.out.println("In track:\t" + this.insideTrack());*/
 		getInput();
 		getEdges();
 		checkCollision();
