@@ -90,4 +90,22 @@ public abstract class Drivers extends Entity {
 	public void setTurnPwr(double turnPwr) {
 		this.turnPwr = turnPwr;
 	}
+	
+	public Direction getDirection(){
+		if(Math.cos(theta)>=0d && Math.sin(theta)>=0d)
+			return Direction.NORTH_EAST;
+		else if(Math.cos(theta)>=0d && Math.sin(theta)<=0d)
+			return Direction.NORTH_WEST;
+		else if(Math.cos(theta)<=0d && Math.sin(theta)>=0d)
+			return Direction.SOUTH_EAST;
+		else
+			return Direction.SOUTH_WEST;
+	}
+	
+	protected enum Direction{
+		NORTH_WEST,
+		NORTH_EAST,
+		SOUTH_WEST,
+		SOUTH_EAST;
+	}
 }

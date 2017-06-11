@@ -39,29 +39,42 @@ public class Player extends Drivers{
 	}
 	
 	private void checkCollision() {
-		if((x<=0 && theta>Math.toRadians(180) && theta<Math.toRadians(360)) || (x>=handler.getWidth() && theta>Math.toRadians(0) && theta<Math.toRadians(180)) && speed>0)
+		//left boundary screen
+		if((speed>0 && x<= 0 && (getDirection() == Direction.NORTH_WEST || getDirection() == Direction.SOUTH_WEST)) ||
+		  ((speed<0) && x<= 0 && (getDirection() == Direction.NORTH_EAST|| getDirection() == Direction.SOUTH_EAST)))
 			moveX = false;
+		//right screen collision
+		else if((speed>0 && x>= handler.getWorld().getMapWidth() && (getDirection() == Direction.NORTH_EAST || getDirection() == Direction.SOUTH_EAST)) ||
+			   ((speed<0) && x>= handler.getWorld().getMapWidth() && (getDirection() == Direction.NORTH_WEST|| getDirection() == Direction.SOUTH_WEST)))
+					moveX = false;
 		else
 			moveX = true;
-		if((y<=0 && theta < Math.toRadians(90) && Tau+theta > Math.toRadians(270)) || (y>=handler.getHeight() && theta>Math.toRadians(90)) && speed>0)
-			moveY = false;
+		//top screen collision
+		if((speed<0 && y<=0 && (getDirection() == Direction.SOUTH_WEST || getDirection() == Direction.SOUTH_EAST)) ||
+		  ((speed>0) && y<=0 && (getDirection() == Direction.NORTH_EAST|| getDirection() == Direction.NORTH_WEST)))
+					moveY = false;
+		//bottom screen collision
+		else if((speed<0 && y>=handler.getWorld().getMapHeight() && (getDirection() == Direction.NORTH_WEST || getDirection() == Direction.NORTH_EAST)) ||
+	           ((speed>0) && y>=handler.getWorld().getMapHeight() && (getDirection() == Direction.SOUTH_WEST|| getDirection() == Direction.SOUTH_EAST)))
+					moveY = false;		
 		else
-			moveY = true;
+					moveY = true;
+	
 	}
 	
 	private void getInput() {
 		if(handler.getKeyManager().up || handler.getKeyManager().down) {
 			if(handler.getKeyManager().up && speed<maxSpeed) 
-				speed+=accel;		//change eventually off different players speeds		//did this already
+				speed+=accel;	
 			if(handler.getKeyManager().down && Math.abs(speed) < maxSpeed) 
-				speed-=accel;		//here	//did this already
+				speed-=accel;
 		} else if(!handler.getKeyManager().up || !handler.getKeyManager().down && speed!=0) {
 			if(Math.abs(speed) <= accel) 
 				speed = 0;
 			else if(speed>0)
-				speed-=accel;		//change here		//did it
+				speed-=accel;
 			else if(speed<0)
-				speed += accel;		//change		//did it
+				speed += accel;
 		}
 		if(Math.abs(speed) > maxSpeed) {
 			if(Math.abs(speed) <= accel) 
