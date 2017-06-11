@@ -15,7 +15,7 @@ public abstract class Drivers extends Entity {
 	public static final double DEFAULT_SPEED = 1;
 	public static final double DEFAULT_MAX_SPEED = 8;
 	public static final double DEFAULT_TURN_PWR = 4;
-	private final double FRICTION_CONST = 5.0;
+	private final double FRICTION_CONST = 7.5;
 	
 	protected double accel, theta, speed, maxSpeed, turnPwr;
 	private double terrainSpeed;

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import game.gfx.Assets;
 import game.worlds.Handler;
@@ -23,10 +24,16 @@ public class CPU extends Drivers {
 		this.world = w;
 		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
 		this.midArry = world.getPath(1); //get center path
+		
+		Random r = new Random();
+		
+		for(int[] i : midArry) {
+			i[0] = (int)(r.nextGaussian()*2 + i[0]);
+			i[1] = (int)(r.nextGaussian()*2 + i[1]);
+		}
 	}
 	
-	
-	
+
 	public void tick() {
 
 		    if(i % 30 == 0) midIndex ++;
