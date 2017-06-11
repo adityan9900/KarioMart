@@ -17,26 +17,21 @@ public class CPU extends Drivers {
 	private ArrayList<int[]> midArry;
 	private int midIndex;
 	private int i;
-	
+	private final int UPDATE_PERIOD = 15;
 	
 	public CPU(World w, Handler h,  float x, float y, int width, int height) {
 		super(h,x, y, width, height);
 		this.world = w;
 		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
 		this.midArry = world.getPath(1); //get center path
-		
-		Random r = new Random();
-		
-		for(int[] i : midArry) {
-			i[0] = (int)(r.nextGaussian()*2 + i[0]);
-			i[1] = (int)(r.nextGaussian()*2 + i[1]);
-		}
+				
+	
 	}
 	
-
+	Random r = new Random();
 	public void tick() {
 
-		    if(i % 30 == 0) midIndex ++;
+		    if(i % UPDATE_PERIOD == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				int [] a = midArry.get(midIndex);
 		
@@ -47,19 +42,25 @@ public class CPU extends Drivers {
 					b = midArry.get(midIndex+1);
 				}
 				
-				int mod = i % 30;
-				double currentX = a[0] + mod * (b[0] - a[0]) / 30.0;
-				double currentY = a[1] + mod * (b[1] - a[1]) / 30.0;
+				int mod = i % UPDATE_PERIOD;
+				double currentX = a[0] + mod * (b[0] - a[0]) / UPDATE_PERIOD;
+				double currentY = a[1] + mod * (b[1] - a[1]) / UPDATE_PERIOD;
 				
-				double newX = currentX + mod * (b[0] - a[0]) / 30.0;
-				double newY = currentY + mod * (b[1] - a[1]) / 30.0;
+				double newX = currentX + mod * (b[0] - a[0]) / UPDATE_PERIOD;
+				double newY = currentY + mod * (b[1] - a[1]) / UPDATE_PERIOD;
+				
+				if(newY - currentY == 0) currentX = r.nextGaussian() * 1.5 + currentX;
+				else if(newX - currentX == 0) currentY = r.nextGaussian() * 1.5 + currentY;
+				
 				
 				if(newY - currentY == 0) dTheta = 0;
 				else dTheta = Math.atan((newX - currentX)/(newY - currentY));
 				
-				this.x = (int)currentX;
-				this.y = (int)currentY;
+				this.x = (float)currentX;
+				this.y = (float)currentY;
 			
+				
+				
 				if(newX - currentX < 0 && newY - currentY < 0) this.theta = -dTheta;
 				else if(newX - currentX > 0 && newY - currentY > 0) this.theta = Math.PI - dTheta;
 				else if(newX - currentX < 0 && newY - currentY > 0) this.theta = -Math.PI - dTheta;
