@@ -37,7 +37,6 @@ public class SejusTurenderan extends Drivers{
 		this.theta = 0;
 	}
 
-	Random r = new Random();
 	public void tick() {
 
 		    if(i % UPDATE_PERIOD == 0) midIndex ++;
@@ -58,32 +57,22 @@ public class SejusTurenderan extends Drivers{
 				double newX = currentX + mod * (b[0] - a[0]) / UPDATE_PERIOD;
 				double newY = currentY + mod * (b[1] - a[1]) / UPDATE_PERIOD;
 				
-			//	if(newY - currentY == 0) currentX = r.nextGaussian() * 1.5 + currentX;
-			//	else if(newX - currentX == 0) currentY = r.nextGaussian() * 1.5 + currentY;
+	//			if(newY - currentY == 0) currentX = r.nextGaussian() * 1.5 + currentX;
+	//			else if(newX - currentX == 0) currentY = r.nextGaussian() * 1.5 + currentY;
 				
 				
 				if(newY - currentY == 0) dTheta = 0;
 				else dTheta = Math.atan((newX - currentX)/(newY - currentY));
 				
-				
-				//CRAZY ATTEMPT AT GETTING RANDOMNESS TO ACTUALLY WORK
-				dTheta = r.nextGaussian() * Math.PI/360.0 + dTheta; //normal model, std dev = 2 degrees
-				
-				if(newY - currentY == 0) dTheta = 0;
-				if(Math.abs(newX - currentX) < Math.abs(newY - currentY)) currentX = -(Math.min(Math.tan(dTheta),5) * (newY - currentY)) + newX;
-				else currentY = -(1.0/(Math.max(Math.tan(dTheta),5)) *(newX - currentX)) + newY;
-				
 				this.x = (float)currentX;
 				this.y = (float)currentY;
-			
-				
-				
+							
 				if(newX - currentX < 0 && newY - currentY < 0) this.theta = -dTheta;
 				else if(newX - currentX > 0 && newY - currentY > 0) this.theta = Math.PI - dTheta;
 				else if(newX - currentX < 0 && newY - currentY > 0) this.theta = -Math.PI - dTheta;
 				else if(dTheta == 0) this.theta = this.theta;
 				else this.theta = -dTheta;
-				
+			
 				
 			//	System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
 				//this.theta *= 0.6; //dampening, will check effects
@@ -92,8 +81,6 @@ public class SejusTurenderan extends Drivers{
 			
 		//	System.out.println("i = " + i);
 			i ++;
-		
-		
 	}
 
 	@Override

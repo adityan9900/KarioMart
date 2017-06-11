@@ -2,13 +2,13 @@ package game.worlds;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import game.gfx.ImageLoader;
 import game.utils.Utils;
@@ -79,6 +79,8 @@ public class World {
 		try {
 			BufferedReader r = new BufferedReader(new FileReader(csv));
 			String currentLine = "";
+			Random rand = new Random();
+			
 			while(true) {
 				currentLine = r.readLine();
 				if(currentLine == null) break;
@@ -88,8 +90,14 @@ public class World {
 				int y = Integer.parseInt(a[1]);
 				
 				double [] w = new double[2];
-				w[0] = x;
-				w[1] = y;
+				if(i == 1) {
+					w[0] = 2.0 * rand.nextGaussian() + x ;
+					w[1] = 2.0 * rand.nextGaussian() + y;
+				}
+				else {
+					w[0] = x;
+					w[1] = y;
+				}
 				
 				if(i == 0) innerPath.add(w);
 				else if(i == 1) centerPath.add(w);
