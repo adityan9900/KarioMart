@@ -2,63 +2,29 @@ package game.entities.drivers;
  
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import game.gfx.Assets;
 import game.worlds.Handler;
+import game.worlds.MapCollisions;
  
 public class Player extends Drivers{
- 
-
-	private Point[] collisionEdges;
-	
+ 	
 	public Player(Handler h, float x, float y, int width, int height) {
 		super(h, x, y, width, height);
 	}
  
 	public void tick() {
-		collisionEdges = new Point[4];
-/*		System.out.println("In track:\t" + this.insideTrack());*/
 		getInput();
-		getEdges();
 		checkCollision();
 		move();
 	}
 	
-	private void getEdges(){
-		for(int i = 0;i<collisionEdges.length;i++){
-			Point temp;
-			double tempX = (x*Math.cos(theta + (double)90*i) - y*Math.sin(theta + (double)90*i));
-			double tempY = x*Math.sin(theta + (double)90*i) + y*Math.cos(theta + (double)90*i);
-			temp = new Point((int)tempX,(int)tempY);
-			collisionEdges[i] = temp;
-		}
-	}
-	
-	private void checkCollision() {
-		//left boundary screen
-		if((speed>0 && x<= 0 && (getDirection() == Direction.NORTH_WEST || getDirection() == Direction.SOUTH_WEST)) ||
-		  ((speed<0) && x<= 0 && (getDirection() == Direction.NORTH_EAST|| getDirection() == Direction.SOUTH_EAST)))
-			moveX = false;
-		//right screen collision
-		else if((speed>0 && x>= handler.getWorld().getMapWidth() && (getDirection() == Direction.NORTH_EAST || getDirection() == Direction.SOUTH_EAST)) ||
-			   ((speed<0) && x>= handler.getWorld().getMapWidth() && (getDirection() == Direction.NORTH_WEST|| getDirection() == Direction.SOUTH_WEST)))
-					moveX = false;
-		else
-			moveX = true;
-		//top screen collision
-		if((speed<0 && y<=0 && (getDirection() == Direction.SOUTH_WEST || getDirection() == Direction.SOUTH_EAST)) ||
-		  ((speed>0) && y<=0 && (getDirection() == Direction.NORTH_EAST|| getDirection() == Direction.NORTH_WEST)))
-					moveY = false;
-		//bottom screen collision
-		else if((speed<0 && y>=handler.getWorld().getMapHeight() && (getDirection() == Direction.NORTH_WEST || getDirection() == Direction.NORTH_EAST)) ||
-	           ((speed>0) && y>=handler.getWorld().getMapHeight() && (getDirection() == Direction.SOUTH_WEST|| getDirection() == Direction.SOUTH_EAST)))
-					moveY = false;		
-		else
-					moveY = true;
-	
+	private void checkCollision(){
+		MapCollisions collisions = new MapCollisions(handler);
+		moveX = collisions.xCollide(x, y, speed, getDirection(), width, height);
+		moveY = collisions.yCollide(x, y, speed, getDirection(), width, height);
 	}
 	
 	private void getInput() {

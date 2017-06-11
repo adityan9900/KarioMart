@@ -102,7 +102,7 @@ public abstract class Drivers extends Entity {
 			return Direction.SOUTH_WEST;
 	}
 	
-	protected enum Direction{
+	public enum Direction{
 		NORTH_WEST,
 		NORTH_EAST,
 		SOUTH_WEST,
