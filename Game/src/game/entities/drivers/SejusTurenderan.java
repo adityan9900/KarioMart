@@ -79,44 +79,49 @@ public class SejusTurenderan extends Drivers{
 				else newTheta = -dTheta;
 			
 				
-				if(Math.abs(newTheta - this.theta) < 20.0 * Math.PI/180.0) newTheta = this.theta;
+				
+				/**ALL THE NEW STUFF**/
+				if(Math.abs(newTheta - this.theta) < 10.0 * Math.PI/180.0) newTheta = this.theta;
 				//forcing AI to not make huge erroneous turns
 				
-				
-				//searching for smaller angle btwn the 2 thetas
+				//prevents sketchy shit from happening i think
 				double currentTheta = this.theta;
+				
+			/*	if(Math.abs(newY - currentY) > Math.abs(newX - currentX)) {
+					System.out.println("IN THIS STUPID BLOCK\t" + currentTheta + "\t" + newTheta);
+					if(newTheta > Math.PI/2.0 && currentTheta < Math.PI/2.0) newTheta = currentTheta;
+					else if (newTheta < Math.PI/2.0 && currentTheta > Math.PI/2.0) newTheta = currentTheta;
+					else if(newTheta > -Math.PI/2.0 && currentTheta < -Math.PI/2.0) newTheta = currentTheta;
+					else if(newTheta < -Math.PI/2.0 && currentTheta > -Math.PI/2.0) newTheta = currentTheta;
+				}
+				
+				else {
+					if(newTheta > 0 && currentTheta < 0) newTheta = currentTheta;
+					else if (newTheta < 0 && currentTheta > 0) newTheta = currentTheta;
+					
+					else if(newTheta + 2*Math.PI > Math.PI && currentTheta < Math.PI) {
+						System.out.println("NEW: " + newTheta + "\tCURRENT: " + currentTheta);
+						newTheta = currentTheta;
+					}
+					else if(newTheta < Math.PI && currentTheta + 2 * Math.PI > Math.PI) {
+						System.out.println("NEW: " + newTheta + "\tCURRENT: " + currentTheta);
+						newTheta = currentTheta;
+					}
+				}
+				*/
 				double currentDif = Math.abs(newTheta - currentTheta);
 				if(newTheta < 0) newTheta += 2 * Math.PI;
 				if(currentTheta < 0) currentTheta += 2 * Math.PI;
 				double newDif = Math.abs(newTheta - currentTheta);
-				double diff = Math.min(currentDif, newDif);
 				
-			
-				if(diff < Math.PI/2.0) {
-					
-					if(Math.abs(newY - currentY) > Math.abs(newX - currentX)) {
-						if((newTheta > -Math.PI/2.0 && currentTheta < -Math.PI/2.0) || (newTheta < -Math.PI/2.0 && currentTheta > -Math.PI/2.0)) newTheta = this.theta;
-						else if((newTheta > Math.PI/2.0 && currentTheta < Math.PI/2.0) || (newTheta < Math.PI/2.0 && currentTheta > Math.PI/2.0)) newTheta = this.theta;
-					}
-					
-					else {
-						if((newTheta > 0 && currentTheta < 0) || (newTheta < 0 && currentTheta > 0)) newTheta = this.theta;
-						else if((newTheta > Math.PI && currentTheta < Math.PI) || (newTheta < Math.PI && currentTheta > Math.PI)) newTheta = this.theta;
-					}
-					
-					this.theta = newTheta;
+				//makes sure diffs less than 3/4 of pi/2
+				if(Math.min(currentDif, newDif) < Math.PI/2.0) {
+					if(newTheta > Math.PI) this.theta = newTheta - 2*Math.PI;
+					else this.theta = newTheta;
 				}
-			
-				System.out.println("minDiff: " + diff + "\tdTheta: " + dTheta + "\tnewTheta: " + newTheta + "\tcurrentTheta: " + currentTheta);
-				
-	
-				
-			//	System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
-				//this.theta *= 0.6; //dampening, will check effects
-				
+						
 			}
-			
-		//	System.out.println("i = " + i);
+	
 			i ++;
 	}
 
