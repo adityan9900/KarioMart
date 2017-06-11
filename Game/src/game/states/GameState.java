@@ -53,10 +53,10 @@ public class GameState extends States {
 	}
 	
 	public void tick() {
-		checkPause();
 		checkBack();
-		isFinished = handler.getWorld().isFinished();
 		if(!isFinished) {
+			isFinished = handler.getWorld().isFinished();
+			checkPause();
 			if(handler.getWorld().isInside(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2)) {
 				handler.getWorld().removeCheckpoint();
 			}
