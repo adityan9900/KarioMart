@@ -14,7 +14,7 @@ import game.worlds.World;
 public class CPU extends Drivers {
 	
 	private World world;
-	private ArrayList<int[]> midArry;
+	private ArrayList<double[]> midArry;
 	private int midIndex;
 	private int i;
 	private final int UPDATE_PERIOD = 10;
@@ -33,11 +33,11 @@ public class CPU extends Drivers {
 
 		    if(i % UPDATE_PERIOD == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
-				int [] a = midArry.get(midIndex);
+				double [] a = midArry.get(midIndex);
 		
 				double dTheta;
 				
-				int [] b = a;
+				double [] b = a;
 				if(midIndex < midArry.size() - 1) {
 					b = midArry.get(midIndex+1);
 				}
