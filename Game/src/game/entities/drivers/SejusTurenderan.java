@@ -43,8 +43,8 @@ public class SejusTurenderan extends Drivers{
 		    if(i % UPDATE_PERIOD == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
-				a[0] = r.nextGaussian() * 0.75 + a[0];
-				a[1] = r.nextGaussian() * 0.75 + a[1];
+				a[0] = r.nextGaussian() * 1.5 + a[0];
+				a[1] = r.nextGaussian() * 1.5 + a[1];
 				
 				double dTheta;
 				
@@ -79,11 +79,38 @@ public class SejusTurenderan extends Drivers{
 				else newTheta = -dTheta;
 			
 				
+				if(Math.abs(newTheta - this.theta) < 20.0 * Math.PI/180.0) newTheta = this.theta;
 				//forcing AI to not make huge erroneous turns
-				if(Math.abs(newTheta - this.theta) < Math.PI) this.theta = newTheta;
-				else {
-					System.out.println("THETA: " + this.theta + "\tNEW THETA: " + newTheta);
+				
+				
+				//searching for smaller angle btwn the 2 thetas
+				double currentTheta = this.theta;
+				double currentDif = Math.abs(newTheta - currentTheta);
+				if(newTheta < 0) newTheta += 2 * Math.PI;
+				if(currentTheta < 0) currentTheta += 2 * Math.PI;
+				double newDif = Math.abs(newTheta - currentTheta);
+				double diff = Math.min(currentDif, newDif);
+				
+			
+				if(diff < Math.PI/2.0) {
+					
+					if(Math.abs(newY - currentY) > Math.abs(newX - currentX)) {
+						if((newTheta > -Math.PI/2.0 && currentTheta < -Math.PI/2.0) || (newTheta < -Math.PI/2.0 && currentTheta > -Math.PI/2.0)) newTheta = this.theta;
+						else if((newTheta > Math.PI/2.0 && currentTheta < Math.PI/2.0) || (newTheta < Math.PI/2.0 && currentTheta > Math.PI/2.0)) newTheta = this.theta;
+					}
+					
+					else {
+						if((newTheta > 0 && currentTheta < 0) || (newTheta < 0 && currentTheta > 0)) newTheta = this.theta;
+						else if((newTheta > Math.PI && currentTheta < Math.PI) || (newTheta < Math.PI && currentTheta > Math.PI)) newTheta = this.theta;
+					}
+					
+					this.theta = newTheta;
 				}
+			
+				System.out.println("minDiff: " + diff + "\tdTheta: " + dTheta + "\tnewTheta: " + newTheta + "\tcurrentTheta: " + currentTheta);
+				
+	
+				
 			//	System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
 				//this.theta *= 0.6; //dampening, will check effects
 				
