@@ -17,7 +17,7 @@ public class CPU extends Drivers {
 	private ArrayList<int[]> midArry;
 	private int midIndex;
 	private int i;
-	private final int UPDATE_PERIOD = 15;
+	private final int UPDATE_PERIOD = 10;
 	
 	public CPU(World w, Handler h,  float x, float y, int width, int height) {
 		super(h,x, y, width, height);
