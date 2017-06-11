@@ -40,11 +40,12 @@ public class SejusTurenderan extends Drivers{
 	Random r = new Random();
 	public void tick() {
 
+		System.out.println("X: " + this.x + "\tY: " + this.y);
 		    if(i % UPDATE_PERIOD == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
-				a[0] = r.nextGaussian() * 1.5 + a[0];
-				a[1] = r.nextGaussian() * 1.5 + a[1];
+				a[0] = r.nextGaussian() * 2.0 + a[0];
+				a[1] = r.nextGaussian() * 2.0 + a[1];
 				
 				double dTheta;
 				
@@ -81,7 +82,7 @@ public class SejusTurenderan extends Drivers{
 				
 				
 				/**ALL THE NEW STUFF**/
-				if(Math.abs(newTheta - this.theta) < 10.0 * Math.PI/180.0) newTheta = this.theta;
+				if(Math.abs(newTheta - this.theta) < 20.0 * Math.PI/180.0) newTheta = this.theta;
 				//forcing AI to not make huge erroneous turns
 				
 				//prevents sketchy shit from happening i think
@@ -119,6 +120,8 @@ public class SejusTurenderan extends Drivers{
 					if(newTheta > Math.PI) this.theta = newTheta - 2*Math.PI;
 					else this.theta = newTheta;
 				}
+				
+				if(this.x < 96) this.theta = r.nextGaussian() * Math.PI/90.0 + Math.PI;
 						
 			}
 	
