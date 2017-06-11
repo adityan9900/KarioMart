@@ -25,6 +25,7 @@ public class Player extends Drivers{
 		MapCollisions collisions = new MapCollisions(handler);
 		moveX = collisions.xCollide(x, y, speed, getDirection(), width, height);
 		moveY = collisions.yCollide(x, y, speed, getDirection(), width, height);
+		collisions.innerMapCollision(x, y, width, height,theta);
 	}
 	
 	private void getInput() {
