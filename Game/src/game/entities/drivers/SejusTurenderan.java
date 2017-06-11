@@ -68,6 +68,8 @@ public class SejusTurenderan extends Drivers{
 				
 				//CRAZY ATTEMPT AT GETTING RANDOMNESS TO ACTUALLY WORK
 				dTheta = r.nextGaussian() * Math.PI/360.0 + dTheta; //normal model, std dev = 2 degrees
+				
+				if(newY - currentY == 0) dTheta = 0;
 				if(Math.abs(newX - currentX) < Math.abs(newY - currentY)) currentX = -(Math.min(Math.tan(dTheta),5) * (newY - currentY)) + newX;
 				else currentY = -(1.0/(Math.max(Math.tan(dTheta),5)) *(newX - currentX)) + newY;
 				
