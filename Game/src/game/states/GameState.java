@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 
 import game.entities.drivers.CPU;
 import game.entities.drivers.Player;
+import game.entities.drivers.SejusTurenderan;
 import game.input.MouseManager;
 import game.worlds.Handler;
 import game.worlds.World;
@@ -16,7 +17,8 @@ public class GameState extends States {
 	
 	private Player player;
 	private World world;
-	private CPU cpu;
+	//private CPU cpu;
+	private SejusTurenderan sejus;
 	private int timer;
 	private boolean isStarted, isFinished;
 	private MouseManager mouse;
@@ -42,7 +44,7 @@ public class GameState extends States {
 		mouse = h.getMouseManager();
 		player = new Player(h, handler.getWorld().getSpawnX(), world.getSpawnY(),
 							world.getPlayerWidth(), world.getPlayerHeight());
-		cpu = new CPU(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
+		sejus = new SejusTurenderan(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
 		timer = 0; isStarted = false; isPaused = false; isFinished = false;
 	}
 	
@@ -59,7 +61,7 @@ public class GameState extends States {
 		if(isStarted) {
 			world.tick();
 			player.tick();
-			cpu.tick();
+			sejus.tick();
 		}
 		if(timer < 5 * handler.getFPS() + handler.getFPS() / 2 && !isPaused) timer ++;
 		if(timer == 5 * handler.getFPS()) isStarted = true;
@@ -68,7 +70,7 @@ public class GameState extends States {
 	public void render(Graphics g) {
 		world.render(g);
 		player.render(g);
-		cpu.render(g);
+		sejus.render(g);
 		
 		//Set font
 		g.setFont(new Font(Font.SERIF, Font.PLAIN, 200));
