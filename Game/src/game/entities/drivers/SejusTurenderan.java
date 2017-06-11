@@ -14,7 +14,8 @@ import game.worlds.World;
 public class SejusTurenderan extends Drivers{
 
 	private World world;
-	private ArrayList<int[]> midArry;
+	private ArrayList<double[]> midArry;
+	
 	private int midIndex;
 	private int i;
 	private final int UPDATE_PERIOD = 10;
@@ -28,65 +29,69 @@ public class SejusTurenderan extends Drivers{
 		this.world = w;
 		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
 		this.midArry = world.getPath(1); //get center path
+		
+		
+		double [] a = midArry.get(0);
+		this.x = (float)a[0];
+		this.y = (float)a[1];
+		this.theta = 0;
 	}
 
 	Random r = new Random();
-	double rlNewX;
-	double rlNewY;
 	public void tick() {
-		if(i % UPDATE_PERIOD == 0) midIndex ++;
-		if(midIndex < midArry.size() - 1) {
-			int [] a = midArry.get(midIndex);
-	
-			double dTheta;
-			
-			int [] b = a;
+
+		    if(i % UPDATE_PERIOD == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
-				b = midArry.get(midIndex+1);
+				double [] a = midArry.get(midIndex);
+		
+				double dTheta;
+				
+				double [] b = a;
+				if(midIndex < midArry.size() - 1) {
+					b = midArry.get(midIndex+1);
+				}
+				
+				int mod = i % UPDATE_PERIOD;
+				double currentX = a[0] + mod * (b[0] - a[0]) / UPDATE_PERIOD;
+				double currentY = a[1] + mod * (b[1] - a[1]) / UPDATE_PERIOD;
+				
+				double newX = currentX + mod * (b[0] - a[0]) / UPDATE_PERIOD;
+				double newY = currentY + mod * (b[1] - a[1]) / UPDATE_PERIOD;
+				
+			//	if(newY - currentY == 0) currentX = r.nextGaussian() * 1.5 + currentX;
+			//	else if(newX - currentX == 0) currentY = r.nextGaussian() * 1.5 + currentY;
+				
+				
+				if(newY - currentY == 0) dTheta = 0;
+				else dTheta = Math.atan((newX - currentX)/(newY - currentY));
+				
+				
+				//CRAZY ATTEMPT AT GETTING RANDOMNESS TO ACTUALLY WORK
+				dTheta = r.nextGaussian() * Math.PI/360.0 + dTheta; //normal model, std dev = 2 degrees
+				if(Math.abs(newX - currentX) < Math.abs(newY - currentY)) currentX = -(Math.min(Math.tan(dTheta),5) * (newY - currentY)) + newX;
+				else currentY = -(1.0/(Math.max(Math.tan(dTheta),5)) *(newX - currentX)) + newY;
+				
+				this.x = (float)currentX;
+				this.y = (float)currentY;
+			
+				
+				
+				if(newX - currentX < 0 && newY - currentY < 0) this.theta = -dTheta;
+				else if(newX - currentX > 0 && newY - currentY > 0) this.theta = Math.PI - dTheta;
+				else if(newX - currentX < 0 && newY - currentY > 0) this.theta = -Math.PI - dTheta;
+				else if(dTheta == 0) this.theta = this.theta;
+				else this.theta = -dTheta;
+				
+				
+			//	System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
+				//this.theta *= 0.6; //dampening, will check effects
+				
 			}
 			
-			int mod = i % UPDATE_PERIOD;
-			double currentX = a[0] + mod * (b[0] - a[0]) / UPDATE_PERIOD;
-			double currentY = a[1] + mod * (b[1] - a[1]) / UPDATE_PERIOD;
-			
-			double newX = currentX + mod * (b[0] - a[0]) / UPDATE_PERIOD;
-			double newY = currentY + mod * (b[1] - a[1]) / UPDATE_PERIOD;
-			
-			
-			if(newY - currentY == 0) {
-				double placeHolder = rlNewX;
-				rlNewX = r.nextGaussian() * 5 + currentX;
-				currentX = rlNewX;
-			}
-			else if(newX - currentX == 0) {
-				double placeHolder = rlNewY;
-				rlNewY = r.nextGaussian() * 5 + currentY;
-				currentY = rlNewY;
-			}
-			
-			
-			if(newY - currentY == 0) dTheta = 0;
-			else dTheta = Math.atan((newX - currentX)/(newY - currentY));
-			
-			this.x = (float)currentX;
-			this.y = (float)currentY;
+		//	System.out.println("i = " + i);
+			i ++;
 		
-			
-			
-			if(newX - currentX < 0 && newY - currentY < 0) this.theta = -dTheta;
-			else if(newX - currentX > 0 && newY - currentY > 0) this.theta = Math.PI - dTheta;
-			else if(newX - currentX < 0 && newY - currentY > 0) this.theta = -Math.PI - dTheta;
-			else if(dTheta == 0) this.theta = this.theta;
-			else this.theta = -dTheta;
 		
-			
-		//	System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
-			//this.theta *= 0.6; //dampening, will check effects
-			
-		}
-		
-	//	System.out.println("i = " + i);
-		i ++;
 	}
 
 	@Override

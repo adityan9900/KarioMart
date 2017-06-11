@@ -15,10 +15,10 @@ import game.utils.Utils;
 
 public class World {
 	
-	private ArrayList<int[]> centerPath;
-	private ArrayList<int[]> innerPath;
-	private ArrayList<int[]> outerPath;
-	private ArrayList<int[]> checkpoints;
+	private ArrayList<double[]> centerPath;
+	private ArrayList<double[]> innerPath;
+	private ArrayList<double[]> outerPath;
+	private ArrayList<double[]> checkpoints;
 	
 	private BufferedImage bkg;
 	private String trackName;
@@ -31,10 +31,10 @@ public class World {
 	private ArrayList spawnPoints = new ArrayList<Point>();
 	
 	public World(String name, int width) {
-		centerPath = new ArrayList<int[]>();
-		innerPath = new ArrayList<int[]>();
-		outerPath = new ArrayList<int[]>();
-		checkpoints = new ArrayList<int[]>();
+		centerPath = new ArrayList<double[]>();
+		innerPath = new ArrayList<double[]>();
+		outerPath = new ArrayList<double[]>();
+		checkpoints = new ArrayList<double[]>();
 		
 		trackName = name;
 		trackWidth = width;
@@ -55,10 +55,10 @@ public class World {
 	public boolean insideTrack(float x, float y) {
 		trackWidth = 85;
 		ArrayList<Double> distsFromInner = new ArrayList<Double>();
-		for(int [] i : innerPath) distsFromInner.add(Math.sqrt((x - i[0])*(x - i[0]) + (y - i[1])*(y - i[1])));
+		for(double [] i : innerPath) distsFromInner.add(Math.sqrt((x - i[0])*(x - i[0]) + (y - i[1])*(y - i[1])));
 		
 		ArrayList<Double> distsFromOuter = new ArrayList<Double>();
-		for(int [] i : outerPath) distsFromOuter.add(Math.sqrt((x - i[0])*(x - i[0]) + (y - i[1])*(y - i[1])));
+		for(double [] i : outerPath) distsFromOuter.add(Math.sqrt((x - i[0])*(x - i[0]) + (y - i[1])*(y - i[1])));
 		
 		Collections.sort(distsFromInner);
 		Collections.sort(distsFromOuter);
@@ -87,7 +87,7 @@ public class World {
 				int x = Integer.parseInt(a[0]);
 				int y = Integer.parseInt(a[1]);
 				
-				int [] w = new int[2];
+				double [] w = new double[2];
 				w[0] = x;
 				w[1] = y;
 				
@@ -102,7 +102,7 @@ public class World {
 	}
 	
 	
-	public ArrayList<int[]> getPath(int i) {
+	public ArrayList<double[]> getPath(int i) {
 		if(i == 0) return innerPath;
 		else if(i == 1) return centerPath;
 		else return outerPath;
@@ -124,7 +124,7 @@ public class World {
 		g.drawImage(bkg, 0, 0, null);
 		g.setColor(Color.RED);
 		if(!isFinished()) {
-			g.drawOval(checkpoints.get(0)[0]- trackWidth / 2, checkpoints.get(0)[1] - trackWidth / 2, trackWidth, trackWidth);
+			g.drawOval((int)(checkpoints.get(0)[0]- trackWidth / 2), (int)(checkpoints.get(0)[1] - trackWidth / 2), trackWidth, trackWidth);
 		}
 	}
 	public String getTrackName() {
@@ -171,3 +171,5 @@ public class World {
 		return playerH;
 	}
 }
+
+
