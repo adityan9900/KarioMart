@@ -37,12 +37,15 @@ public class SejusTurenderan extends Drivers{
 		this.theta = 0;
 	}
 
+	Random r = new Random();
 	public void tick() {
 
 		    if(i % UPDATE_PERIOD == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
-		
+				a[0] = r.nextGaussian() * 0.75 + a[0];
+				a[1] = r.nextGaussian() * 0.75 + a[1];
+				
 				double dTheta;
 				
 				double [] b = a;
@@ -66,14 +69,21 @@ public class SejusTurenderan extends Drivers{
 				
 				this.x = (float)currentX;
 				this.y = (float)currentY;
-							
-				if(newX - currentX < 0 && newY - currentY < 0) this.theta = -dTheta;
-				else if(newX - currentX > 0 && newY - currentY > 0) this.theta = Math.PI - dTheta;
-				else if(newX - currentX < 0 && newY - currentY > 0) this.theta = -Math.PI - dTheta;
-				else if(dTheta == 0) this.theta = this.theta;
-				else this.theta = -dTheta;
+				
+				
+				double newTheta;
+				if(newX - currentX < 0 && newY - currentY < 0) newTheta = -dTheta;
+				else if(newX - currentX > 0 && newY - currentY > 0) newTheta = Math.PI - dTheta;
+				else if(newX - currentX < 0 && newY - currentY > 0) newTheta = -Math.PI - dTheta;
+				else if(dTheta == 0) newTheta = this.theta;
+				else newTheta = -dTheta;
 			
 				
+				//forcing AI to not make huge erroneous turns
+				if(Math.abs(newTheta - this.theta) < Math.PI) this.theta = newTheta;
+				else {
+					System.out.println("THETA: " + this.theta + "\tNEW THETA: " + newTheta);
+				}
 			//	System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
 				//this.theta *= 0.6; //dampening, will check effects
 				
