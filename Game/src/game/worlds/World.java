@@ -19,6 +19,7 @@ public class World {
 	private ArrayList<double[]> innerPath;
 	private ArrayList<double[]> outerPath;
 	private ArrayList<double[]> checkpoints;
+	private final int NUM_LAPS = 3;
 	
 	private BufferedImage bkg;
 	private String trackName;
@@ -27,10 +28,13 @@ public class World {
 	private int mapWidth;
 	private int mapHeight;
 	private int border;
+	private double[] finishLine;
 	
 	private ArrayList spawnPoints = new ArrayList<Point>();
 	
 	public World(String name, int width) {
+		finishLine = new double[4];
+		
 		centerPath = new ArrayList<double[]>();
 		innerPath = new ArrayList<double[]>();
 		outerPath = new ArrayList<double[]>();
@@ -46,9 +50,18 @@ public class World {
 	}
 	
 	private void initializeCheckpoints() {
-		for(int i = 0; i < centerPath.size(); i += 6) {
-			checkpoints.add(centerPath.get(i));
-		}
+		//for(int i = 0; i < NUM_LAPS; i ++) {
+			for(int j = 0; j < centerPath.size(); j += 6) {
+				checkpoints.add(centerPath.get(j));
+			}
+		//}
+		double[] finish = new double[2];
+		finish[0] = finishLine[0];
+		finish[1] = finishLine[1];
+		checkpoints.add(finish);
+		finish[0] = finishLine[2];
+		finish[1] = finishLine[3];
+		checkpoints.add(finish);
 	}
 	
 	//will determine if car is on the track based on the current pos(x,y)
@@ -131,27 +144,46 @@ public class World {
 	public void render(Graphics g) {
 		g.drawImage(bkg, 0, 0, null);
 		g.setColor(Color.RED);
-		if(!isFinished()) {
+		if(checkpoints.size() > 2) {
 			g.drawOval((int)(checkpoints.get(0)[0]- trackWidth / 2), (int)(checkpoints.get(0)[1] - trackWidth / 2), trackWidth, trackWidth);
+		} else if (checkpoints.size() == 2) {
+			g.drawLine((int)checkpoints.get(0)[0], (int)checkpoints.get(0)[1], (int)checkpoints.get(1)[0], (int)checkpoints.get(1)[1]);
 		}
 	}
 	public String getTrackName() {
 		return trackName;
 	}
-	public boolean isInside(double playerX, double playerY) {
-		if(!isFinished()) {
-			return Math.sqrt(Math.pow(playerX - checkpoints.get(0)[0], 2) + Math.pow(playerY - checkpoints.get(0)[1], 2)) < trackWidth;
-		} return false;
+	public boolean isInside(double playerX, double playerY, int playerW, int playerH) {
+		if(checkpoints.size() > 2) {
+			if(!isFinished()) {
+				return Math.sqrt(Math.pow(playerX - checkpoints.get(0)[0], 2) + Math.pow(playerY - checkpoints.get(0)[1], 2)) < trackWidth;
+			} return false;
+		} else {
+			int minX = (int) (playerX - playerW / 2);
+			int maxX = (int) (playerX + playerW / 2);
+			int maxY = (int) (playerY + playerH / 2);
+			int minY = (int) (playerY - playerH / 2);
+			
+			//System.out.println("minX: " + minX + " maxX: " + maxX);
+			
+			if(checkpoints.get(0)[1] >= minY && checkpoints.get(0)[1] <= maxY) {
+				if(minX <= checkpoints.get(0)[0] && maxX >= checkpoints.get(0)[0] && maxX <= checkpoints.get(1)[0]) return true;
+				else if(maxX >= checkpoints.get(1)[0] && minX >= checkpoints.get(0)[0] && maxX <= checkpoints.get(1)[0]) return true;
+			} return false;
+		}
 	}
 	public void removeCheckpoint() {
-		if(!isFinished()) {
+		if(!isFinished() && checkpoints.size() > 2) {
+			checkpoints.remove(0);
+		} else {
+			//System.out.println("called");
+			checkpoints.remove(0);
 			checkpoints.remove(0);
 		}
 	}
 	public boolean isFinished() {
 		return checkpoints.isEmpty();
 	}
-	
 	
 	private void loadWorld() {
 		bkg = ImageLoader.loadImage("/worldGen/" + trackName + ".png");
@@ -164,6 +196,10 @@ public class World {
 		playerW = Utils.parseInt(tokens[4]);
 		playerH = Utils.parseInt(tokens[5]);
 		border = Utils.parseInt(tokens[6]);
+		finishLine[0] = (double)Utils.parseInt(tokens[7]);
+		finishLine[1] = (double)Utils.parseInt(tokens[8]);
+		finishLine[2] = (double)Utils.parseInt(tokens[9]);
+		finishLine[3] = (double)Utils.parseInt(tokens[10]);
 	}
 	
 	public int getSpawnX() {

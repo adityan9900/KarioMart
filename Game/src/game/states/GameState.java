@@ -55,9 +55,8 @@ public class GameState extends States {
 	public void tick() {
 		checkBack();
 		if(!isFinished) {
-			isFinished = handler.getWorld().isFinished();
 			checkPause();
-			if(handler.getWorld().isInside(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2)) {
+			if(handler.getWorld().isInside(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, player.getWidth(), player.getHeight())) {
 				handler.getWorld().removeCheckpoint();
 			}
 			if(isStarted) {
@@ -68,7 +67,7 @@ public class GameState extends States {
 			if(timer < 5 * handler.getFPS() + handler.getFPS() / 2 && !isPaused) timer ++;
 			if(timer == 5 * handler.getFPS()) isStarted = true;
 		}
-		
+		isFinished = handler.getWorld().isFinished();
 	}
 	public void render(Graphics g) {
 		world.render(g);
