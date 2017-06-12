@@ -108,13 +108,13 @@ public class World {
 				
 				double [] w = new double[2];
 				if(i == 1) {
-					w[0] = 10.0 * rand.nextGaussian() + x;
-					w[1] = 10.0 * rand.nextGaussian() + y;
+					w[0] = 1.0 * rand.nextGaussian() + x + 15;
+					w[1] = 1.0 * rand.nextGaussian() + y;
 				}
 				
 				else if(i == 4) {
-					w[0] = 10.0 * rand.nextGaussian() + x + 15;
-					w[1] = 10.0 * rand.nextGaussian() + y;
+					w[0] = 1.0 * rand.nextGaussian() + x - 30;
+					w[1] = 1.0 * rand.nextGaussian() + y;
 				}
 				
 				
