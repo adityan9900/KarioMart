@@ -57,7 +57,6 @@ public class InstructionsState extends States {
 		} else {
 			if(mouse.inBoundary((int)back.getX(), (int)back.getY(), 
 					(int)back.getX() + BOX_SIDE_LENGTH, (int)back.getY() + BOX_SIDE_LENGTH)) {
-				handler.getGame().gameState = new GameState(handler);
 				States.setState(handler.getGame().menuState);
 				backState = State.PRESSED;
 			}

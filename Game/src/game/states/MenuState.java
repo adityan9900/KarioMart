@@ -18,7 +18,7 @@ public class MenuState extends States {
 	}
 	
 	protected void initScreen() {
-		handler.getDisplay().resize(MENU_WIDTH, MENU_HEIGHT);
+		handler.resize(MENU_WIDTH, MENU_HEIGHT);
 	}
 	
 	public void tick() {
