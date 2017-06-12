@@ -12,20 +12,17 @@ public class MapCollisions {
 	public MapCollisions(Handler handler){
 		this.handler = handler;
 		
-		//half done
+		//two smalll rects top left of inside map
 		rects[0] = new Rectangle(168, 160, 104, 431);
 		rects[1] = new Rectangle(136,552,40,114);
-		
 		
 		
 		//middle most rectangle
 		rects[2] = new Rectangle(250, 375, 450, 120);
 		
 		
-		
 		//small top right rect
 		rects[3] = new Rectangle(630, 415, 190, 85);
-		
 		
 		
 		//large bottom rect
@@ -34,9 +31,6 @@ public class MapCollisions {
 		
 		//two borders
 		rects[5] = new Rectangle(0,870,480, handler.getWorld().getMapHeight()-870);
-		
-		
-		
 		rects[6] = new Rectangle(730, -15, handler.getWorld().getMapWidth() - 700, 175);
 	}	
 	
