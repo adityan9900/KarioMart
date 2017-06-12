@@ -25,7 +25,7 @@ public class InstructionsState extends States {
 	
 	public InstructionsState(Handler h) {
 		super(h);
-		practicePlayer1 = new Player(h, 200 + OFFSET, 400, 100, 210);
+		practicePlayer1 = new Player(h, 200, 400, 100, 210);
 		practicePlayer2 = new Player(h, OFFSET, 400, 100, 210);
 		practicePlayer1.setAccel(0);
 		practicePlayer2.setTurnPwr(0);
@@ -33,7 +33,7 @@ public class InstructionsState extends States {
 		released = new Color(180,180,180);
 		hovered = new Color(160,160,160);
 		pressed = new Color(140,140,140);
-		back = new Rectangle(OFFSET, OFFSET, BOX_SIDE_LENGTH, BOX_SIDE_LENGTH);
+		back = new Rectangle(OFFSET / 2, OFFSET, BOX_SIDE_LENGTH, BOX_SIDE_LENGTH);
 	}
 	
 	public void tick() {
@@ -66,9 +66,10 @@ public class InstructionsState extends States {
 
 	public void render(Graphics g) {
 		drawKey(g);
+		drawInstructions(g);
 		g.setColor(Color.GRAY);
 		int stringH = g.getFontMetrics().getHeight();
-		g.fillRect(10, 300 - OFFSET - stringH / 4 , practicePlayer2.getWidth() + OFFSET, practicePlayer2.getHeight() + 200 + 2 * OFFSET);
+		g.drawRect(5, 300 - OFFSET - stringH / 4 , 3 * practicePlayer2.getWidth() + 5 *  OFFSET - 10, practicePlayer2.getHeight() + 280 + 2 * OFFSET);
 		g.setColor(Color.RED);
 		practicePlayer1.render(g);
 		practicePlayer2.render(g);
@@ -89,6 +90,22 @@ public class InstructionsState extends States {
 		g.drawLine((int)back.getX() + BOX_SIDE_LENGTH / 5, (int)back.getY() + BOX_SIDE_LENGTH / 2, (int)back.getX() + 4 * BOX_SIDE_LENGTH / 5, (int)back.getY() + BOX_SIDE_LENGTH / 2);
 	}
 	
+	private void drawInstructions(Graphics g) {
+		Font myFont = new Font(Font.SERIF, Font.PLAIN, 70);
+		g.setFont(myFont);
+		g.setColor(Color.DARK_GRAY);
+		g.drawString("Rules", 450, 120);
+		myFont = myFont.deriveFont(20f);
+		g.setFont(myFont);
+		int stringH = g.getFontMetrics().getHeight();
+		g.drawString("Objective: clear all checkpoints", 450, 160);
+		g.drawString("by driving through them and finish", 450, 160 + stringH);
+		g.drawString("faster than the CPU controlled cars", 450, 160 + 2 * stringH);
+		
+		g.drawString("*NOTE*", 450, 160 + 4 * stringH);
+		g.drawString("Cars move faster while on the track", 450, 160 + 5 * stringH);
+	}
+	
 	private void drawKey(Graphics g) {
 		Font myFont = new Font(Font.SERIF, Font.PLAIN, 30);
 		g.setFont(myFont);
@@ -100,13 +117,14 @@ public class InstructionsState extends States {
 		g.drawString(" = Checkpoint", 2 * OFFSET + BOX_SIDE_LENGTH, (int) (3 * OFFSET + 1.75 * BOX_SIDE_LENGTH + stringH / 2));
 		
 		//wrong but W/E works the same
-		myFont.deriveFont(20f);
-		g.drawString("Use the up and down keys to move the left car!", 10, 800);
-		g.drawString("Use the left and right keys to turn the right car!", 10, 800 + stringH);
+		myFont = myFont.deriveFont(20f);
+		g.setFont(myFont);
+		g.drawString("Use the up and down keys to move", 10, 750);
+		g.drawString("and the left and right keys to turn!", 10, 750 + stringH);
 	}
 	
 	protected void initScreen() {
-		
+		handler.resize(750, 850);
 	}
 	
 	private enum State{
