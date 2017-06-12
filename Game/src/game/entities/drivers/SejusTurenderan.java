@@ -100,6 +100,7 @@ public class SejusTurenderan extends Drivers{
 					else this.theta = newTheta;
 				}
 				
+				
 				if(this.x < 96) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0 + Math.PI;
 				else if(this.x > 910) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0;
 				else if(this.x > 230 && this.x < 900 && this.y > 60 && this.y < 400) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 - Math.PI/3.0;

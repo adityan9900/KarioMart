@@ -117,6 +117,7 @@ public class World {
 					w[1] = 10.0 * rand.nextGaussian() + y;
 				}
 				
+				
 				else {
 					w[0] = x;
 					w[1] = y;

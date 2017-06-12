@@ -65,6 +65,7 @@ public class GameState extends States {
 				player.tick();
 				sejus.tick();
 				cpu.tick();
+				
 			}
 			if(timer < 5 * handler.getFPS() + handler.getFPS() / 2 && !isPaused) timer ++;
 			if(timer == 5 * handler.getFPS()) isStarted = true;
