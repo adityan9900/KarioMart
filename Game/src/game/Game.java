@@ -40,7 +40,7 @@ public class Game implements Runnable {
 	private Handler handler;
 	
 	//game difficulty variable
-	Difficulty difficulty = null;
+	public Difficulty difficulty = null;
 	
 	public Game(String t, int w, int h) {
 		width = w;
