@@ -36,7 +36,7 @@ public class CPU extends Drivers {
 	Random r = new Random();
 	public void tick() {
 
-		System.out.println("X: " + this.x + "\tY: " + this.y);
+	//	System.out.println("X: " + this.x + "\tY: " + this.y);
 		    if(i % UPDATE_PERIOD == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
