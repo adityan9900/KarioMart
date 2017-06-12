@@ -50,18 +50,19 @@ public class World {
 	}
 	
 	private void initializeCheckpoints() {
-		//for(int i = 0; i < NUM_LAPS; i ++) {
+		for(int i = 0; i < NUM_LAPS; i ++) {
 			for(int j = 0; j < centerPath.size(); j += 6) {
 				checkpoints.add(centerPath.get(j));
 			}
-		//}
+		}
 		double[] finish = new double[2];
 		finish[0] = finishLine[0];
 		finish[1] = finishLine[1];
 		checkpoints.add(finish);
-		finish[0] = finishLine[2];
-		finish[1] = finishLine[3];
-		checkpoints.add(finish);
+		double[] finish2 = new double[2];
+		finish2[0] = finishLine[2];
+		finish2[1] = finishLine[3];
+		checkpoints.add(finish2);
 	}
 	
 	//will determine if car is on the track based on the current pos(x,y)
@@ -164,11 +165,9 @@ public class World {
 			int maxY = (int) (playerY + playerH / 2);
 			int minY = (int) (playerY - playerH / 2);
 			
-			//System.out.println("minX: " + minX + " maxX: " + maxX);
-			
 			if(checkpoints.get(0)[1] >= minY && checkpoints.get(0)[1] <= maxY) {
-				if(minX <= checkpoints.get(0)[0] && maxX >= checkpoints.get(0)[0] && maxX <= checkpoints.get(1)[0]) return true;
-				else if(maxX >= checkpoints.get(1)[0] && minX >= checkpoints.get(0)[0] && maxX <= checkpoints.get(1)[0]) return true;
+				if(minX >= checkpoints.get(0)[0] && minX <= checkpoints.get(1)[0]) return true;
+				else if(maxX >= checkpoints.get(0)[0] && maxX <= checkpoints.get(1)[0]) return true;
 			} return false;
 		}
 	}
@@ -176,7 +175,6 @@ public class World {
 		if(!isFinished() && checkpoints.size() > 2) {
 			checkpoints.remove(0);
 		} else {
-			//System.out.println("called");
 			checkpoints.remove(0);
 			checkpoints.remove(0);
 		}
