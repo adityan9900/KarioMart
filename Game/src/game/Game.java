@@ -8,6 +8,7 @@ import game.gfx.Assets;
 import game.input.KeyManager;
 import game.input.MouseManager;
 import game.states.GameState;
+import game.states.InstructionsState;
 import game.states.MenuState;
 //import game.states.SettingState;
 import game.states.States;
@@ -30,7 +31,7 @@ public class Game implements Runnable {
 	//Initialize the states
 	public States gameState;
 	public States menuState;
-	public States settingState;
+	public States instructionsState;
 	
 	//Input
 	private KeyManager keyManager = new KeyManager();
@@ -59,7 +60,7 @@ public class Game implements Runnable {
 		
 		handler = new Handler(this);
 		
-	//	settingState = new SettingState(handler);
+		instructionsState = new InstructionsState(handler);
 		menuState = new MenuState(handler);
 		gameState = new GameState(handler);
 		States.setState(menuState);
@@ -67,7 +68,7 @@ public class Game implements Runnable {
 	
 	private void tick() {
 		keyManager.tick();
-		if(gameState != null||menuState!=null||settingState!=null) {
+		if(gameState != null||menuState!=null||instructionsState!=null) {
 			States.getState().tick();
 		}
 	}
@@ -84,7 +85,7 @@ public class Game implements Runnable {
 		
 		//Draw Here!
 		
-		if(gameState != null||menuState!=null||settingState!=null) {
+		if(gameState != null||menuState!=null||instructionsState!=null) {
 			States.getState().render(g);
 		}
 		
