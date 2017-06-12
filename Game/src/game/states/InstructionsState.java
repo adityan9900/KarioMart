@@ -4,9 +4,9 @@ import java.awt.Graphics;
 
 import game.worlds.Handler;
 
-public class SettingState extends States {
+public class InstructionsState extends States {
 
-	public SettingState(Handler h) {
+	public InstructionsState(Handler h) {
 		super(h);
 	}
 	
