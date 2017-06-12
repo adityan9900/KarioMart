@@ -99,10 +99,14 @@ public class InstructionsState extends States {
 		int stringH = g.getFontMetrics().getHeight();
 		g.drawString("Objective: clear all checkpoints", 450, 160);
 		g.drawString("by driving through them and finish", 450, 160 + stringH);
-		g.drawString("faster than the CPU controlled cars", 450, 160 + 2 * stringH);
+		g.drawString("faster than the CPU controlled cars.", 450, 160 + 2 * stringH);
 		
-		g.drawString("*NOTE*", 450, 160 + 4 * stringH);
-		g.drawString("Cars move faster while on the track", 450, 160 + 5 * stringH);
+		g.drawString("To start the game, go to the main", 450, 160 + 4 * stringH);
+		g.drawString("menu and choose a difficulty. The", 450, 160 + 5 * stringH);
+		g.drawString("game will start after 5 seconds.", 450, 160 + 6 * stringH);
+		
+		g.drawString("*NOTE*", 450, 160 + 8 * stringH);
+		g.drawString("Cars move faster while on the track.", 450, 160 + 9 * stringH);
 	}
 	
 	private void drawKey(Graphics g) {
