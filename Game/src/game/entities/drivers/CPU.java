@@ -12,39 +12,47 @@ import game.worlds.Handler;
 import game.worlds.World;
 
 public class CPU extends Drivers {
-	
+
 	private World world;
 	private ArrayList<double[]> midArry;
-	private int midIndex;
-	private int i;
-	private int UPDATE_PERIOD = 10;
 	
-	public CPU(World w, Handler h,  float x, float y, int width, int height) {
+	private int midIndex;
+	private double i;
+	private double UPDATE_PERIOD = 23.0;
+	
+	public CPU(World w, Handler h, float x, float y, int width, int height) {
 		super(h, x, y, width, height);
+		setAccel(DEFAULT_ACCEL/2d);
+		setMaxV(DEFAULT_MAX_SPEED*2d);
+		setTurnPwr(DEFAULT_TURN_PWR*.85);
 	
 		this.world = w;
-		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
+		world.setPath(world.getTrackName() + "TrackMid.txt", 4);
 		this.midArry = world.getPath(4); //get center path
-			
+		
+		
 		double [] a = midArry.get(0);
 		this.x = (float)a[0];
 		this.y = (float)a[1];
 		this.theta = 0;
 	}
-	
-	
-	Random r = new Random();
-	public void tick() {
 
-		if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD = 15;
-		else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = 10;
-		else UPDATE_PERIOD = 7;
-	//	System.out.println("X: " + this.x + "\tY: " + this.y);
-		    if(i % UPDATE_PERIOD == 0) midIndex ++;
+	Random r = new Random();
+	boolean first = true;
+	public void tick() {
+		
+		if(first) {
+			if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD += 4.0;
+			else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = UPDATE_PERIOD;
+			else UPDATE_PERIOD -= 4.0;
+			first = false;
+		}
+		//System.out.println("X: " + this.x + "\tY: " + this.y);
+		 if(i % UPDATE_PERIOD == 0 || i % UPDATE_PERIOD == 1) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
-			//	a[0] = r.nextGaussian() * 2.0 + a[0];
-			//	a[1] = r.nextGaussian() * 2.0 + a[1];
+			//	a[0] = r.nextGaussian() * 0.5 + a[0];
+			//	a[1] = r.nextGaussian() * 0.5 + a[1];
 				
 				double dTheta;
 				
@@ -53,7 +61,7 @@ public class CPU extends Drivers {
 					b = midArry.get(midIndex+1);
 				}
 				
-				int mod = i % UPDATE_PERIOD;
+				double mod = i % UPDATE_PERIOD;
 				double currentX = a[0] + mod * (b[0] - a[0]) / UPDATE_PERIOD;
 				double currentY = a[1] + mod * (b[1] - a[1]) / UPDATE_PERIOD;
 				
@@ -81,11 +89,12 @@ public class CPU extends Drivers {
 				
 				
 				/**ALL THE NEW STUFF**/
-				if(Math.abs(newTheta - this.theta) < 9.0 * Math.PI/180.0) newTheta = this.theta;
+				if(Math.abs(newTheta - this.theta) < 9 * Math.PI/180.0) newTheta = this.theta;
 				//forcing AI to not make huge erroneous turns
 				
 				//prevents sketchy shit from happening i think
 				double currentTheta = this.theta;
+				
 			
 				double currentDif = Math.abs(newTheta - currentTheta);
 				if(newTheta < 0) newTheta += 2 * Math.PI;
@@ -98,45 +107,32 @@ public class CPU extends Drivers {
 					else this.theta = newTheta;
 				}
 				
+				
 				if(this.x < 96) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0 + Math.PI;
 				else if(this.x > 910) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0;
 				else if(this.x > 230 && this.x < 900 && this.y > 60 && this.y < 400) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 - Math.PI/3.0;
 				else if(this.x > 114 && this.x < 480 && this.y > 590 && this.y < 740) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + Math.PI/3.0;
 				else if(this.x > 510 && this.x < 732 && this.y > 595 && this.y < 879) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + 5 * Math.PI/6.0;
-						
 			}
 	
-			
-			i ++;
+			i += 2 ;
 	}
-	
-	
-	
-	//Copied from different class
-	public void render(Graphics g) {
-		
-		
-		Graphics2D g2d = (Graphics2D)g;
 
+	@Override
+	public void render(Graphics g) {
+		Graphics2D g2d = (Graphics2D)g;
 		//original transform
-		AffineTransform origAT = g2d.getTransform();
- 
+		AffineTransform origAT = g2d.getTransform(); 
 		//car being painted
 		BufferedImage car = Assets.blue;		
- 
-		AffineTransform rot = new AffineTransform();
+		AffineTransform rotation = new AffineTransform(); 
 		//spins the car with theta, and x coord(center of car) + y coord(center of car)
- 
-		rot.rotate(theta,x + width / 2, y + height/2);
-		g2d.setTransform(rot); 
- 
+		rotation.rotate(theta,x + width / 2, y + height/2);
+		g2d.setTransform(rotation);
 		//draws the car on the screen
 		g2d.drawImage(car, (int)x, (int)y, width, height, null);
-		g2d.drawString("ai", x, y);
- 
+		g2d.drawString("Player", x, y);
 		//reverts the transform to original
 		g2d.setTransform(origAT);
- 
- 
 	}
 }

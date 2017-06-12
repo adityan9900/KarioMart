@@ -6,8 +6,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import game.entities.drivers.ANaik;
+import game.entities.drivers.AVellal;
 import game.entities.drivers.CPU;
 import game.entities.drivers.Player;
+import game.entities.drivers.SejusTurenderan;
 import game.input.MouseManager;
 import game.worlds.Handler;
 import game.worlds.World;
@@ -17,6 +20,9 @@ public class GameState extends States {
 	private Player player;
 	private World world;
 	private CPU cpu;
+	private SejusTurenderan sejus;
+	private ANaik naik;
+	private AVellal vellal;
 	private int timer;
 	private boolean isStarted;
 	private MouseManager mouse;
@@ -43,6 +49,9 @@ public class GameState extends States {
 		player = new Player(h, handler.getWorld().getSpawnX(), world.getSpawnY(),
 							world.getPlayerWidth(), world.getPlayerHeight());
 		cpu = new CPU(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
+		sejus = new SejusTurenderan(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
+		naik = new ANaik(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
+		vellal = new AVellal(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
 		timer = 0; isStarted = false; isPaused = false;
 	}
 	
@@ -57,6 +66,9 @@ public class GameState extends States {
 			world.tick();
 			player.tick();
 			cpu.tick();
+			sejus.tick();
+			naik.tick();
+			vellal.tick();
 		}
 		if(timer < 5 * handler.getFPS() + handler.getFPS() / 2 && !isPaused) timer ++;
 		if(timer == 5 * handler.getFPS()) isStarted = true;
@@ -66,6 +78,9 @@ public class GameState extends States {
 		world.render(g);
 		player.render(g);
 		cpu.render(g);
+		sejus.render(g);
+		naik.render(g);
+		vellal.render(g);
 		
 		//Set font
 		g.setFont(new Font(Font.SERIF, Font.PLAIN, 200));

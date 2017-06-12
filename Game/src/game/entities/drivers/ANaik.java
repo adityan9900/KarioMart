@@ -18,7 +18,7 @@ public class ANaik extends Drivers {
 	
 	private int midIndex;
 	private int i;
-	private int UPDATE_PERIOD = 10;
+	private double UPDATE_PERIOD = 24.0;
 	
 	public ANaik(World w, Handler h, float x, float y, int width, int height) {
 		super(h, x, y, width, height);
@@ -27,8 +27,8 @@ public class ANaik extends Drivers {
 		setTurnPwr(DEFAULT_TURN_PWR*.85);
 	
 		this.world = w;
-		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
-		this.midArry = world.getPath(1); //get center path
+		world.setPath(world.getTrackName() + "TrackMid.txt", 5);
+		this.midArry = world.getPath(5); //get center path
 		
 		
 		double [] a = midArry.get(0);
@@ -38,14 +38,18 @@ public class ANaik extends Drivers {
 	}
 
 	Random r = new Random();
+	boolean first = true;
 	public void tick() {
 		
-		if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD = 15;
-		else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = 10;
-		else UPDATE_PERIOD = 7;
+		if(first) {
+			if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD += 4.0;
+			else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = UPDATE_PERIOD;
+			else UPDATE_PERIOD -= 4.0;
+			first = false;
+		}
 
 		//System.out.println("X: " + this.x + "\tY: " + this.y);
-		    if(i % UPDATE_PERIOD == 0) midIndex ++;
+		 if(i % UPDATE_PERIOD == 0 || i % UPDATE_PERIOD == 1) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
 			//	a[0] = r.nextGaussian() * 0.5 + a[0];
@@ -58,7 +62,7 @@ public class ANaik extends Drivers {
 					b = midArry.get(midIndex+1);
 				}
 				
-				int mod = i % UPDATE_PERIOD;
+				double mod = i % UPDATE_PERIOD;
 				double currentX = a[0] + mod * (b[0] - a[0]) / UPDATE_PERIOD;
 				double currentY = a[1] + mod * (b[1] - a[1]) / UPDATE_PERIOD;
 				
@@ -112,7 +116,7 @@ public class ANaik extends Drivers {
 				else if(this.x > 510 && this.x < 732 && this.y > 595 && this.y < 879) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + 5 * Math.PI/6.0;
 			}
 	
-			i ++;
+			i += 2 ;
 	}
 
 	@Override
@@ -121,7 +125,7 @@ public class ANaik extends Drivers {
 		//original transform
 		AffineTransform origAT = g2d.getTransform(); 
 		//car being painted
-		BufferedImage car = Assets.SejusTurenderan;		
+		BufferedImage car = Assets.orange;		
 		AffineTransform rotation = new AffineTransform(); 
 		//spins the car with theta, and x coord(center of car) + y coord(center of car)
 		rotation.rotate(theta,x + width / 2, y + height/2);

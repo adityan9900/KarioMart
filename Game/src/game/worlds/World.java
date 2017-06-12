@@ -17,6 +17,9 @@ public class World {
 	
 	private ArrayList<double[]> centerPath;
 	private ArrayList<double[]> centerPath2;
+	private ArrayList<double[]> centerPath3;
+	private ArrayList<double[]> centerPath4;
+	private ArrayList<double[]> centerPath5;
 	private ArrayList<double[]> innerPath;
 	private ArrayList<double[]> outerPath;
 	private ArrayList<double[]> checkpoints;
@@ -38,6 +41,9 @@ public class World {
 		
 		centerPath = new ArrayList<double[]>();
 		centerPath2 = new ArrayList<double[]>();
+		centerPath3 = new ArrayList<double[]>();
+		centerPath4 = new ArrayList<double[]>();
+		centerPath5 = new ArrayList<double[]>();
 		innerPath = new ArrayList<double[]>();
 		outerPath = new ArrayList<double[]>();
 		checkpoints = new ArrayList<double[]>();
@@ -49,6 +55,8 @@ public class World {
 		setPath(getTrackName() + "TrackMid.txt",1);
 		setPath(getTrackName() + "TrackOuter.txt",2);
 		setPath(getTrackName() + "TrackMid.txt",4);
+		setPath(getTrackName() + "TrackMid.txt",5);
+		setPath(getTrackName() + "TrackMid.txt",6);
 		initializeCheckpoints();
 	}
 	
@@ -112,9 +120,21 @@ public class World {
 					w[1] = 1.0 * rand.nextGaussian() + y;
 				}
 				
+				
+				
 				else if(i == 4) {
 					w[0] = 1.0 * rand.nextGaussian() + x - 30;
-					w[1] = 1.0 * rand.nextGaussian() + y;
+					w[1] = 1.0 * rand.nextGaussian() + y + 80 ;
+				}
+				
+				else if(i == 5) {
+					w[0] = 1.0 * rand.nextGaussian() + x + 5;
+					w[1] = 1.0 * rand.nextGaussian() + y - 45;
+				}
+				
+				else if(i == 6) {
+					w[0] = 1.0 * rand.nextGaussian() + x - 20;
+					w[1] = 1.0 * rand.nextGaussian() + y - 45;
 				}
 				
 				
@@ -126,7 +146,9 @@ public class World {
 				if(i == 0) innerPath.add(w);
 				else if(i == 1) centerPath.add(w);
 				else if(i == 2) outerPath.add(w);
-				else centerPath2.add(w);
+				else if(i == 4) centerPath2.add(w);
+				else if(i == 5) centerPath3.add(w);
+				else if(i == 6) centerPath4.add(w);
 			}
 		}
 		catch(Exception e) {
@@ -139,7 +161,10 @@ public class World {
 		if(i == 0) return innerPath;
 		else if(i == 1) return centerPath;
 		else if(i == 2) return outerPath;
-		else return centerPath2;
+		else if(i == 4) return centerPath2;
+		else if(i == 5) return centerPath3;
+		else if(i == 6) return centerPath4;
+		else return null;
 	}
 	public void tick() {
 		

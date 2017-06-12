@@ -11,14 +11,14 @@ import game.gfx.Assets;
 import game.worlds.Handler;
 import game.worlds.World;
 
-public class SejusTurenderan extends Drivers{
+public class SejusTurenderan extends Drivers {
 
 	private World world;
 	private ArrayList<double[]> midArry;
 	
 	private int midIndex;
 	private int i;
-	private int UPDATE_PERIOD = 10;
+	private double UPDATE_PERIOD = 22.0;
 	
 	public SejusTurenderan(World w, Handler h, float x, float y, int width, int height) {
 		super(h, x, y, width, height);
@@ -38,14 +38,19 @@ public class SejusTurenderan extends Drivers{
 	}
 
 	Random r = new Random();
+	boolean first = true;
+	
 	public void tick() {
 		
-		if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD = 15;
-		else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = 10;
-		else UPDATE_PERIOD = 7;
+		if(first) {
+			if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD += 4.0;
+			else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = UPDATE_PERIOD;
+			else UPDATE_PERIOD -= 4.0;
+			first = false;
+		}
 
 		//System.out.println("X: " + this.x + "\tY: " + this.y);
-		    if(i % UPDATE_PERIOD == 0) midIndex ++;
+		 	if(i % UPDATE_PERIOD == 0 || i % UPDATE_PERIOD == 1) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
 			//	a[0] = r.nextGaussian() * 0.5 + a[0];
@@ -58,7 +63,7 @@ public class SejusTurenderan extends Drivers{
 					b = midArry.get(midIndex+1);
 				}
 				
-				int mod = i % UPDATE_PERIOD;
+				double mod = i % UPDATE_PERIOD;
 				double currentX = a[0] + mod * (b[0] - a[0]) / UPDATE_PERIOD;
 				double currentY = a[1] + mod * (b[1] - a[1]) / UPDATE_PERIOD;
 				
@@ -112,7 +117,7 @@ public class SejusTurenderan extends Drivers{
 				else if(this.x > 510 && this.x < 732 && this.y > 595 && this.y < 879) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + 5 * Math.PI/6.0;
 			}
 	
-			i ++;
+			i += 2 ;
 	}
 
 	@Override
@@ -132,5 +137,4 @@ public class SejusTurenderan extends Drivers{
 		//reverts the transform to original
 		g2d.setTransform(origAT);
 	}
-	
 }
