@@ -21,6 +21,7 @@ public class SejusTurenderan extends Drivers {
 	private int i;
 	private double UPDATE_PERIOD = 48.0;
 	
+	
 	public SejusTurenderan(World w, Handler h, float x, float y, int width, int height) {
 		super(h, x, y + 65, width, height);
 		setAccel(DEFAULT_ACCEL/2d);

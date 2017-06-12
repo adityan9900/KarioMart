@@ -16,6 +16,7 @@ public class AVellal extends Drivers {
 	private World world;
 	private ArrayList<double[]> midArry;
 	
+	
 	private int midIndex;
 	private int i;
 	private double UPDATE_PERIOD = 45.0;
