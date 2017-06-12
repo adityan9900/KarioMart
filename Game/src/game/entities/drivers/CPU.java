@@ -23,6 +23,7 @@ public class CPU extends Drivers {
 	public CPU(World w, Handler h, float x, float y, int width, int height) {
 		super(h, x, y, width, height);
 		setAccel(DEFAULT_ACCEL/2d);
+		
 		setMaxV(DEFAULT_MAX_SPEED*2d);
 		setTurnPwr(DEFAULT_TURN_PWR*.85);
 	

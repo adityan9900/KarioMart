@@ -20,6 +20,7 @@ public class ANaik extends Drivers {
 	private int i;
 	private double UPDATE_PERIOD = 24.0;
 	
+	
 	public ANaik(World w, Handler h, float x, float y, int width, int height) {
 		super(h, x, y, width, height);
 		setAccel(DEFAULT_ACCEL/2d);

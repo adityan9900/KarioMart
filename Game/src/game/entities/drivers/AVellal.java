@@ -31,6 +31,7 @@ public class AVellal extends Drivers {
 		this.midArry = world.getPath(6); //get center path
 		
 		
+		
 		double [] a = midArry.get(0);
 		this.x = (float)a[0];
 		this.y = (float)a[1];

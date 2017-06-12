@@ -9,7 +9,7 @@ import game.input.KeyManager;
 import game.input.MouseManager;
 import game.states.GameState;
 import game.states.MenuState;
-import game.states.SettingState;
+//import game.states.SettingState;
 import game.states.States;
 import game.worlds.Handler;
 
@@ -59,7 +59,7 @@ public class Game implements Runnable {
 		
 		handler = new Handler(this);
 		
-		settingState = new SettingState(handler);
+	//	settingState = new SettingState(handler);
 		menuState = new MenuState(handler);
 		gameState = new GameState(handler);
 		States.setState(menuState);

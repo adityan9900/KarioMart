@@ -40,6 +40,7 @@ public class GameState extends States {
 		backState = State.RELEASED;
 		world = new World("temp", 5); //Unfinished
 		h.setWorld(world);
+		
 		released = new Color(180,180,180);
 		hovered = new Color(160,160,160);
 		pressed = new Color(140,140,140);
