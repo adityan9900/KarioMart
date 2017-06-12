@@ -11,13 +11,33 @@ public class MapCollisions {
 	
 	public MapCollisions(Handler handler){
 		this.handler = handler;
+		
+		//half done
 		rects[0] = new Rectangle(168, 160, 104, 431);
 		rects[1] = new Rectangle(136,552,40,114);
-		rects[2] = new Rectangle(250, 375, 416, 120);
-		rects[3] = new Rectangle(670, 416, 79, 127);
-		rects[4] = new Rectangle(745,415,70,400);
+		
+		
+		
+		//middle most rectangle
+		rects[2] = new Rectangle(250, 375, 450, 120);
+		
+		
+		
+		//small top right rect
+		rects[3] = new Rectangle(630, 415, 190, 85);
+		
+		
+		
+		//large bottom rect
+		rects[4] = new Rectangle(735,415,82,400);
+		
+		
+		//two borders
 		rects[5] = new Rectangle(0,870,480, handler.getWorld().getMapHeight()-870);
-		rects[6] = new Rectangle(735, -15, handler.getWorld().getMapWidth() - 700, 160);
+		
+		
+		
+		rects[6] = new Rectangle(730, -15, handler.getWorld().getMapWidth() - 700, 175);
 	}	
 	
 	public boolean[] getHit(float x, float y, int width, int height, Direction direction,double speed ,double theta){
@@ -27,20 +47,20 @@ public class MapCollisions {
 			int xOrigin =(int) x+width/2;
 			int yOrigin =(int) y+height/2;
 			
-			if(r.contains(x,y)){		//there is a collision at top left
-				if(direction == Direction.NORTH_WEST){
-					if(speed>0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
-						xyMove[0] = false;
-					if(speed>0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
-						xyMove[1] = false;	
-				}else if(direction == Direction.SOUTH_EAST){
-					if(speed<0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
-						xyMove[0] = false;
-					if(speed<0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
-						xyMove[1] = false;	
+			if(r.contains(x,y) || r.contains(xOrigin, yOrigin)){		//there is a collision at top left
+					if(direction == Direction.NORTH_WEST){
+						if(speed>0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
+							xyMove[0] = false;
+						if(speed>0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+							xyMove[1] = false;	
+					}else if(direction == Direction.SOUTH_EAST){
+						if(speed<0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
+							xyMove[0] = false;
+						if(speed<0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+							xyMove[1] = false;	
+					}
 				}
-				}
-			if(r.contains(x+width, y)){		//collision topright
+			if(r.contains(x+height/2, y)){		//collision topright
 				if(direction == Direction.NORTH_EAST){
 					if(speed>0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
 						xyMove[0] = false;
@@ -53,7 +73,7 @@ public class MapCollisions {
 						xyMove[1] = false;
 				}
 			}
-			if(r.contains(x+width, y+height)){		//collision bottom right
+			if(r.contains(x+height/2, y+height)){		//collision bottom right
 				if(direction == Direction.SOUTH_EAST){
 					if(speed>0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
 						xyMove[0] = false;
