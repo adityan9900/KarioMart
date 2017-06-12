@@ -2,8 +2,10 @@ package game.entities.drivers;
  
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import game.gfx.Assets;
 import game.worlds.Handler;
@@ -25,7 +27,11 @@ public class Player extends Drivers{
 		MapCollisions collisions = new MapCollisions(handler);
 		moveX = collisions.xCollide(x, y, speed, getDirection(), width, height);
 		moveY = collisions.yCollide(x, y, speed, getDirection(), width, height);
-		collisions.innerMapCollision(x, y, width, height,theta);
+		boolean[] temp = collisions.getHit(x, y, width, height, getDirection(), speed);
+		if(moveX)
+			moveX = temp[0];
+		if(moveY)
+			moveY = temp[1];
 	}
 	
 	private void getInput() {

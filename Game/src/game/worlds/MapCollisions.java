@@ -1,6 +1,5 @@
 package game.worlds;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import game.entities.drivers.Drivers.Direction;
@@ -21,41 +20,20 @@ public class MapCollisions {
 		rects[6] = new Rectangle(735, 0, handler.getWorld().getMapWidth() - 735, 160);
 	}	
 	
-	private Point[] getEdges(float x, float y, int width, int height, double theta){
-		Point[] edges = new Point[4];
-		
-		double xprime = -1d*(double)width/2d;
-		double yprime = -1d*(double)height/2d;
-		
-		for(int i = 0;i<4;i++){
-			double x2prime = xprime;
-			double y2prime = yprime;
-			
-			x2prime = xprime*Math.cos(theta) - yprime*Math.sin(theta);
-			y2prime = xprime*Math.sin(theta) + yprime*Math.cos(theta);
-			
-			x2prime+=x;
-			y2prime+=y;
-			
-			theta+=Math.toRadians(90);
-			
-			edges[i] = new Point((int)x2prime ,(int)y2prime);
-		}
-		return edges;
-	}
-	
-	public void innerMapCollision(float x, float y, int width, int height,double theta){
-		
-		Point edges[] = getEdges(x, y, width, height, theta);
-		
+	public boolean[] getHit(float x, float y, int width, int height, Direction direction, double speed){
+		boolean[] xyMove = {true,true};
 		for(Rectangle r:rects){
-			for(Point p:edges){
-				if(r.contains(p))
-					continue;
+			//if the car is touching the inner boundaries
+			if(r.contains(x,y)){
+					if(r.getX() <= x && x<=r.getX()+r.getWidth() && speed>0)
+						xyMove[1] = false;
+					if(r.getY()<=y && y<=r.getY()+r.getHeight())
+						xyMove[0] = false;
 			}
-		}
+		}			
+		return xyMove;
 	}
-	
+
 	public boolean xCollide(float x, float y, double speed, Direction direction, int width, int height){
 		//left boundary screen
 		if((speed>0 && x<= 0 && (direction == Direction.NORTH_WEST || direction == Direction.SOUTH_WEST)) || ((speed<0) && x<= 0 && (direction == Direction.NORTH_EAST|| direction == Direction.SOUTH_EAST)))
