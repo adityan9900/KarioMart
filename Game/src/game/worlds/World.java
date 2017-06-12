@@ -116,26 +116,26 @@ public class World {
 				
 				double [] w = new double[2];
 				if(i == 1) {
-					w[0] = 1.0 * rand.nextGaussian() + x + 15;
-					w[1] = 1.0 * rand.nextGaussian() + y;
+					w[0] = 1.0 * rand.nextGaussian() + x - 15;
+					w[1] = 1.0 * rand.nextGaussian() + y - 25;
 				}
-				
 				
 				
 				else if(i == 4) {
 					w[0] = 1.0 * rand.nextGaussian() + x - 30;
-					w[1] = 1.0 * rand.nextGaussian() + y + 80 ;
+					w[1] = 1.0 * rand.nextGaussian() + y - 40;
 				}
 				
 				else if(i == 5) {
-					w[0] = 1.0 * rand.nextGaussian() + x + 5;
-					w[1] = 1.0 * rand.nextGaussian() + y - 45;
+					w[0] = 1.0 * rand.nextGaussian() + x + 30;
+					w[1] = 1.0 * rand.nextGaussian() + y + 5;
 				}
 				
 				else if(i == 6) {
-					w[0] = 1.0 * rand.nextGaussian() + x - 20;
-					w[1] = 1.0 * rand.nextGaussian() + y - 45;
+					w[0] = 1.0 * rand.nextGaussian() + x + 15;
+					w[1] = 1.0 * rand.nextGaussian() + y - 10;
 				}
+				
 				
 				
 				
@@ -228,7 +228,7 @@ public class World {
 		mapWidth = Utils.parseInt(tokens[0]);
 		mapHeight = Utils.parseInt(tokens[1]);
 		spawnX = Utils.parseInt(tokens[2]);
-		spawnY = Utils.parseInt(tokens[3]);
+		spawnY = Utils.parseInt(tokens[3]) - 15;
 		playerW = Utils.parseInt(tokens[4]);
 		playerH = Utils.parseInt(tokens[5]);
 		border = Utils.parseInt(tokens[6]);

@@ -15,6 +15,8 @@ public abstract class Entity {
 	public Entity(float x, float y, int w, int h) {
 		this.x = x;
 		this.y = y;
+		
+		System.out.println("X: " + x + "\tY: " + y);
 		width = w;
 		height = h;
 		collisionBox = new Rectangle(new Point((int)x,(int)y),new Dimension(width,height));

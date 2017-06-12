@@ -19,10 +19,10 @@ public class SejusTurenderan extends Drivers {
 	
 	private int midIndex;
 	private int i;
-	private double UPDATE_PERIOD = 22.0;
+	private double UPDATE_PERIOD = 48.0;
 	
 	public SejusTurenderan(World w, Handler h, float x, float y, int width, int height) {
-		super(h, x, y, width, height);
+		super(h, x, y + 65, width, height);
 		setAccel(DEFAULT_ACCEL/2d);
 		setMaxV(DEFAULT_MAX_SPEED*2d);
 		setTurnPwr(DEFAULT_TURN_PWR*.85);
@@ -33,8 +33,8 @@ public class SejusTurenderan extends Drivers {
 		
 		
 		double [] a = midArry.get(0);
-		this.x = (float)a[0];
-		this.y = (float)a[1];
+	//	this.x = (float)a[0];
+	//	this.y = (float)a[1];
 		this.theta = 0;
 	}
 
@@ -44,14 +44,14 @@ public class SejusTurenderan extends Drivers {
 	public void tick() {
 		
 		if(first) {
-			if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD += 4.0;
+			if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD += 8.0;
 			else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = UPDATE_PERIOD;
-			else UPDATE_PERIOD -= 4.0;
+			else UPDATE_PERIOD -= 8.0;
 			first = false;
 		}
 
 		//System.out.println("X: " + this.x + "\tY: " + this.y);
-		 	if(i % UPDATE_PERIOD == 0 || i % UPDATE_PERIOD == 1) midIndex ++;
+		 	if(i % UPDATE_PERIOD == 0 || i % UPDATE_PERIOD == 1 || i % UPDATE_PERIOD == 2 || i % UPDATE_PERIOD == 3) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
 			//	a[0] = r.nextGaussian() * 0.5 + a[0];
@@ -111,14 +111,14 @@ public class SejusTurenderan extends Drivers {
 				}
 				
 				
-				if(this.x < 96) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0 + Math.PI;
+				if(this.x < 110) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0 + Math.PI;
 				else if(this.x > 910) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0;
 				else if(this.x > 230 && this.x < 900 && this.y > 60 && this.y < 400) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 - Math.PI/3.0;
 				else if(this.x > 114 && this.x < 480 && this.y > 590 && this.y < 740) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + Math.PI/3.0;
 				else if(this.x > 510 && this.x < 732 && this.y > 595 && this.y < 879) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + 5 * Math.PI/6.0;
 			}
 	
-			i += 2 ;
+			i += 4 ;
 	}
 
 	@Override
