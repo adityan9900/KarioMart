@@ -128,7 +128,7 @@ public class Fisher extends Drivers {
 		g2d.setTransform(rotation);
 		//draws the car on the screen
 		g2d.drawImage(car, (int)x, (int)y, width, height, null);
-		g2d.drawString("Player", x, y);
+		g2d.drawString("Ms.\nFisher", x, y);
 		//reverts the transform to original
 		g2d.setTransform(origAT);
 	}
