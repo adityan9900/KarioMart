@@ -31,6 +31,10 @@ public class CPU extends Drivers {
 		world.setPath(world.getTrackName() + "TrackMid.txt", 4);
 		this.midArry = world.getPath(4); //get center path
 		
+		double [] b = new double [2];
+		b[0] = 915.0;
+		b[1] = 505.0;
+		midArry.add(b);
 		
 		double [] a = midArry.get(0);
 //		this.x = (float)a[0];
@@ -132,7 +136,7 @@ public class CPU extends Drivers {
 		g2d.setTransform(rotation);
 		//draws the car on the screen
 		g2d.drawImage(car, (int)x, (int)y, width, height, null);
-		g2d.drawString("Player", x, y);
+		g2d.drawString("Dom", x, y);
 		//reverts the transform to original
 		g2d.setTransform(origAT);
 	}

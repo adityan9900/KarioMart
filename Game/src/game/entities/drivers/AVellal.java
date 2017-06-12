@@ -30,6 +30,10 @@ public class AVellal extends Drivers {
 		world.setPath(world.getTrackName() + "TrackMid.txt", 6);
 		this.midArry = world.getPath(6); //get center path
 		
+		double [] b = new double [2];
+		b[0] = 930.0;
+		b[1] = 470.0;
+		midArry.add(b);
 		
 		
 		double [] a = midArry.get(0);

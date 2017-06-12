@@ -31,6 +31,10 @@ public class SejusTurenderan extends Drivers {
 		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
 		this.midArry = world.getPath(1); //get center path
 		
+		double [] b = new double [2];
+		b[0] = 910.0;
+		b[1] = 470.0;
+		midArry.add(b);
 		
 		double [] a = midArry.get(0);
 	//	this.x = (float)a[0];
