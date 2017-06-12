@@ -8,7 +8,6 @@ import java.awt.Rectangle;
 
 import game.entities.drivers.CPU;
 import game.entities.drivers.Player;
-import game.entities.drivers.SejusTurenderan;
 import game.input.MouseManager;
 import game.worlds.Handler;
 import game.worlds.World;
@@ -18,9 +17,8 @@ public class GameState extends States {
 	private Player player;
 	private World world;
 	private CPU cpu;
-	private SejusTurenderan sejus;
 	private int timer;
-	private boolean isStarted, isFinished;
+	private boolean isStarted;
 	private MouseManager mouse;
 	private boolean isPaused, isPressed;
 	private final int BOX_SIDE_LENGTH = 50;
@@ -44,9 +42,8 @@ public class GameState extends States {
 		mouse = h.getMouseManager();
 		player = new Player(h, handler.getWorld().getSpawnX(), world.getSpawnY(),
 							world.getPlayerWidth(), world.getPlayerHeight());
-		cpu =  new CPU(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX() + 20), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
-		sejus = new SejusTurenderan(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
-		timer = 0; isStarted = false; isPaused = false; isFinished = false;
+		cpu = new CPU(handler.getWorld(), handler, (float)(handler.getWorld().getSpawnX()), (float)(handler.getWorld().getSpawnY()), handler.getWorld().getPlayerWidth(), handler.getWorld().getPlayerHeight());
+		timer = 0; isStarted = false; isPaused = false;
 	}
 	
 	protected void initScreen() {
@@ -54,28 +51,20 @@ public class GameState extends States {
 	}
 	
 	public void tick() {
+		checkPause();
 		checkBack();
-		if(!isFinished) {
-			checkPause();
-			if(handler.getWorld().isInside(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, player.getWidth(), player.getHeight())) {
-				handler.getWorld().removeCheckpoint();
-			}
-			if(isStarted) {
-				world.tick();
-				player.tick();
-				sejus.tick();
-				cpu.tick();
-				
-			}
-			if(timer < 5 * handler.getFPS() + handler.getFPS() / 2 && !isPaused) timer ++;
-			if(timer == 5 * handler.getFPS()) isStarted = true;
+		if(isStarted) {
+			world.tick();
+			player.tick();
+			cpu.tick();
 		}
-		isFinished = handler.getWorld().isFinished();
+		if(timer < 5 * handler.getFPS() + handler.getFPS() / 2 && !isPaused) timer ++;
+		if(timer == 5 * handler.getFPS()) isStarted = true;
+		
 	}
 	public void render(Graphics g) {
 		world.render(g);
 		player.render(g);
-		sejus.render(g);
 		cpu.render(g);
 		
 		//Set font
@@ -83,23 +72,11 @@ public class GameState extends States {
 		
 		drawPause(g);
 		drawBack(g);
-			
+		
 		if((!isStarted || timer < 5 * handler.getFPS() + handler.getFPS() / 2) && !isPaused) {
 			g.setColor(Color.WHITE);
 			startingSequence(g);
 		}
-		if(isFinished) {
-			String winner;
-			if(world.isFinished()) winner = "Player";
-				
-			//CHANGE THIS
-			else winner = "Tejus";
-	
-			int stringW = g.getFontMetrics().stringWidth(winner + " wins!");
-			int stringH = g.getFontMetrics().getHeight();
-			g.drawString(winner + " wins!", handler.getWidth() / 2 - stringW / 2, handler.getHeight() / 2 + stringH / 4);
-		}
-		
 	}
 	//draws everything for the back button
 	private void drawBack(Graphics g) {
