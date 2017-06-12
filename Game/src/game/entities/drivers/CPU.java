@@ -20,21 +20,29 @@ public class CPU extends Drivers {
 	private final int UPDATE_PERIOD = 10;
 	
 	public CPU(World w, Handler h,  float x, float y, int width, int height) {
-		super(h,x, y, width, height);
+		super(h, x, y, width, height);
+	
 		this.world = w;
 		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
-		this.midArry = world.getPath(1); //get center path
-				
-	
+		this.midArry = world.getPath(4); //get center path
+			
+		double [] a = midArry.get(0);
+		this.x = (float)a[0];
+		this.y = (float)a[1];
+		this.theta = 0;
 	}
+	
 	
 	Random r = new Random();
 	public void tick() {
 
+		System.out.println("X: " + this.x + "\tY: " + this.y);
 		    if(i % UPDATE_PERIOD == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
-		
+			//	a[0] = r.nextGaussian() * 2.0 + a[0];
+			//	a[1] = r.nextGaussian() * 2.0 + a[1];
+				
 				double dTheta;
 				
 				double [] b = a;
@@ -49,8 +57,8 @@ public class CPU extends Drivers {
 				double newX = currentX + mod * (b[0] - a[0]) / UPDATE_PERIOD;
 				double newY = currentY + mod * (b[1] - a[1]) / UPDATE_PERIOD;
 				
-				if(newY - currentY == 0) currentX = r.nextGaussian() * 1.5 + currentX;
-				else if(newX - currentX == 0) currentY = r.nextGaussian() * 1.5 + currentY;
+	//			if(newY - currentY == 0) currentX = r.nextGaussian() * 1.5 + currentX;
+	//			else if(newX - currentX == 0) currentY = r.nextGaussian() * 1.5 + currentY;
 				
 				
 				if(newY - currentY == 0) dTheta = 0;
@@ -58,24 +66,47 @@ public class CPU extends Drivers {
 				
 				this.x = (float)currentX;
 				this.y = (float)currentY;
+				
+				
+				double newTheta;
+				if(newX - currentX < 0 && newY - currentY < 0) newTheta = -dTheta;
+				else if(newX - currentX > 0 && newY - currentY > 0) newTheta = Math.PI - dTheta;
+				else if(newX - currentX < 0 && newY - currentY > 0) newTheta = -Math.PI - dTheta;
+				else if(dTheta == 0) newTheta = this.theta;
+				else newTheta = -dTheta;
 			
 				
 				
-				if(newX - currentX < 0 && newY - currentY < 0) this.theta = -dTheta;
-				else if(newX - currentX > 0 && newY - currentY > 0) this.theta = Math.PI - dTheta;
-				else if(newX - currentX < 0 && newY - currentY > 0) this.theta = -Math.PI - dTheta;
-				else if(dTheta == 0) this.theta = this.theta;
-				else this.theta = -dTheta;
+				/**ALL THE NEW STUFF**/
+				if(Math.abs(newTheta - this.theta) < 9.0 * Math.PI/180.0) newTheta = this.theta;
+				//forcing AI to not make huge erroneous turns
+				
+				//prevents sketchy shit from happening i think
+				double currentTheta = this.theta;
 			
+				double currentDif = Math.abs(newTheta - currentTheta);
+				if(newTheta < 0) newTheta += 2 * Math.PI;
+				if(currentTheta < 0) currentTheta += 2 * Math.PI;
+				double newDif = Math.abs(newTheta - currentTheta);
 				
-			//	System.out.println("theta: " + this.theta + "\tdX: " + (newX - currentX) + "\tdY: " + (newY - currentY));
-				//this.theta *= 0.6; //dampening, will check effects
+				//makes sure diffs less than 3/4 of pi/2
+				if(Math.min(currentDif, newDif) < Math.PI/2.0) {
+					if(newTheta > Math.PI) this.theta = newTheta - 2*Math.PI;
+					else this.theta = newTheta;
+				}
 				
+				if(this.x < 96) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0 + Math.PI;
+				else if(this.x > 910) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0;
+				else if(this.x > 230 && this.x < 900 && this.y > 60 && this.y < 400) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 - Math.PI/3.0;
+				else if(this.x > 114 && this.x < 480 && this.y > 590 && this.y < 740) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + Math.PI/3.0;
+				else if(this.x > 510 && this.x < 732 && this.y > 595 && this.y < 879) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + 5 * Math.PI/6.0;
+						
 			}
-			
-		//	System.out.println("i = " + i);
+	
 			i ++;
 	}
+	
+	
 	
 	//Copied from different class
 	public void render(Graphics g) {

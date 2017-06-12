@@ -44,8 +44,8 @@ public class SejusTurenderan extends Drivers{
 		    if(i % UPDATE_PERIOD == 0) midIndex ++;
 			if(midIndex < midArry.size() - 1) {
 				double [] a = midArry.get(midIndex);
-				a[0] = r.nextGaussian() * 2.0 + a[0];
-				a[1] = r.nextGaussian() * 2.0 + a[1];
+			//	a[0] = r.nextGaussian() * 0.5 + a[0];
+			//	a[1] = r.nextGaussian() * 0.5 + a[1];
 				
 				double dTheta;
 				
@@ -82,34 +82,13 @@ public class SejusTurenderan extends Drivers{
 				
 				
 				/**ALL THE NEW STUFF**/
-				if(Math.abs(newTheta - this.theta) < 20.0 * Math.PI/180.0) newTheta = this.theta;
+				if(Math.abs(newTheta - this.theta) < 9 * Math.PI/180.0) newTheta = this.theta;
 				//forcing AI to not make huge erroneous turns
 				
 				//prevents sketchy shit from happening i think
 				double currentTheta = this.theta;
 				
-			/*	if(Math.abs(newY - currentY) > Math.abs(newX - currentX)) {
-					System.out.println("IN THIS STUPID BLOCK\t" + currentTheta + "\t" + newTheta);
-					if(newTheta > Math.PI/2.0 && currentTheta < Math.PI/2.0) newTheta = currentTheta;
-					else if (newTheta < Math.PI/2.0 && currentTheta > Math.PI/2.0) newTheta = currentTheta;
-					else if(newTheta > -Math.PI/2.0 && currentTheta < -Math.PI/2.0) newTheta = currentTheta;
-					else if(newTheta < -Math.PI/2.0 && currentTheta > -Math.PI/2.0) newTheta = currentTheta;
-				}
-				
-				else {
-					if(newTheta > 0 && currentTheta < 0) newTheta = currentTheta;
-					else if (newTheta < 0 && currentTheta > 0) newTheta = currentTheta;
-					
-					else if(newTheta + 2*Math.PI > Math.PI && currentTheta < Math.PI) {
-						System.out.println("NEW: " + newTheta + "\tCURRENT: " + currentTheta);
-						newTheta = currentTheta;
-					}
-					else if(newTheta < Math.PI && currentTheta + 2 * Math.PI > Math.PI) {
-						System.out.println("NEW: " + newTheta + "\tCURRENT: " + currentTheta);
-						newTheta = currentTheta;
-					}
-				}
-				*/
+			
 				double currentDif = Math.abs(newTheta - currentTheta);
 				if(newTheta < 0) newTheta += 2 * Math.PI;
 				if(currentTheta < 0) currentTheta += 2 * Math.PI;
@@ -121,8 +100,11 @@ public class SejusTurenderan extends Drivers{
 					else this.theta = newTheta;
 				}
 				
-				if(this.x < 96) this.theta = r.nextGaussian() * Math.PI/90.0 + Math.PI;
-						
+				if(this.x < 96) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0 + Math.PI;
+				else if(this.x > 910) this.theta = r.nextGaussian() * 1.5 *Math.PI/90.0;
+				else if(this.x > 230 && this.x < 900 && this.y > 60 && this.y < 400) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 - Math.PI/3.0;
+				else if(this.x > 114 && this.x < 480 && this.y > 590 && this.y < 740) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + Math.PI/3.0;
+				else if(this.x > 510 && this.x < 732 && this.y > 595 && this.y < 879) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + 5 * Math.PI/6.0;
 			}
 	
 			i ++;

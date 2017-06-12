@@ -16,6 +16,7 @@ import game.utils.Utils;
 public class World {
 	
 	private ArrayList<double[]> centerPath;
+	private ArrayList<double[]> centerPath2;
 	private ArrayList<double[]> innerPath;
 	private ArrayList<double[]> outerPath;
 	private ArrayList<double[]> checkpoints;
@@ -36,6 +37,7 @@ public class World {
 		finishLine = new double[4];
 		
 		centerPath = new ArrayList<double[]>();
+		centerPath2 = new ArrayList<double[]>();
 		innerPath = new ArrayList<double[]>();
 		outerPath = new ArrayList<double[]>();
 		checkpoints = new ArrayList<double[]>();
@@ -46,6 +48,7 @@ public class World {
 		setPath(getTrackName() + "TrackInner.txt",0);
 		setPath(getTrackName() + "TrackMid.txt",1);
 		setPath(getTrackName() + "TrackOuter.txt",2);
+		setPath(getTrackName() + "TrackMid.txt",4);
 		initializeCheckpoints();
 	}
 	
@@ -105,9 +108,15 @@ public class World {
 				
 				double [] w = new double[2];
 				if(i == 1) {
-					w[0] = 0.5 * rand.nextGaussian() + x ;
-					w[1] = 0.5 * rand.nextGaussian() + y;
+					w[0] = 10.0 * rand.nextGaussian() + x;
+					w[1] = 10.0 * rand.nextGaussian() + y;
 				}
+				
+				else if(i == 4) {
+					w[0] = 10.0 * rand.nextGaussian() + x + 15;
+					w[1] = 10.0 * rand.nextGaussian() + y;
+				}
+				
 				else {
 					w[0] = x;
 					w[1] = y;
@@ -115,7 +124,8 @@ public class World {
 				
 				if(i == 0) innerPath.add(w);
 				else if(i == 1) centerPath.add(w);
-				else outerPath.add(w);
+				else if(i == 2) outerPath.add(w);
+				else centerPath2.add(w);
 			}
 		}
 		catch(Exception e) {
@@ -127,7 +137,8 @@ public class World {
 	public ArrayList<double[]> getPath(int i) {
 		if(i == 0) return innerPath;
 		else if(i == 1) return centerPath;
-		else return outerPath;
+		else if(i == 2) return outerPath;
+		else return centerPath2;
 	}
 	public void tick() {
 		
