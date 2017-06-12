@@ -24,7 +24,7 @@ public class GameState extends States {
 	private ANaik naik;
 	private AVellal vellal;
 	private int timer;
-	private boolean isStarted;
+	private boolean isStarted, isFinished;
 	private MouseManager mouse;
 	private boolean isPaused, isPressed;
 	private final int BOX_SIDE_LENGTH = 50;
@@ -61,19 +61,23 @@ public class GameState extends States {
 	}
 	
 	public void tick() {
-		checkPause();
 		checkBack();
-		if(isStarted) {
-			world.tick();
-			player.tick();
-			cpu.tick();
-			sejus.tick();
-			naik.tick();
-			vellal.tick();
+		if(!isFinished) {
+			checkPause();
+			if(isStarted) {
+				world.tick();
+				player.tick();
+				if(handler.getWorld().isInside(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, player.getWidth(), player.getHeight()))
+					handler.getWorld().removeCheckpoint();
+				cpu.tick();
+				sejus.tick();
+				naik.tick();
+				vellal.tick();
+			}
+			if(timer < 5 * handler.getFPS() + handler.getFPS() / 2 && !isPaused) timer ++;
+			if(timer == 5 * handler.getFPS()) isStarted = true;
 		}
-		if(timer < 5 * handler.getFPS() + handler.getFPS() / 2 && !isPaused) timer ++;
-		if(timer == 5 * handler.getFPS()) isStarted = true;
-		
+		isFinished = handler.getWorld().isFinished();
 	}
 	public void render(Graphics g) {
 		world.render(g);
@@ -92,6 +96,18 @@ public class GameState extends States {
 		if((!isStarted || timer < 5 * handler.getFPS() + handler.getFPS() / 2) && !isPaused) {
 			g.setColor(Color.WHITE);
 			startingSequence(g);
+		}
+		
+		if(isFinished) {
+			String winner;
+			if(world.isFinished()) winner = "Player";
+				
+			//CHANGE THIS
+			else winner = "Tejus";
+	
+			int stringW = g.getFontMetrics().stringWidth(winner + " wins!");
+			int stringH = g.getFontMetrics().getHeight();
+			g.drawString(winner + " wins!", handler.getWidth() / 2 - stringW / 2, handler.getHeight() / 2 + stringH / 4);
 		}
 	}
 	//draws everything for the back button
