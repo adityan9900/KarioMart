@@ -13,22 +13,71 @@ public class MapCollisions {
 		this.handler = handler;
 		rects[0] = new Rectangle(168, 160, 104, 431);
 		rects[1] = new Rectangle(136,552,40,114);
-		rects[2] = new Rectangle(271, 375, 416, 120);
-		rects[3] = new Rectangle(688, 416, 79, 127);
+		rects[2] = new Rectangle(250, 375, 416, 120);
+		rects[3] = new Rectangle(670, 416, 79, 127);
 		rects[4] = new Rectangle(745,415,70,400);
 		rects[5] = new Rectangle(0,870,480, handler.getWorld().getMapHeight()-870);
-		rects[6] = new Rectangle(735, 0, handler.getWorld().getMapWidth() - 735, 160);
+		rects[6] = new Rectangle(735, -15, handler.getWorld().getMapWidth() - 700, 160);
 	}	
 	
-	public boolean[] getHit(float x, float y, int width, int height, Direction direction, double speed){
+	public boolean[] getHit(float x, float y, int width, int height, Direction direction,double speed ,double theta){
 		boolean[] xyMove = {true,true};
 		for(Rectangle r:rects){
-			//if the car is touching the inner boundaries
-			if(r.contains(x,y)){
-					if(r.getX() <= x && x<=r.getX()+r.getWidth() && speed>0)
-						xyMove[1] = false;
-					if(r.getY()<=y && y<=r.getY()+r.getHeight())
+			
+			int xOrigin =(int) x+width/2;
+			int yOrigin =(int) y+height/2;
+			
+			if(r.contains(x,y)){		//there is a collision at top left
+				if(direction == Direction.NORTH_WEST){
+					if(speed>0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
 						xyMove[0] = false;
+					if(speed>0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+						xyMove[1] = false;	
+				}else if(direction == Direction.SOUTH_EAST){
+					if(speed<0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
+						xyMove[0] = false;
+					if(speed<0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+						xyMove[1] = false;	
+				}
+				}
+			if(r.contains(x+width, y)){		//collision topright
+				if(direction == Direction.NORTH_EAST){
+					if(speed>0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
+						xyMove[0] = false;
+					if(speed>0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+						xyMove[1] = false;
+				}else if(direction == Direction.SOUTH_WEST){
+					if(speed<0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
+						xyMove[0] = false;
+					if(speed<0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+						xyMove[1] = false;
+				}
+			}
+			if(r.contains(x+width, y+height)){		//collision bottom right
+				if(direction == Direction.SOUTH_EAST){
+					if(speed>0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
+						xyMove[0] = false;
+					if(speed>0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+						xyMove[1] = false;
+				}else if(direction == Direction.NORTH_WEST){
+					if(speed<0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
+						xyMove[0] = false;
+					if(speed<0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+						xyMove[1] = false;
+				}
+			}
+			if(r.contains(x, y+height)){		//collision bottom left
+				if(direction == Direction.SOUTH_WEST){
+					if(speed>0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
+						xyMove[0] = false;
+					if(speed>0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+						xyMove[1] = false;
+				}else if(direction == Direction.NORTH_EAST){
+					if(speed<0 && yOrigin <=r.getY() + r.getHeight() && yOrigin>=r.getY())
+						xyMove[0] = false;
+					if(speed<0 && xOrigin <=r.getX() + r.getWidth() && xOrigin>=r.getX())
+						xyMove[1] = false;
+				}
 			}
 		}			
 		return xyMove;

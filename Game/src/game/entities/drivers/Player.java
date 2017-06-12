@@ -27,7 +27,7 @@ public class Player extends Drivers{
 		MapCollisions collisions = new MapCollisions(handler);
 		moveX = collisions.xCollide(x, y, speed, getDirection(), width, height);
 		moveY = collisions.yCollide(x, y, speed, getDirection(), width, height);
-		boolean[] temp = collisions.getHit(x, y, width, height, getDirection(), speed);
+		boolean[] temp = collisions.getHit(x, y, width, height, getDirection(), speed, theta);
 		if(moveX)
 			moveX = temp[0];
 		if(moveY)
