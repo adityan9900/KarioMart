@@ -18,7 +18,7 @@ public class SejusTurenderan extends Drivers{
 	
 	private int midIndex;
 	private int i;
-	private final int UPDATE_PERIOD = 10;
+	private int UPDATE_PERIOD = 10;
 	
 	public SejusTurenderan(World w, Handler h, float x, float y, int width, int height) {
 		super(h, x, y, width, height);
@@ -39,6 +39,10 @@ public class SejusTurenderan extends Drivers{
 
 	Random r = new Random();
 	public void tick() {
+		
+		if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD = 15;
+		else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = 10;
+		else UPDATE_PERIOD = 7;
 
 		//System.out.println("X: " + this.x + "\tY: " + this.y);
 		    if(i % UPDATE_PERIOD == 0) midIndex ++;
