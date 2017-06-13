@@ -115,6 +115,7 @@ public class World {
 				int x = Integer.parseInt(a[0]);
 				int y = Integer.parseInt(a[1]);
 				
+				
 				double [] w = new double[2];
 				if(i == 1) {
 					w[0] = 1.0 * rand.nextGaussian() + x - 15;

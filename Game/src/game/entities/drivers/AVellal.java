@@ -39,6 +39,7 @@ public class AVellal extends Drivers {
 		midArry.add(b);
 		
 		
+		
 		double [] a = midArry.get(0);
 	//	this.x = (float)a[0];
 	//	this.y = (float)a[1];

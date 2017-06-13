@@ -42,6 +42,7 @@ public class CPU extends Drivers {
 		double [] a = midArry.get(0);
 //		this.x = (float)a[0];
 //		this.y = (float)a[1];
+		
 		this.theta = 0;
 	}
 

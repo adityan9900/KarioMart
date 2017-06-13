@@ -34,6 +34,7 @@ public class ANaik extends Drivers {
 		world.setPath(world.getTrackName() + "TrackMid.txt", 5);
 		this.midArry = world.getPath(5); //get center path
 		
+		
 		double [] b = new double [2];
 		b[0] = 930.0;
 		b[1] = 505.0;
