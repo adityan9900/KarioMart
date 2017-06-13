@@ -20,6 +20,7 @@ public class AVellal extends Drivers {
 	private int midIndex;
 	private int i;
 	private double UPDATE_PERIOD = 45.0;
+	private boolean isFinished;
 	
 	public AVellal(World w, Handler h, float x, float y, int width, int height) {
 		super(h, x+25, y+120, width, height);
@@ -28,6 +29,7 @@ public class AVellal extends Drivers {
 		setTurnPwr(DEFAULT_TURN_PWR*.85);
 	
 		this.world = w;
+		world.setPath(world.getTrackName() + "TrackMid.txt", 6);
 		world.setPath(world.getTrackName() + "TrackMid.txt", 6);
 		this.midArry = world.getPath(6); //get center path
 		
@@ -45,8 +47,13 @@ public class AVellal extends Drivers {
 
 	Random r = new Random();
 	boolean first = true;
+	
+	public boolean isFinished() {
+		return isFinished;
+	}
 	public void tick() {
 		
+		System.out.println("FINISHED? " + isFinished);
 		if(first) {
 			if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD += 8.0;
 			else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = UPDATE_PERIOD;
@@ -121,6 +128,9 @@ public class AVellal extends Drivers {
 				else if(this.x > 230 && this.x < 900 && this.y > 60 && this.y < 400) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 - Math.PI/3.0;
 				else if(this.x > 114 && this.x < 480 && this.y > 590 && this.y < 740) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + Math.PI/3.0;
 				else if(this.x > 510 && this.x < 732 && this.y > 595 && this.y < 879) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + 5 * Math.PI/6.0;
+			}
+			else {
+				isFinished = true;
 			}
 	
 			i += 4 ;

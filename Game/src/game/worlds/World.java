@@ -127,7 +127,7 @@ public class World {
 				}
 				
 				else if(i == 5) {
-					w[0] = 1.0 * rand.nextGaussian() + x + 30;
+					w[0] = 1.0 * rand.nextGaussian() + x + 20;
 					w[1] = 1.0 * rand.nextGaussian() + y + 5;
 				}
 				

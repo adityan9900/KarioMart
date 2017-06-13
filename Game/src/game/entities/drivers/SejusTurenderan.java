@@ -20,7 +20,7 @@ public class SejusTurenderan extends Drivers {
 	private int midIndex;
 	private int i;
 	private double UPDATE_PERIOD = 48.0;
-	
+	private boolean isFinished = false;
 	
 	public SejusTurenderan(World w, Handler h, float x, float y, int width, int height) {
 		super(h, x, y + 65, width, height);
@@ -29,6 +29,7 @@ public class SejusTurenderan extends Drivers {
 		setTurnPwr(DEFAULT_TURN_PWR*.85);
 	
 		this.world = w;
+		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
 		world.setPath(world.getTrackName() + "TrackMid.txt", 1);
 		this.midArry = world.getPath(1); //get center path
 		
@@ -45,6 +46,10 @@ public class SejusTurenderan extends Drivers {
 
 	Random r = new Random();
 	boolean first = true;
+	
+	public boolean isFinished() {
+		return isFinished;
+	}
 	
 	public void tick() {
 		
@@ -122,7 +127,10 @@ public class SejusTurenderan extends Drivers {
 				else if(this.x > 114 && this.x < 480 && this.y > 590 && this.y < 740) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + Math.PI/3.0;
 				else if(this.x > 510 && this.x < 732 && this.y > 595 && this.y < 879) this.theta = r.nextGaussian() * 1.5*Math.PI/90.0 + 5 * Math.PI/6.0;
 			}
-	
+			
+			else {
+				isFinished = true;
+			}
 			i += 4 ;
 	}
 
