@@ -53,6 +53,7 @@ public class AVellal extends Drivers {
 	}
 	public void tick() {
 		
+		
 		//System.out.println("FINISHED? " + isFinished);
 		if(first) {
 			if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD += 8.0;
