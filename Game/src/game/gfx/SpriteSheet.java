@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class SpriteSheet {
 	
+	//our picture of the car
 	private BufferedImage sheet;
 	
 	public SpriteSheet(BufferedImage sheet) {
