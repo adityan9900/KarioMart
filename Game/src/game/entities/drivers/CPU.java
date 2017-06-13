@@ -58,9 +58,9 @@ public class CPU extends Drivers {
 	public void tick() {
 		
 		if(first) {
-			if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD += 8.0;
+			if(handler.getGame().difficulty.ordinal() == 0) UPDATE_PERIOD += 1.0;
 			else if(handler.getGame().difficulty.ordinal() == 1) UPDATE_PERIOD = UPDATE_PERIOD;
-			else UPDATE_PERIOD -= 8.0;
+			else UPDATE_PERIOD -= 6.0;
 			first = false;
 		}
 		//System.out.println("X: " + this.x + "\tY: " + this.y);
