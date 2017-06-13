@@ -23,6 +23,7 @@ public class InstructionsState extends States {
 	private Player practicePlayer1;
 	private Player practicePlayer2;
 	
+	//creates the instructions
 	public InstructionsState(Handler h) {
 		super(h);
 		practicePlayer1 = new Player(h, 200, 400, 100, 210);
@@ -36,6 +37,7 @@ public class InstructionsState extends States {
 		back = new Rectangle(OFFSET / 2, OFFSET, BOX_SIDE_LENGTH, BOX_SIDE_LENGTH);
 	}
 	
+	//updates its variables
 	public void tick() {
 		practicePlayer1.setSpeed(0);
 		practicePlayer1.tick();
@@ -63,6 +65,7 @@ public class InstructionsState extends States {
 		}
 	}
 
+	//renders the screen
 	public void render(Graphics g) {
 		drawKey(g);
 		drawInstructions(g);
@@ -89,6 +92,7 @@ public class InstructionsState extends States {
 		g.drawLine((int)back.getX() + BOX_SIDE_LENGTH / 5, (int)back.getY() + BOX_SIDE_LENGTH / 2, (int)back.getX() + 4 * BOX_SIDE_LENGTH / 5, (int)back.getY() + BOX_SIDE_LENGTH / 2);
 	}
 	
+	//draws all instructions
 	private void drawInstructions(Graphics g) {
 		Font myFont = new Font(Font.SERIF, Font.PLAIN, 70);
 		g.setFont(myFont);
@@ -114,6 +118,7 @@ public class InstructionsState extends States {
 		g.drawString("Cars move faster while on the track.", 450, 160 + 14 * stringH);
 	}
 	
+	//draws the key
 	private void drawKey(Graphics g) {
 		Font myFont = new Font(Font.SERIF, Font.PLAIN, 30);
 		g.setFont(myFont);
@@ -131,10 +136,12 @@ public class InstructionsState extends States {
 		g.drawString("and the left and right keys to turn!", 10, 750 + stringH);
 	}
 	
+	//resizes screen
 	protected void initScreen() {
 		handler.resize(750, 850);
 	}
 	
+	//state of buttons
 	private enum State{
 		HOVERED,
 		PRESSED,

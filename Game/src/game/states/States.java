@@ -6,8 +6,10 @@ import game.worlds.Handler;
 
 public abstract class States {
 	
+	///state of the game
 	private static States currentState = null;
 	
+	//sets state
 	public static void setState(States state) {
 		currentState = state;
 		currentState.initScreen();
@@ -24,6 +26,7 @@ public abstract class States {
 		handler = h;
 	}
 	
+	//methods used
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	protected abstract void initScreen();

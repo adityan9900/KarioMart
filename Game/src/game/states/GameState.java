@@ -212,6 +212,7 @@ public class GameState extends States {
 		}
 	}
 	
+	//state of button pressed
 	private enum State{
 		HOVERED,
 		PRESSED,
