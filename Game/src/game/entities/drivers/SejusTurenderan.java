@@ -45,6 +45,10 @@ public class SejusTurenderan extends Drivers {
 		this.theta = 0;
 	}
 
+	public String getName() {
+		return "Sejus";
+	}
+	
 	Random r = new Random();
 	boolean first = true;
 	

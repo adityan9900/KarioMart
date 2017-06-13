@@ -45,6 +45,10 @@ public class CPU extends Drivers {
 		this.theta = 0;
 	}
 
+	public String getName() {
+		return "DomSangio";
+	}
+	
 	Random r = new Random();
 	boolean first = true;
 	

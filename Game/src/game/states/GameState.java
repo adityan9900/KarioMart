@@ -77,7 +77,7 @@ public class GameState extends States {
 			if(timer < 5 * handler.getFPS() + handler.getFPS() / 2 && !isPaused) timer ++;
 			if(timer == 5 * handler.getFPS()) isStarted = true;
 		}
-		isFinished = handler.getWorld().isFinished();
+		isFinished = (handler.getWorld().isFinished() || sejus.isFinished() || naik.isFinished() || vellal.isFinished() || cpu.isFinished());
 	}
 	public void render(Graphics g) {
 		world.render(g);
@@ -101,9 +101,10 @@ public class GameState extends States {
 		if(isFinished) {
 			String winner;
 			if(world.isFinished()) winner = "Player";
-				
-			//CHANGE THIS
-			else winner = "Tejus";
+			else if(sejus.isFinished()) winner = "Sejus";
+			else if(cpu.isFinished()) winner = "DomSangio";
+			else if(vellal.isFinished()) winner = "Vellal";
+			else winner = "Naik";
 	
 			int stringW = g.getFontMetrics().stringWidth(winner + " wins!");
 			int stringH = g.getFontMetrics().getHeight();

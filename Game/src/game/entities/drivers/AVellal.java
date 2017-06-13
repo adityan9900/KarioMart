@@ -45,6 +45,10 @@ public class AVellal extends Drivers {
 		this.theta = 0;
 	}
 
+	public String getName() {
+		return "AVellal";
+	}
+	
 	Random r = new Random();
 	boolean first = true;
 	
