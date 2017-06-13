@@ -101,13 +101,17 @@ public class InstructionsState extends States {
 		g.drawString("by driving through them and finish", 450, 160 + stringH);
 		g.drawString("faster than the CPU controlled cars.", 450, 160 + 2 * stringH);
 		
-		g.drawString("To start the game, go to the main", 450, 160 + 4 * stringH);
-		g.drawString("menu and choose a difficulty. The", 450, 160 + 5 * stringH);
-		g.drawString("game will start after 5 seconds.", 450, 160 + 6 * stringH);
+		g.drawString("Once all checkpoints have been", 450, 160 + 4 * stringH);
+		g.drawString("reached, the user must cross ", 450, 160 + 5 * stringH);
+		g.drawString("the finish line.", 450, 160 + 6 * stringH);
 		
-		g.drawString("*NOTES*", 450, 160 + 8 * stringH);
-		g.drawString("The race is finished after 3 laps.", 450, 160 + 9 * stringH);
-		g.drawString("Cars move faster while on the track.", 450, 160 + 10 * stringH);
+		g.drawString("To start the game, go to the main", 450, 160 + 8 * stringH);
+		g.drawString("menu and choose a difficulty. The", 450, 160 + 9 * stringH);
+		g.drawString("game will start after 5 seconds.", 450, 160 + 10 * stringH);
+		
+		g.drawString("*ADDITIONAL NOTES*", 450, 160 + 12 * stringH);
+		g.drawString("The race is finished after 3 laps.", 450, 160 + 13 * stringH);
+		g.drawString("Cars move faster while on the track.", 450, 160 + 14 * stringH);
 	}
 	
 	private void drawKey(Graphics g) {
