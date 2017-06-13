@@ -45,6 +45,10 @@ public class ANaik extends Drivers {
 		this.theta = 0;
 	}
 
+	public String getName() {
+		return "ANaik";
+	}
+	
 	Random r = new Random();
 	boolean first = true;
 	
