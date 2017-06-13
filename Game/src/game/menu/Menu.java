@@ -38,6 +38,7 @@ public class Menu {
 	private MouseManager mouse;
 	
 	public Menu(Handler handler) {
+		//creates the menu
 		this.handler = handler;
 		mouse = handler.getMouseManager();
 		released = new Color(180,180,180);
@@ -53,6 +54,7 @@ public class Menu {
 	}
 	
 	public void tick(){
+		//draws the menu
 		if(mouse.isPressed()&&mouse.inBoundary((int)quit.getX()+10 , (int)quit.getY()+10 , (int)quit.getX()+boxWidth-20, (int)(quit.getY()+boxHeight*1.5-20)))
 				System.exit(0);
 		else if(mouse.isPressed()&&mouse.inBoundary((int)diffEasy.getMinX() , (int)diffEasy.getMinY() , (int)diffEasy.getMaxX(), (int)diffEasy.getMaxY()))
@@ -72,7 +74,7 @@ public class Menu {
 		}
 		else if(mouse.isPressed() && mouse.inBoundary((int)instructionBox.getX(), (int)instructionBox.getY(), (int)instructionBox.getMaxX(), (int)instructionBox.getMaxY()))
 			States.setState(handler.getGame().instructionsState);
-			
+		//actually draws the rectangle
 		if(mouse.isPressed()==false){
 			if(mouse.inBoundary((int)diffEasy.getX() , (int)diffEasy.getY() , (int)diffEasy.getX()+boxWidth, (int)diffEasy.getY()+boxHeight))
 				easyState = State.HOVERED;
@@ -86,7 +88,7 @@ public class Menu {
 				instructionState = State.HOVERED;
 			else
 				instructionState = quitState = easyState = mediumState = hardState = State.RELEASED;
-		}else{
+		}else{	//pressed down keys
 			if(mouse.inBoundary((int)diffEasy.getX() , (int)diffEasy.getY() , (int)diffEasy.getX()+boxWidth, (int)diffEasy.getY()+boxHeight))
 				easyState = State.PRESSED;
 			else if(mouse.inBoundary((int)diffMedium.getX() , (int)diffMedium.getY() , (int)diffMedium.getX()+boxWidth, (int)diffMedium.getY()+boxHeight))
@@ -100,7 +102,9 @@ public class Menu {
 		}
 	}
 	
+	//render method
 	public void render(Graphics g){
+		//draws overlay
 		g.setColor(Color.DARK_GRAY);
 		((Graphics2D)g).fill(quit);
 		((Graphics2D)g).fill(diffBox);
@@ -116,6 +120,7 @@ public class Menu {
 		myFont = myFont.deriveFont(50f);
 		g.setFont(myFont);
 		
+		//if released draws button
 		g.setColor(released);
 		if(easyState == State.RELEASED)
 			((Graphics2D)g).fill(diffEasy);
@@ -128,7 +133,7 @@ public class Menu {
 		if(instructionState == State.RELEASED)
 			((Graphics2D)g).fill(new Rectangle((int)instructionBox.getX()+10, (int)instructionBox.getY()+10, (int)instructionBox.getWidth()-20, (int)(instructionBox.getHeight()-20)));
 		
-		
+		//if hovered draws button
 		g.setColor(hovered);
 		if(easyState == State.HOVERED)
 			((Graphics2D)g).fill(diffEasy);
@@ -142,7 +147,7 @@ public class Menu {
 			((Graphics2D)g).fill(new Rectangle((int)instructionBox.getX()+10, (int)instructionBox.getY()+10, (int)instructionBox.getWidth()-20, (int)(instructionBox.getHeight()-20)));
 		
 		
-		
+		//draws buttons if pressed
 		g.setColor(pressed);
 		if(easyState == State.PRESSED)
 			((Graphics2D)g).fill(diffEasy);
@@ -155,6 +160,7 @@ public class Menu {
 		if(instructionState == State.PRESSED)
 			((Graphics2D)g).fill(new Rectangle((int)instructionBox.getX()+10, (int)instructionBox.getY()+10, (int)instructionBox.getWidth()-20, (int)(instructionBox.getHeight()-20)));
 		
+		//draws the strings
 		g.setColor(Color.WHITE);
 		tempHeight = g.getFontMetrics(myFont).getHeight();
 		tempWidth = g.getFontMetrics(myFont).stringWidth("Easy");
@@ -168,6 +174,8 @@ public class Menu {
 		tempWidth = g.getFontMetrics(myFont).stringWidth("Instructions");
 		g.drawString("Instructions", (int)instructionBox.getCenterX()-tempWidth/2, (int)instructionBox.getCenterY()+tempHeight/4);
 	}
+	
+	//enums for states
 	private enum State{
 		HOVERED,
 		PRESSED,

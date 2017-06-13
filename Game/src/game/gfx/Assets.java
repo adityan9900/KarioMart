@@ -8,6 +8,7 @@ public class Assets {
 	public static final int G_WIDTH = 120, G_HEIGHT = 251;
 	
 	public static void init() {
+		//bunch of pictures that we used
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/SpriteSheet.png"));
 		SejusTurenderan = sheet.crop(0, 0, G_WIDTH, G_HEIGHT);
 		yel = sheet.crop(G_WIDTH, 0, G_WIDTH, G_HEIGHT);
