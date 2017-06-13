@@ -15,6 +15,7 @@ public class Player extends Drivers{
  	
 	public Player(Handler h, float x, float y, int width, int height) {
 		super(h, x, y, width, height);
+		maxSpeed= DEFAULT_MAX_SPEED-2;
 	}
  
 	public void tick() {
