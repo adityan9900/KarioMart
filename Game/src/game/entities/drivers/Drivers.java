@@ -34,16 +34,20 @@ public abstract class Drivers extends Entity {
 		handler = h;
 	}
 	
+	//checks if inside track
 	protected boolean insideTrack() {
 		return handler.getWorld().insideTrack(this.x + this.width / 2, this.y + this.height / 2);
 	}
 	
+	//moves car
 	public void move() {
+		//checks for slowdown
 		if(!insideTrack()) {
 			maxSpeed = terrainSpeed;
 		} else {
 			maxSpeed = terrainSpeed * FRICTION_CONST;
 		}
+		//collision detection
 		if(moveX)
 			x += Math.sin(theta) * speed;
 		if(moveY)
@@ -91,6 +95,7 @@ public abstract class Drivers extends Entity {
 		this.turnPwr = turnPwr;
 	}
 	
+	//gets direction that car is traveling in
 	public Direction getDirection(){
 		if(Math.cos(theta)>=0d && Math.sin(theta)>=0d)
 			return Direction.NORTH_EAST;
@@ -102,6 +107,7 @@ public abstract class Drivers extends Entity {
 			return Direction.SOUTH_WEST;
 	}
 	
+	//enum for direction car is traveling in
 	public enum Direction{
 		NORTH_WEST,
 		NORTH_EAST,

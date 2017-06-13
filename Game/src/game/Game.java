@@ -15,7 +15,7 @@ import game.states.States;
 import game.worlds.Handler;
 
 public class Game implements Runnable {
-  
+	//display
 	public Display disp;
 	private int width, height;
 	private final int FPS = 60;
@@ -49,6 +49,7 @@ public class Game implements Runnable {
 		title = t;
 	}
 	
+	//initialize
 	private void init() {
 		disp = new Display(title, width, height);
 		disp.getFrame().addKeyListener(keyManager);
@@ -66,6 +67,7 @@ public class Game implements Runnable {
 		States.setState(menuState);
 	}
 	
+	//ticks 60 times a second
 	private void tick() {
 		keyManager.tick();
 		if(gameState != null||menuState!=null||instructionsState!=null) {
@@ -73,6 +75,7 @@ public class Game implements Runnable {
 		}
 	}
 	
+	//draws on screen
 	private void render() {
 		bs = disp.getCanvas().getBufferStrategy();
 		if(bs == null) {
@@ -94,12 +97,14 @@ public class Game implements Runnable {
 		g.dispose();
 		
 	}
+	//starts the method
 	public synchronized void start() {
 		if(running) return;
 		running = true;
 		thread = new Thread(this);
 		thread.start();
 	}
+	//stops game
 	public synchronized void stop() {
 		if(!running) return;
 		running = false;
@@ -110,33 +115,41 @@ public class Game implements Runnable {
 		}
 	}
 	
+	//get width
 	public int getWidth() {
 		return width;
 	}
+	//get height
 	public int getHeight() {
 		return height;
 	}
+	//resizes screen
 	public void resize(int w, int h) {
 		width = w;
 		height = h;
 	}
+	//returns fps
 	public int getFPS() {
 		return FPS;
 	}
+	//gets the current display
 	public Display getDisplay() {
 		return disp;
 	}
+	//returns the key input
 	public KeyManager getKeyManager() {
 		return keyManager;
 	}
+	//sets the difficulty
 	public void setDifficulty(Difficulty d){
 		this.difficulty = d;
 	}
+	//returns mouse input
 	public MouseManager getMouseManager() {
 		return mouseManager;
 	}
 	
-	
+	//run method every time
 	public void run() {
 		
 		init();
@@ -166,6 +179,8 @@ public class Game implements Runnable {
 		}
 		stop();
 	}
+	
+	//enum for the difficulty level
 	public enum Difficulty{
 		EASY,
 		MEDIUM,

@@ -7,8 +7,11 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class Display {
+	//frame
 	private JFrame frame;
+	//title string
 	private String title;
+	//width height
 	private int width, height;
 	private Canvas canvas;
 	
@@ -18,13 +21,15 @@ public class Display {
 		height = h;
 		createDisplay();
 	}
+	//gets width
 	public int getWidth(){
 		return width;
 	}
-	
+	//gets height
 	public int getHeight(){
 		return height;
 	}
+	//resizes canvas too
 	public void resize(int w, int h) {
 		width = w; height = h;
 		frame.setSize(new Dimension(w, h));
@@ -34,7 +39,7 @@ public class Display {
 		canvas.setMinimumSize(new Dimension(w, h));
 		frame.pack();
 	}
-	
+	//creates the display
 	private void createDisplay() {
 		frame = new JFrame(title);
 		frame.setSize(new Dimension(width, height));
@@ -52,11 +57,11 @@ public class Display {
 		frame.add(canvas);
 		frame.pack();
 	}
-	
+	//returns the canvas
 	public Canvas getCanvas() {
 		return canvas;
 	}
-	
+	//returns the frame
 	public JFrame getFrame() {
 		return frame;
 	}
