@@ -34,6 +34,7 @@ public class World {
 	private int border;
 	private double[] finishLine;
 	
+	
 	private ArrayList spawnPoints = new ArrayList<Point>();
 	
 	public World(String name, int width) {

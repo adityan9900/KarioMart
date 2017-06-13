@@ -61,6 +61,7 @@ public class AVellal extends Drivers {
 			first = false;
 		}
 		
+		
 
 		//System.out.println("X: " + this.x + "\tY: " + this.y);
 		if(i % UPDATE_PERIOD == 0 || i % UPDATE_PERIOD == 1 || i % UPDATE_PERIOD == 2 || i % UPDATE_PERIOD == 3) midIndex ++;

@@ -11,6 +11,7 @@ import game.gfx.Assets;
 import game.worlds.Handler;
 import game.worlds.World;
 
+
 public class ANaik extends Drivers {
 
 	private World world;
