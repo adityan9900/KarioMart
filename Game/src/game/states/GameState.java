@@ -102,7 +102,7 @@ public class GameState extends States {
 			String winner;
 			if(world.isFinished()) winner = "Player";
 			else if(sejus.isFinished()) winner = "Sejus";
-			else if(cpu.isFinished()) winner = "DomSangio";
+			else if(cpu.isFinished()) winner = "Dom";
 			else if(vellal.isFinished()) winner = "Vellal";
 			else winner = "Naik";
 	
